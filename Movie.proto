@@ -1,0 +1,1515 @@
+
+//import "frameworks/SDL/proto_model/Animation.proto";
+package JetSDL.Proto;
+
+// Video and Audio codec types
+// This is the equivalent to JSCodec from jettypes.h
+enum Codec 
+{ 
+	VIDEO_NONE = 0;
+	VIDEO_FLV =1; 
+	VIDEO_H263 =2;
+	VIDEO_E264=3; 
+	VIDEO_H264=4;
+	VIDEO_X264_BASELINE=5; 
+	VIDEO_X264=6;
+	VIDEO_X264_HIGH=16;
+	VIDEO_VP8=14;
+
+	AUDIO_NONE = 0;
+	AUDIO_AAC=7;
+	AUDIO_MP2=8;
+	AUDIO_MP3=9;
+	AUDIO_EAAC=11;
+	AUDIO_AMR_NB=12;
+	AUDIO_AMR_WB=13;
+	AUDIO_VORBIS=15;
+}
+
+message Fractional{
+	optional uint64 num = 1
+	[default=30];
+	
+	optional uint64 den = 2
+	[default=1];	
+}
+
+
+//correspond to JSStreamParam
+message StreamParams{
+	// Parameters for the video stream 
+	required VideoParams vparams = 1;
+
+	// Parameters for the video stream 
+	optional AudioParams aparams = 2;
+
+	// deprecated. Streaming behaviour
+	optional bool nosleep = 3
+		[default = true];
+
+	// Number of passes for multi-pass encoding
+	optional int32 pass = 5;
+
+	// Filename for statistics during multi-pass encoding
+	optional string statfile = 4;
+
+	// duration in seconds the client is expected to buffer before playback starts (Streaming only)
+	// only needed for realtime streams
+	optional double client_prebuffer = 7
+		[default = -1];
+		
+	// duration beeing processed 'at once' by the server
+	// only needed for realtime streams
+	optional double encoding_quantum = 8
+		[default = -1];
+	
+	// Minimum number of seconds in client buffer (Streaming only)
+	optional double min_client_buffer = 6
+		[default = 2.0];
+}
+
+message VideoParams{
+  enum VideoRateControl{
+  	VRC_BITRATE = 0;
+  	VRC_QUANTIZER = 1;
+  	VRC_RATEFACTOR = 2;
+  }
+  enum EncoderDelayReq{
+	DELAY_REALTIME = 1;
+	DELAY_SMALL = 2;
+  }
+  
+  required uint32 width = 1;
+  required uint32 height = 2;
+  
+  // Video codec type
+  optional Codec videocodec = 5 
+  		[default = VIDEO_X264];
+
+  // Frame rate of video (as fraction, e.g. 25/1, 30000/1001)
+  optional Fractional videoframerate = 6;
+  
+  // Video bitrate in kilobits per second
+  optional uint32 videobitrate = 7 
+  		[default =2000];
+
+  // Number of bframes (H.264 + X.264 only)
+  optional int32 videobframes =8
+  		[default = 0];
+
+  // Number of frames in a picture group		
+  optional int32 videogopsize = 9
+  		[default = 30];
+
+  // Quantization parameter (15..50)
+  optional int32 videoqp = 10
+  		[default = 16];
+
+  // Method of rate control		
+  optional VideoRateControl videorc = 11
+  		[default = VRC_BITRATE];	
+  	
+  
+  // controls encoder speed / quality tradeoff - range 0.0 - 100.0
+  // guidelines to start with:
+  //  0.0		pointlessly bad quality, extremely fast
+  // 10.0		dont care about quality, make it fast
+  // 20.0		general purpose 'fast' preset
+  // 50.0		'medium' speed/quality tradeoff, recommended encoder default
+  // 80.0		sensible 'high quality preset'
+  // 90.0		don't care about speed
+  //
+  // don't expect changes with every small adjustment - encoder might have a coarse granularity interpreting this
+  optional double videocpueffort = 12
+  		[default = 10.0];
+  
+  optional EncoderDelayReq videodelayrequirement = 13
+  		[default = DELAY_REALTIME];
+  		
+  repeated KeyValuePair videocodecextraparams = 14;
+}
+
+message AudioParams{
+	// Audio codec 
+	optional Codec audiocodec= 10
+			[default = AUDIO_NONE];
+	// Audio bitrate in kilobits per second
+	optional uint32 audioabr = 11
+			[default =32000];
+
+	// Number of audio samples per second
+	optional uint32 audiosamplerate =12
+			[default =44100];
+
+	// Number of channels (1=mono, 2=stereo)
+	optional uint32 audiochannels = 14
+			[default = 2];
+
+	// Number of samples per audio frame
+	optional uint32 audioframe_size = 13
+			[default = 1024];
+}
+
+enum EndBehaviour{
+	repeatlast = 0;
+	loop = 1; 
+	emptyframe = 2;
+	fullframe = 3;
+	fail = 4;
+}
+
+
+// Movie is the main message of the SDL for building DynamicMovies from it
+// It consists of Scenes and an Audio object for the whole movie. It also specoifies Video and Audio parameters.
+// Internally it is accepted in the SDL-App onCallCallback during the sdlstore method 
+message Movie {
+  
+    // Audio and Video parameters
+	required StreamParams params = 15;
+
+	// An array of Scenes that describes the movie content
+	repeated Scene scenes =3;
+
+	// An Audio object that handles Audio during the whole movie. Additional audio tracks are mixed on top of this Audio track
+	optional Audio audio=4;
+
+	// Parameter for an endless looping stream (will be ignored for RenderMovie/RenderImagesequence)
+	optional bool loop=14
+			[default = false];
+
+	// Initialise all variables in the movie at startup (sacrificing "time to first byte")
+	optional bool initatstart = 16
+			[default = false];		
+
+	// Metadata for accounting/logging/etc.
+	repeated Metadata metadata = 17;
+	
+	//Variable information for movie audio tracks
+	optional VariableInformation audiovarinfo = 18;
+	
+	optional string comment = 2047;
+}
+
+
+// A Scene message describes one part (i.e. a sequence of frames) of a movie
+// A scene consist of a number of VisualTracks layered on top of each other and a scene specific Audio object
+// If a Scene has no dynamic content it is static and can be preencoded
+message Scene{
+	// Number of frames this scene has, the length of the whole movie is determined by adding up all frames of all scenes
+	// If left out or <0 the scene tries to determine it's length by checking the content of it's tracks for videos
+	optional int32 numframes=2;
+	
+	// Turns off the preencoding of this scene, when set to false; mainly used for testing purposes 
+	optional bool static=3
+		[default = true];
+		
+	// deprecated: the base content should now be introduced through the first Visualtrack for more flexibility 
+	// Imageprovider for the base content of this movie
+	optional ImageProvider content=4;
+	
+	// The visual content of this scene as a sequence of layers
+	repeated VisualTrack tracks=5;
+	
+	// The scene specific Audio
+	optional Audio audio=6;
+	
+	// deprecated: A subtitle object to allow optimization through preencoding for subtitle overlay frames
+	optional Subtitles subtitles=7;
+	
+	// keys and possible values to allow semi static preencoding
+	optional VariableInformation varinfo = 8;
+	
+	optional bool canbeempty = 9
+		[default=false];
+		
+	repeated string name = 10;
+	
+	optional string comment = 2047;
+}
+
+message SceneViewVariant{
+	required string key = 2;
+	repeated Scene scenes = 3;
+}
+
+message SceneView{
+	enum Type{
+		embedded = 0;
+		file = 1;
+		variant = 2;
+	}
+
+	optional Type type = 1
+		[default = embedded];
+
+	repeated Scene scenes = 2;
+	optional EndBehaviour endbehaviour = 3
+		[default = repeatlast];
+
+	optional FileLocation source = 4;
+	repeated SceneViewVariant variants = 19;
+	optional StringVariable variable = 20;
+	optional int32 width = 21;
+	optional int32 height = 22;
+
+	//for file type sceneviews this has to hold the keys used for variables in the scenes to not interfere with preencoding
+	repeated string keys = 18;
+
+	//This is used to hold the filelocationprefix to use it to complete loaded SDL files
+	//you don't need to touch this
+	optional string filelocationprefixholder = 17
+		[default = ""];
+}
+
+// An ImageProvider object provides an image given a particular frame number
+// There are basically two types:
+// a SingleImage provides the same image every time and 
+// an ImageSequence that provides different images for different frame numbers (e.g. a video, other SDLs)
+message ImageProvider{
+
+	enum Type{
+	// SingleImage types
+
+
+		// One image loaded from disk
+		stillimage=0;
+
+		// An image generated from an array of VisualTracks. Use to create multi-layered images, transformed or filtered images
+		manipulatedimage=2;
+
+		// An empty image with specified size and color
+	 	emptyimage=4;
+
+	 	// An image loaded from a URL over http
+	 	http=9;
+
+	 	// An image loaded from a URL using the jetcom protocol
+	 	jetcom=10;
+
+	 	// A rendered text
+	 	textsimple=7;
+	 	
+	// ImageSequence types 
+
+		// A sequence of images loaded from disk
+	 	imagesequence=1;
+
+	 	// A sequence of 32bit floating point images loaded from disk
+	 	image32fsequence=3;
+
+	 	// A sequence generated by rendering Text between to (moving) lines
+	 	textcurved=5;
+
+	 	// A sequence generated by rendering Text into a moving Quad
+	 	textquad=6;
+
+	 	// A sequence generated by rendering Text (inserting linebreaks) into a moving Quad (experimental)
+	 	textmultiline=8;
+
+	 	// A sequence decoded form a video
+	 	decoder=11;
+
+	 	// A video as zipped image sequence or video file, with scale aware disk cache
+		video = 12;
+
+		// http live video stream
+		livevideo = 22;
+		
+		// Image sequences created by rendering a Scene or SceneVariant object
+		scenebased = 13;
+
+		// Internal. Will be moved to a SDL extension module in the future		
+		comicbook = 14;
+
+		// Internal.		
+		custom = 15;
+		
+		// Internal.
+		piechart = 16; 
+		
+		// An image provider that can act as a matte for a compose operation
+		masksource = 17;
+
+		// similiar to piechart
+		barchart = 18;
+
+		imagebarchart = 19;
+
+		linechart = 21;
+
+		bezier = 20;
+	}
+	
+
+	// The type of this ImageProvieder
+	required Type type=1;
+	
+	// deprecated: the number of frames that are rendered for imageSequence and imageSequence32f, before simply NULL is returned (works only for masking),
+	// only needed if you want to return less Images than requested
+	optional int32 numframes = 21 [default = -1];
+	
+	// A Filelocation describing, where image, movies or fonts are loaded from. Name given will be interpreted as relative to the project's root directory
+	// Used for image in:
+	//	stillImage, url, jetcom, imageSequence, image32fSequence
+	// Used for font in:
+	//  textSimple, textAgg, textQuad, textMultiline
+	// Used for movie in:
+	//  decoder
+	optional FileLocation source=2;
+	
+	// An array of VisualTracks used for generating the image in manipulatedImage
+	repeated VisualTrack tracks=3;
+	
+	// Size of the provided image, used if it can not be inferred from other parameters, namely: 
+	// emptyImage, textAgg, textQuad, textMultiline 
+	optional int32 width=4;
+	optional int32 height=5;
+	
+	// Color of text or background
+	// Used as text color in:
+	//  textSimple, textAgg, textQuad, textMultiline
+	// Used for background in:
+	//  emptyImage
+	optional .JetSDL.Proto.Color color=6;
+	
+	//Description of the tracking data
+	//  used in textQuad, textMultiline
+	optional TrackData trackdata= 7;
+	
+	//Description of the tracking data for the two curves used in textcurved
+	optional TrackData trackdatatop= 8;
+	optional TrackData trackdatabottom= 9;
+	
+	//font size for the text based providers: textSimple, textAgg, textQuad, textMultiline
+	optional int32 fontsize = 12 [default = 40]; //deprecated use fontsize_d instead
+	optional double fontsize_d = 35 [default = 40];
+	//paramters for the text based providers, that use Agg: textAgg, textQuad, textMultiline
+	optional int32 baselength = 13 [default = 80];
+	optional int32 baseheight = 14 [default = 12];
+	optional int32 numinterpoints = 15 [default = 50];	
+	
+	//avg number of characters per line for textMultiline
+	optional int32 linechars = 17 [default = 50];
+	
+	//should centering of text be performed in textSimple, textAgg, textQuad, textMultiline
+	optional bool center = 16 [default = false];
+	
+	//the text to be rendered for textSimple, textAgg, textQuad, textMultiline
+	optional StringVariable text = 18;
+	
+	//scale factor for tracking data used in textAgg, textQuad, textMultiline
+	repeated double scale = 19;
+	
+	//offset for the video frames requested from the decoder (this movies timebase)
+	optional int32 videooffset = 22 [default = 0];
+	
+	optional bool usecachedir =23 [default = true];
+	optional string cachedir = 24 [default = "cache"];
+	optional string writeextension=30 [default = ".tif"];
+	optional bool upscale =28 [default = false];
+	optional bool downscale =29 [default = true];
+	optional string scale_ar_hint = 36[default = "w"];
+	
+	//alignment options for textsimple values can be "left", "center", "right" (for yalign left becomes top, etc)
+	enum TextAlignment{
+		flushleft = 0;
+		centered = 1;
+		flushright = 2;
+	}
+	optional TextAlignment xalignment = 25 [default = flushleft];
+	enum TextPosition{
+		top = 0;
+		middle = 1;
+		bottom = 2;
+	}
+	optional TextPosition yalignment = 27 [default = bottom];
+	//hint for the extension of http images
+	optional string http_extension_hint = 26;
+
+	//switch to skip alpha premultiplication on load (e.g. for masks) 
+	optional bool loadpremulalpha = 31
+		[default=true];
+	
+	//specifies if http images are downloaded only once per movie rendering(false) or every time(true) (only enable when http content changes frequently)	
+	optional bool httpalwaysload = 32
+		[default=false];
+		
+		
+	optional SceneView sceneview = 33;
+	
+	optional int32 fontspacing_deprecated = 34
+		[default = 0];
+	optional double fontspacing = 45
+		[default = 0];
+	optional double linespacing = 55
+		[default = 0];
+	
+	optional double comicbookframetime = 37
+		[default = 1.0];
+	optional ImageProvider comicsource = 38;
+	
+	optional int32 textborder_right = 39
+		[default=0];
+	optional int32 textborder_left = 40
+		[default=0];
+	optional int32 textborder_top= 41
+		[default=0];
+	optional int32 textborder_bottom = 42
+		[default=0];
+		
+	optional bool overflowresize = 43
+		[default=true];
+		
+	optional string custom_identifier = 44;
+	
+	optional PieChartDescription piechartdescription = 46;
+	optional BarChartDescription barchartdescription = 50;
+	optional ImageBarChartDescription imagebarchartdescription = 51;
+	optional LineChartDescription linechartdescription = 54;
+
+	optional BezierDescription bezierdescription = 53;
+	
+	optional bool treatasstaticforcaching = 47
+		[default=false];
+		
+	optional ImageProvider innerprovider = 48;
+	optional int32 maskchannel = 49
+		[default =0];
+		
+	message TextOutline{
+		enum Type{
+			simple = 0;
+			rounded = 1;
+		}
+		optional Type type = 1
+			[default = simple];
+		optional double size = 2
+			[default = 1];
+		optional Color color = 3;
+		optional ImageProvider texture = 4;
+	}
+	message TextAugment{
+		
+		optional ImageProvider content = 2;
+		optional double anchor_character = 3 //in percent of string (rounded)
+			[default=0];
+		optional double x = 4 //in pixels (rounded)
+			[default=0];
+		optional double y = 5 //in pixels (rounded)
+			[default=0];
+		optional double size = 6 // in percent of line height
+			[default=1.0]; 
+	}
+	repeated TextOutline textoutlines = 56;
+	optional ImageProvider texttexture = 57;
+	optional Function texttypewritereffect = 58;
+	optional Function texttypewriterfadestart = 61;
+	optional Function texttypewriterfadeend = 62;
+	optional Function fontspacing_function = 63;
+	optional Function linespacing_function = 64;
+	optional double textoutlinesubpixellevel = 59
+		[default = 1];
+	repeated TextAugment textaugmentations = 60;
+	
+	
+	optional string comment = 2047;
+	//used for backwards compatibility in old iv tool projects, leave alone
+	optional bool usevideodecodernormalisation = 52
+		[default = true];
+		
+	optional bool uselocalhttpproxy = 65
+		[default = false];
+}
+
+
+//A FileLocation specifies the location of a file (on disk or over network)
+//Tokens beginning with $ in the path are replaced by the session id, the current frame number or the value of a string variable
+//Tokens:
+//  $sessionid
+//	$frame
+//	$variable
+message FileLocation{
+	enum Type{
+		simple=0;
+		session=1;
+		frame=2;
+		sessionandframe=3;
+		var=4;
+		varframe=5;
+		varsession=6;
+		varframesession=7;
+	}
+	//combined type to make all necessary substitutions, is determined automatically from the path
+	optional Type type=1;
+	
+	//the file location with tokens to replace
+	required string path=2;
+	
+	//offset that is added to the framenumber before substitution
+	optional int32 offset=3 [default=0];
+	
+	//frame numbers are padded with zeroes, till they are at least padding long
+	optional int32 padding=4 [default=5];
+	
+	//the variable token will be replaced with the value of this
+	optional StringVariable variable=5;
+}
+
+
+//simple wrapper for AudioTracks
+//all AudioTracks will be rendered in sequence
+message Audio {
+	repeated AudioTrack audiotracks=2;
+}
+
+
+//AudioTrack, that provide Audio for AudioFrames given a (audio)framenumber
+//The preecoded Audiotrack only works with AUDIO_AAC codec
+message AudioTrack{
+	enum LevelMode{
+	 // hard-clip audio track when applying gain, mixing tracks will never overdrive, intermodulation artifacts may occur
+	 legacy=0;
+	 // soft-clip audio track when applying gain, mixing tracks will never overdrive, intermodulation artifacts may occur
+	 legacy_softgain=1;
+	 // generally hard clip sample amplitude at overflows
+	 hardclip=2;
+	 // soft clip sample amplitude at overflows - less audible distortion
+	 softclip=3;
+	 // soft clip with 4x oversampling (avoids aliasing, more cpu-intensive)
+	 softclip4x=4;
+	}
+
+	enum Type{
+	 //audio source is preencoded aac
+	 preencoded=0;
+	 //audio source is wav, mixed with underlying AudioTracks, deprecated use video_mix
+	 mix=1;
+	 //audio source is wav, replacing underlying AudioTracks, deprecated use video_replace
+	 replace=2;
+	 
+	 //audio source is a video, mixed with underlying AudioTracks , deprecated use video_mix
+	 decoder=3;
+	 //audio source is a video, replacing underlying AudioTracks, deprecated use videoreplace
+	 decoder_replace = 4;
+	 //audio source is a video, but the audio is cached in a .wav-file, mixed with underlying AudioTracks
+	 video_mix = 5;
+	 //audio source is a video, but the audio is cached in a .wav-file, replacing underlying AudioTracks
+	 video_replace = 6;
+	 
+	 //based on a sceneview
+	 scenebased = 7;     
+	           
+	 // create silent track
+	 empty = 8;
+
+	 live = 9;
+
+	 live_replace = 19;
+
+	 // dynamically synthesized audio track
+	 synthetic = 10;
+	 synthetic_mix = 11;
+	}
+	//Type of this AudioTrack
+	optional Type type=1 [default = preencoded];
+
+	//globally applied gain, specified in dB
+	optional double gain = 15 [default = 0];
+	
+	//volume for audio mixing used in mix
+	optional double volume = 3 [default = 1.0];
+	//volume function for fade in and fade out
+	optional Function volumefunction = 6;
+	
+	//the default location of the audio file, used to give a fallback for multi language audio
+	optional FileLocation defaultsource=4;
+	//the location for the audio source, either a .aac(preencoded), a .wav, or a movie( .mov, .mp4, .avi)
+	optional FileLocation source=5;
+	
+	
+	//offset from the beginning of the scene/movie, audio starts playing after offset frames 
+	optional int32 offset=2[default = 0];
+	optional int32 numframes = 9;
+	
+	//audio content offset, when audio starts playing it begins with the equivalent of the contentoffset of the AudioSource
+	optional int32 contentoffset = 11;
+	
+	optional bool usecachedir = 7[default = true];
+	optional string cachedir = 8[default = "cache"];
+	optional bool optional_audio = 10[default = false];
+	
+	optional SceneView sv = 12;
+	repeated string name = 13;
+
+	optional LevelMode levelmode = 16 [default = legacy];
+
+	optional Synthesizer synthesizer = 17;
+	
+	optional string comment = 2047;
+}
+
+
+message Synthesizer
+{
+	enum Type{
+		//play fixed number of random audio samples with jitter
+		randomsamples=0;
+	}
+
+	optional Type type = 1 [default = randomsamples];
+
+	// seed for random numbers
+	optional uint32 randomseed=2 [default = 0];
+	
+	// base sound samples - currently only wav supported
+	repeated FileLocation samples=3;
+
+	// for randomsamples this is the number of samples to be played (StringVariable containing int)
+	optional StringVariable iterations=4;
+
+	// for randomsamples this is the maximum of periodicity jitter in seconds
+	optional double jitter=5 [default = 0 ];
+
+	// should be set to the same as numframes of enclosing AudioTrack
+	optional int32 numframes=6 [default = 500];
+}
+
+
+
+//This is the equivalent to JSBlendMode from jettypes.h
+enum BlendMode{
+	normal=0;
+	screen=1;
+	softlight=2;
+	hardlight=3;
+	overlay=4;
+	multiply=5;
+	mvcclone=6;
+}
+
+
+//A VisualTrack generally composes its transformed base content on a background buffer provided by VisualTracks before it
+//If there is no input background buffer (first VisualTrack) only the transformed base content is given back
+//If there is no base content in the VisualTrack, the background buffer is transformed instead
+message VisualTrack{
+	//base content of this VisualTrack
+	optional ImageProvider content=2;
+	
+	//number of frames of this VisualTrack, if not specified it will provide content until the end of the scene
+	optional int32 numframes =3 [default =-1];
+	
+	//offset to change the starting point of this VisualTrack relative to the start of the scene (negative values give undefined behaviour)
+	optional int32 offset =4 [default =0];
+	
+	//options for compositing offsets of layer content
+	//offset for the compositing of background and layer content
+	optional int32 x =5 [default =0];
+	optional int32 y =6 [default =0];
+	//automatic centering for the compositing of background and layer content (center is deprecated, use centerx centery instead)
+	optional bool center = 16[default = false]; //deprecated
+	optional bool centerx = 17[default = false];
+	optional bool centery = 18[default = false]; 
+	
+	//options for content masking
+	//deprecated: use Transformations of mask-Type instead
+	optional int32 maskchannel =7 [default =0];
+	optional bool invertmask =13 [default =false]; 
+	optional ImageProvider mask = 9;
+	
+	//Array of Transformations, that are applied to either the content or the background
+	repeated Transformation transformations = 10;
+	
+	//blendmode for the compositing
+	optional Proto.BlendMode blendmode= 11 [default = normal];
+	//opacity for the compositing
+	optional double opacity =12 [default = 1.0];
+	optional Function opacityfunction = 15;
+	
+	//adjust destination alpha after compositing
+	optional bool adjustalpha =8 [default = false];	
+	
+	optional bool lazyevaluate = 19
+		[default = true]; 
+		
+	optional StringVariable enablevariable = 20;
+	optional bool invertenable = 23
+		[default=false];
+	
+	repeated string name = 21;
+	
+	optional TrackData positions = 22;
+
+
+	optional string comment = 2047;
+	//used internally
+	//optional bool cacheimages=14 [default = false];
+}
+
+
+//A Transformation takes an input image and return a transformed version 
+//There are three distinctions as to the size of the returned image
+//NeutralSize: the size does not change
+//SpecifiedSize: the size is determined by parameters of the Transformation
+//ContextSize: the size is determined by the context, in which the Transformation is called (usually the size of the Movie) 
+
+message Transformation{
+	enum Type{
+	//NeutralSize
+	 //Gaussian blur
+	 blur=4;
+	 //Motion blur
+	 motionblur=5;
+	 //Motion blur, with parameters derived from average motion of tracking data
+	 trackedmotionblur=6;
+	 //inpainting of points
+	 inpaint=12;
+	 //masking by alpha mask
+	 mask=13;
+	 //Moving Least Squares image morphing (deprecated, use morph with morph_mls morphtype instead
+	 mls=7;
+	 //morphing image through MLS or TPS
+	 morph=34;
+	 //viewpoint transformation zoom in
+	 linearzoomin=10;
+	 //viewpoint transformation zoom out
+	 linearzoomout=11;
+	 //change saturation of the image
+	 intensity = 16;
+	//SpecifiedSize:
+	 //scaling of input image
+	 scaling=8;
+	 //scaling of input image preserving aspect ratio
+	 scalingletter=9;
+	 //scaling to a specified width or height with aspect ratio
+	 scalingaspect=14;
+	 //scaling to a specified width or height with aspect ratio
+	 scalingcrop=30;
+	 //cropping of the image with x/y offset and specified size
+	 crop = 31;
+	//ContextSize
+	 //warping to quad track data
+	 quadtracking=0;
+	 //warping to grid track data
+	 gridtracking=1;
+	 //warping to image map
+	 texturemapping32f=3;
+	 //animate the input
+	 animate=15;
+	 //translate to a tracking point
+	 pointpaste=17;
+	 //custom
+	 custom=28;
+	 
+	 croprotatewarp=29;
+	 
+	 flip=32;
+	 colortwist=33;
+	 
+	 //new fx
+	 colorboost = 18;
+	 nashville = 19;
+	 lordkelvin = 20;
+	 splittoning = 21; 
+	 tiltshift = 22;
+	 sincity = 23;
+	 glow = 24;
+	 vignette= 25;
+	 comic= 26;
+	 textshadow = 27;
+	 cubelut = 35;
+	}
+	//Type of this Transformation
+	required Type type =1;
+	
+	//TrackData message for the trackdata used by tracking based Transformations: 
+	//  trackedmotionblur, quadtracking, gridtracking, linearzoomin, linearzoomout, inpaint 
+	optional TrackData trackdata=2;
+	//ImageProvider for images used in:
+	//  texturemapping32f (needs to be an imageSequence32f)
+	//  mask
+	optional ImageProvider image=3;
+	
+	//length of the blur
+	// Type:
+	// 	blur		kernelsize of the Gaussian blur in Pixels
+	//  motionblur	length of the motion
+	//  trackedmotionblur factor for the determined motion
+	optional double blurlength = 4
+		[default =1.0];
+	
+	//factor for the blur
+	// Type:
+	//  blur		sigma of the Gaussian blur
+	//  motionblur	direction of the motion in degrees
+	optional double blurfactor = 5;
+	
+	//increment by frame for blurlength and blurfactor
+	optional double blurlength_inc = 6;
+	optional double blurfactor_inc = 7;
+	
+	//scale the input image to an appropriate size before warping to avoid interpolation artifacts
+	//especially useful when large zooming is taking place
+	//used in quadtracking, corresponds to sharpness
+	optional bool zoomscale = 8;
+	//workaround to IPP warping bug, corresponds to masked_pasting
+	optional int32 smoothedge =16
+			[default =0];
+	
+	
+	//Scaling parameters
+	//Type:
+	//	scaling, scalingLetter	size of the scaled output
+	//	trackedmotionblur, quadtracking, gridtracking, linearzoomin, linearzoomout, inpaint	scale factor for the tracking data
+	//	mls	scale factor for points
+	repeated double scale =9;
+	
+	//if this is true scaling and scalingLetterbox Transformations are done with the scale factor relative to the imageSize
+	optional bool scalerelative=23 
+		[default=false];
+	
+	//parameters for scaleAspect
+	optional double aspectratio=24;
+	optional int32 fixedsidesize=25;
+	optional string specifiedside=26;
+	
+	//background color of image used in scalingLetter
+	optional Color color =10;
+	
+	
+	//Point correspondence parameters for mls
+	optional int32 numpoints =11;
+	optional PointsVariable sourcepoints=12;
+	optional PointsVariable destinationpoints=13;
+	
+	//offset and length parameters for Viewport transformations
+	optional int32 numframes = 14;
+	optional int32 offset = 15;
+	
+	//Tracking data adjustion for quadtracking
+	optional PosAdjust posadjust=17;
+	
+	//inpainting parameters
+	repeated int32 erasesize=18;
+	optional double searchradius=19
+		[default =4]; 
+		
+	//which channel of image contains the alpha mask	
+	optional int32 maskchannel =20 [default =0];
+	//invert the mask before use
+	optional bool invertmask =22 [default =false]; 
+	
+	//Animation for animation type
+	repeated Animation animations = 28;
+	optional AnimationPosition position = 29;
+	optional double focus = 30
+		[default=0.0];
+
+
+	//saturation percentage
+	optional double saturation = 31;
+	
+	//used internally
+	//optional bool cacheimages=27 [default = false];
+	
+	//newfx
+	optional double colorintensity = 32
+		[default = 1.0];
+	optional double sigma = 33
+		[default = 1.0];
+	optional Color dark = 34;
+	optional Color light = 35;
+	optional double tolerance = 36
+		[default = 0.2];
+	optional bool monochromize = 37
+		[default = false];
+	optional double focussize = 38
+		[default = 0.2];
+	optional double focusheight= 39
+		[default = 0.5];
+	optional bool spotfocus = 40
+		[default = false];
+	optional double threshold = 41
+		[default = 0.08];
+	optional double transitionwidth = 42
+		[default = 0.3];
+	optional double brightness = 43
+		[default = 1.0];
+	
+	optional double aperture= 44
+		[default = 0.7];
+	optional bool blurborder= 46
+		[default = false];
+		
+	//comic filter values postproc_blur_sigma -> sigma
+	optional double edge_detail_scale= 47
+		[default = 1.0];
+	optional double colorblur= 48
+		[default = 0.8];
+	optional int32 bilatfilter_iterations = 49
+		[default = 4];
+	optional double bilatfilter_tonalsigma = 50
+		[default = 8.0];
+	optional double bilatfilter_spatialsigma = 51
+		[default = 3.0];
+	optional double preproc_sigma = 52
+		[default = -1.0];
+	optional int32 colorreduct_levels = 53
+		[default = 8];
+	optional int32 colorreduct_minsaturation= 54
+		[default = 16];
+	enum ComicColorReductMethod{
+		fixed = 1;
+		adaptive = 2;
+		rlichtenstein = 3;
+	}
+	optional ComicColorReductMethod colorreduct_method= 55
+		[default = fixed];
+	optional double lstein_dither_ratio = 56
+		[default = 0.5];
+	optional int32 interpoltilesize = 57
+		[default = 8];
+		
+	// Text shadow options - inner and outer shadows possible
+	// size and softness of shadow (blur) 
+	optional double inner_size = 58
+		[default=3.0];
+	optional double outer_size = 59
+		[default=0.0];
+	//color of shadow
+	optional Color inner_color = 60;
+	optional Color outer_color = 61;
+	//offset of shadow in x/y direction
+	optional int32 inner_offsetx = 62
+		[default=1];
+	optional int32 inner_offsety = 63
+		[default=1];
+	optional int32 outer_offsetx = 64
+		[default=1];
+	optional int32 outer_offsety = 65
+		[default=1];
+	//intensity of shadow - alpha composition parameter
+	optional double inner_intensity = 66
+		[default=0.75];
+	optional double outer_intensity = 67
+		[default=0.27];
+		
+	optional string custom_identifier = 68;
+	
+	
+	optional StringVariable rotatevariable = 69;
+	optional StringVariable cropvariable = 70;
+	optional double rotatecenterxoffset = 80
+		[default = 0];
+	optional double rotatecenteryoffset = 81
+		[default = 0];
+	
+	optional Function blurfunction = 71;
+	
+	//crop parameter - new image will be width x height pixel taken from old image with top left corner x,y
+	optional int32 width = 72;
+	optional int32 height = 73;
+	optional double x = 74;
+	optional double y = 75;
+	optional bool centerx = 76;
+	optional bool centery = 77; 
+	
+	//flip parameter
+	enum FlipAxis{
+		flipx=0;
+		flipy=1;
+	}
+	optional FlipAxis flipaxis = 78;
+	
+	
+	optional StringVariable colormatrix = 79;
+	
+	enum Morph{
+		morph_mls=0;
+		morph_tps=1;
+		morph_mls_legacy=2;
+	}
+	optional Morph morphtype = 82
+		[default=morph_mls];
+	optional TrackData morphsourcepoints = 83;
+	optional TrackData morphdestinationpoints = 84; 
+	optional int32 morphtilesize = 85
+		[default=10];
+	
+	// used for cubelut - may be in IRIDAS .cube format or Photoshop .acv curve format
+	optional FileLocation paramfile = 86;	
+	
+	optional string comment = 2047;
+}
+
+message PosAdjust{
+	optional double scalex=1 [default =1.0];
+	optional double scaley=2 [default =1.0];
+	optional double offsetx=3 [default =0.0];
+	optional double offsety=4 [default =0.0];
+}
+
+message Color {
+	optional int32 red =1 [default =0];
+	optional int32 green =2 [default =0];
+	optional int32 blue =3 [default =0];
+	optional int32 alpha =4 [default =0];
+}
+
+
+
+message TrackData{
+	enum Type{
+	 //Load from file (json format)
+	 file=1;
+	 //embedded
+	 embedded=2;
+	 //load from points variable (one frame only)
+	 variable = 3;
+	 //load over http (json format) 
+	 http = 4;
+	 //load from string (json format)
+	 stringvariable = 5;
+	 
+	 }
+	optional Type type=1
+		[default =file];
+	optional FileLocation source=2;
+	optional int32 offset=3
+		[default=0];
+	optional EmbeddedTrackData embeddeddata=4;
+	
+	repeated double scale=5;
+	
+	optional bool failfast = 6
+		[default = false];
+	optional EndBehaviour endbehavior = 7
+		[default = repeatlast];
+	optional PointsVariable points = 8;
+	optional StringVariable string = 9;
+	optional bool httpalwaysload = 10;
+	optional bool uselocalhttpproxy = 11
+		[default = false];
+}
+
+
+message EmbeddedTrackData{
+	repeated PointsVector frames=2;
+	optional int32 width=3
+		[default =0];
+	optional int32 height=4
+		[default =0];
+		
+	optional Point motionstart = 5;
+	optional Point motionend = 6;
+}
+
+/*
+ * deprecated
+ */
+message TrackDataFrame{
+	optional PointsVector points=2;
+}
+
+
+//Subtitles are half dynamic content and can be preencoded, when all languages(possible variations) are specified at Movie creation time 
+message Subtitles{
+	//ImageProvider that provides subtitles overlays, expected to have a map variable with key SubtitleFunctor::language_identifier
+	required ImageProvider content =2;
+	//all languages for which subtitles will be preencoded
+	repeated string languages =3;
+
+}
+
+// Variable messages can fetch data like user names or coordinates dynamically at rendering time
+// At the moment there are string and PointVector variables
+// StringVariables are used in TextRendering and in FileLocations
+// PointVectorVariables provide user supplied morph points for the MLS transformation 
+// As soon as a dynamic variable (not const or add) is used somewhere in a Scene the whole Scene becomes dynamic
+
+
+message StringVariable{
+	enum Type{
+		// constant variable, use value
+		constant=0;
+		// fetch value from file
+		file=1;
+		// fetch value over http
+		http=2;
+		// fetch value from map of GET-parameters
+		map=3;
+		// randomly select a value from randomvalues
+		random=4;
+		// meta variable, that adds the values of two variables together
+		add=5;
+		// iv tool support for selector/target based filename retrieval
+		target = 6;
+		// variable getting values from an iv tool datasource
+		datasource = 7;
+		// tests if file exists
+		fileexists = 8;
+
+		// String templating via ${xxx}, where xxx is querystring variable
+		// Template goes in value
+//		templ = 9;
+	}
+	
+	//Type of this variable
+	required Type type=1;
+	
+	//location/key where the value can be retrieved, used by file, http, map, fileexists
+	optional FileLocation source=2;
+	optional string key=7;
+	
+	//values from which one is randomly picked, used by random
+	repeated string randomvalues=3;
+	
+	//constant value, used by constant
+	//template string, used by templ
+	optional string value =4;
+	
+	//Variables that are used by add
+	optional StringVariable variable1=5;
+	optional StringVariable variable2=6;
+	
+	optional string defaultvalue = 8;
+	
+	optional string column =9;  
+	optional string defaultrow =10;
+}
+
+message PointsVector{
+	repeated Point points=1;
+}
+
+message Point{
+	required double x=1;
+	required double y=2;
+}
+
+message PointsVariable{
+	enum Type{
+		// constant variable, use value
+		constant=0;
+		// fetch value from file
+		file=1;
+		// fetch value over http
+		http=2;
+		// fetch value from map of GET-parameters
+		map=3;
+		// randomly select a value from randomvalues
+		random=4;
+		// meta variable, that adds the values of two variables together
+		add=5;
+		// iv tool support for selector/target based filename retrieval
+		target = 6;
+		// variable getting values from an iv tool datasource
+		datasource = 7;
+		// tests if file exists
+		fileexists = 8;
+	}
+	
+	required Type type=1;
+	optional FileLocation source=2;
+	optional string key = 7;
+	
+	repeated PointsVector randomvalues=3;
+	optional PointsVector value =4;
+	
+	optional PointsVariable variable1=5;
+	optional PointsVariable variable2=6;  
+	
+	
+	optional PointsVector defaultvalue = 8;  
+	
+	optional string column =9;
+	optional string defaultrow =10;
+}
+
+
+
+
+
+////////////////////
+//Animation
+////////////////////
+
+
+message Animation{
+	
+	
+	optional Function function = 2;
+	repeated AnimTransformation transformations = 3;
+	optional int32 start = 4;
+	optional int32 end = 5;
+	optional bool invert = 6
+		[default =false];
+		
+	optional Pos3d position = 7;
+}
+
+
+message AnimTransformation{
+	enum Type{
+		translate = 1;
+		shear = 2;
+		scale = 3;
+		rotatex = 4;
+		rotatey = 5;
+		rotatez = 6;
+	}
+	
+	required Type type = 1;
+	optional double x = 2;
+	optional double y = 3;
+	optional double z = 4; 
+	optional double angle = 5;
+	
+}
+
+message AnimationPosition{
+	required Pos3d tl = 1;
+	required Pos3d tr = 2;
+	required Pos3d br = 3;
+	required Pos3d bl = 4;
+}
+
+message Pos3d{
+	optional double x = 1
+		[default =0.0];
+	optional double y = 2
+		[default =0.0];
+	optional double z = 3
+		[default =0.0];
+}
+
+//Function
+//Used to animate values over time
+//Input is time t normalised over [0,1]
+//Output is f(t) (usually, but not necessarily also between [0,1]
+//The parameter functions use innerfunction for function composition
+//usually:
+// f ° if
+//except for 'inverted' function (inverts time) and 'factor' function
+message Function{
+	enum Type{
+		//all functions use innerfunction for function composition
+		
+		//no parameter		
+		inverted = 1; // f(t)=if(1-t) 
+		abs =15; // f(t)=|t|
+		linear = 3; // f(t)=t
+		
+		//uses param1
+		constant = 4; //f(t)=p1
+		power= 5; //f(t)=t^p1
+		sin = 6; //f(t)=sin(2pi * p1 * t)
+		factor = 7; //f(t)=p1*t*if(t)
+		overshoot =8; //f(t)=1-(p1*(1-t)^2-(1-t))/(p1-1);
+		undershoot = 9; //f(t)=(p1*t^2-t)/(p1-1);
+		
+		//uses param1, param2
+		sigmoid = 10;
+		switched = 11;//f(t)= 1 if p1<=t<=p2, 0 else
+		timed = 2;//f(t) = if(0) if t<p1
+		 		  //       if(1) if t>p1
+		 		  //       if((t-p1)/(p2 -p1)) else	
+		
+		//metafunction
+		//higher order function using innerfunction and metafunctionparam
+		add = 12; //f(t)=mf(t)+if(t)
+		subtract = 13;//f(t)=mf(t)-if(t)
+		multiply = 14;//f(t)=mf(t)*if(t)
+		
+		//keyframe function
+		keyframe = 16;
+	}
+	
+	
+	
+	optional Type type = 1
+		[default=linear];
+	optional double param1 = 2;
+	optional double param2 = 3;	
+	
+	optional Function innerfunction = 4;
+	optional Function metafunctionparam = 5;
+	
+	repeated Point keyframes = 6;
+	
+}
+
+///////////////////////
+//Variable Information
+///////////////////////
+
+message VariableInformation{
+	repeated VariableInformationEntry entries = 2;
+	optional int32 maxcombinations = 3
+		[default=1];
+	repeated DataSourceInformation datasources = 4;
+}
+
+message VariableInformationEntry{
+	required string key = 2;
+	repeated string values = 3;
+	optional bool undefinable = 4
+		[default = false];
+}
+
+message DataSourceInformation{
+	required string key = 2;
+	required FileLocation source = 3;
+}
+
+////////////////////////
+//Metadata
+////////////////////////
+
+message Metadata{
+	required string key = 2;
+	optional string value = 3;
+}
+
+message KeyValuePair{
+	required string key = 2;
+	optional string value = 3;
+}
+
+
+///////////////////////////
+// Pie Chart
+//////////////////////////
+
+message PieChartArcDescription{
+	optional StringVariable percent =2;
+	optional Color color=3;
+}
+
+message PieChartDescription{
+	repeated PieChartArcDescription finished_arcs = 2;
+	optional PieChartArcDescription current_arc = 3;
+	optional double current_arc_completion = 4
+		[default = 1.0];
+	optional Function current_arc_completion_function = 5;
+	enum Direction{
+		clockwise = 0;
+		counterclockwise = 1;
+	}
+	optional Direction direction = 6
+		[default = clockwise];
+	optional double radius = 7
+		[default = 50];
+}
+
+
+///////////////////////////
+// Bar Chart
+//////////////////////////
+
+message BarChartBarDescription{
+	optional StringVariable value =2;
+	optional Color color=3;
+}
+
+message BarChartDescription{
+	repeated BarChartBarDescription finished_bars = 2;
+	optional BarChartBarDescription current_bar = 3;
+	optional double current_bar_completion = 4
+		[default = 1.0];
+	optional Function current_bar_completion_function = 5;
+
+	optional int32 num_bars = 6
+		[default = 3];
+	
+	optional double max_val = 9
+		[default = 100];
+}
+
+
+///////////////////////////
+// Image Bar Chart
+//////////////////////////
+
+message ImageBarChartBarDescription{
+	optional StringVariable value =2;
+	optional ImageProvider image=3;
+	optional double image_equivalent=4
+		[default = 1.0];
+}
+
+message ImageBarChartDescription{
+	repeated ImageBarChartBarDescription finished_bars = 2;
+	optional ImageBarChartBarDescription current_bar = 3;
+	optional double current_bar_completion = 4
+		[default = 1.0];
+	optional Function current_bar_completion_function = 5;
+
+	optional int32 num_bars = 6
+		[default = 3];
+}
+
+
+
+///////////////////////////
+// Line Chart
+//////////////////////////
+
+enum LineCapStyle{
+	cap_square=0; // CAIRO_LINE_CAP_SQUARE - flat endings, thickness also influences length of lines
+	cap_round=1; // CAIRO_LINE_CAP_ROUND - round endings, thickness also influences length of lines
+	cap_butt=2;  // CAIRO_LINE_CAP_BUTT - flat endings, thick lines are exactly as long as thin lines
+}
+
+
+message LineChartDescription{
+	optional TrackData points = 2;
+	
+	optional int32 num_finished_lines = 3
+		[default = 0];
+	optional int32 current_line = 4
+		[default = 0];
+	optional double current_line_completion = 5
+		[default = 1.0];
+	optional Function current_line_completion_function = 6;
+
+	optional Color color = 7;
+	optional double line_width = 8
+		[default = 1.0];
+
+	optional LineCapStyle cap_style = 9
+		[default = cap_round];
+		
+	optional double min_x = 10
+		[default = 0];
+
+	optional double min_y = 11
+		[default = 0];
+
+	optional double max_x = 12
+		[default = 1];
+
+	optional double max_y = 13
+		[default = 1];
+}
+
+
+
+
+///////////////////////////
+// Bezier
+//////////////////////////
+
+	
+message BezierDescription{
+	optional TrackData points = 2;
+	optional Color color = 5;
+	optional double line_width = 6
+		[default = 1.0];
+	optional LineCapStyle cap_style = 7
+		[default = cap_round];
+	optional double completion = 8
+		[default = 1.0];
+	optional Function completion_function = 9;
+}
+
+
