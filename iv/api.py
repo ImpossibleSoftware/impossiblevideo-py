@@ -152,7 +152,7 @@ class Project:
 
     def get_dynamic_movie(self, moviename, abspath=False):
         uri = "/v1/sdl/%s/%s?notprojectspecific=%s" % (self.project_uid, moviename, str(abspath))
-        header, content = self.connection.request(uri, "GET")
+        r = self.connection.request(uri, "GET")
         if r.status_code not in [200, 201]:
             raise RuntimeError("Dynamic movie %s from project %s not loaded: %s" % (moviename, self.project_uid, r.text))
         movie = Movie()
