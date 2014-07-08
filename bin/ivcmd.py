@@ -10,13 +10,14 @@ from iv.api import Connection, Project, Renderer
 
 IVCFGNAMEETC = "iv.cfg"
 IVCFGNAMEHOME = ".iv"
+IVCFGNAMEPROJECT = "config.ini"
 
 def get_config():
     cwd = os.getcwd()
-    config = os.path.join(cwd, "config.ini")
+    config = os.path.join(cwd, IVCFGNAMEPROJECT)
     cp = ConfigParser.ConfigParser()
     cp.read(config)
-    return cp;
+    return cp
 
 def get_project_uid():
     cp = get_config()
@@ -36,12 +37,14 @@ def get_connection(args):
         return Connection(envkey, envsecret)
     else:
         cp = ConfigParser.ConfigParser()
-        try:
-            cp.read(os.path.join(os.environ['HOME'], IVCFGNAMEHOME))
-            return Connection(cp.get("auth", "apikey"), cp.get("auth", "apisecret"))
-        except Exception, e:
+        filenames = (
+            os.path.join(os.getcwd(), IVCFGNAMEPROJECT),
+            os.path.join(os.environ['HOME'], IVCFGNAMEHOME),
+            os.path.join("/etc", IVCFGNAMEETC)
+        )
+        for filename in filenames:
             try:
-                cp.read(os.path.join("/etc", IVCFGNAMEETC))
+                cp.read(filename)
                 return Connection(cp.get("auth", "apikey"), cp.get("auth", "apisecret"))
             except Exception, e:
                 pass
@@ -68,6 +71,9 @@ def create(args):
 
     config = os.path.join(args.name, "config.ini")
     with open(config, "w") as f:
+        f.write("[auth]\n")
+        f.write("apikey=%s\n" % c.credentials_key)
+        f.write("apisecret=%s\n" % c.credentials_pass)
         f.write("[project]\n")
         f.write("name=%s\n" % args.name)
         f.write("project_uid=%s\n" % p.project_uid)

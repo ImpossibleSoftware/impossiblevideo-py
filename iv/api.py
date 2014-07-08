@@ -16,18 +16,17 @@ class Renderer:
         self.project = project
         self.moviename = moviename
         self.endpoint = endpoint
-        self.http = httplib2.Http()
 
     def action(self, _action, extension, **kwargs):
         url = "%s/v1/%s/%s/%s.%s" % (self.endpoint, _action, self.project.project_uid, self.moviename, extension)
         if kwargs is not None:
             url += "?" + urllib.urlencode(kwargs)
 
-        r = self.http.request(url, "GET")
+        r = requests.get(url)
         if r.status_code != 200:
             raise RuntimeError("Failed rendering %s: %s" % (url, r.text))
 
-        return r.text
+        return r.content
 
     def render(self, extension, **kwargs):
         return self.action("render", extension, **kwargs)
@@ -205,6 +204,8 @@ class Connection:
 
     def __init__(self, credentials_key, credentials_pass, host=IIO_DEFAULT_HOST):
         self.session = requests.Session()
+        self.credentials_key=credentials_key
+        self.credentials_pass=credentials_pass
         self.auth = HTTPBasicAuth(credentials_key, credentials_pass)
         self._host = host
 
