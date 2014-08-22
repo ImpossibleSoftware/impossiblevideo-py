@@ -6,6 +6,7 @@ import json
 import argparse
 import ConfigParser
 
+from iv import IIO_DEFAULT_HOST, IIO_DEFAULT_RENDERER
 from iv.api import Connection, Project, Renderer
 
 IVCFGNAMEETC = "iv.cfg"
@@ -32,9 +33,9 @@ def get_connection(args):
     envsecret = os.environ.get('IV_APISECRET')
 
     if args.key and args.secret:
-        return  Connection(args.key, args.secret)
+        return Connection(args.key, args.secret, host=args.apihost)
     elif envkey and envsecret:
-        return Connection(envkey, envsecret)
+        return Connection(envkey, envsecret, host=args.apihost)
     else:
         cp = ConfigParser.ConfigParser()
         filenames = (
@@ -45,7 +46,7 @@ def get_connection(args):
         for filename in filenames:
             try:
                 cp.read(filename)
-                return Connection(cp.get("auth", "apikey"), cp.get("auth", "apisecret"))
+                return Connection(cp.get("auth", "apikey"), cp.get("auth", "apisecret"), host=args.apihost)
             except Exception, e:
                 pass
 
@@ -159,7 +160,8 @@ def render(args):
 parser = argparse.ArgumentParser()
 parser.add_argument('-k', '--key', default=None, help="API key")
 parser.add_argument('-s', '--secret', default=None, help="API secret")
-
+parser.add_argument('-a', '--apihost', default=IIO_DEFAULT_HOST, help="API Host")
+parser.add_argument('-r', '--renderer', default=IIO_DEFAULT_RENDERER, help="Render Host")
 
 subparsers = parser.add_subparsers()
 
