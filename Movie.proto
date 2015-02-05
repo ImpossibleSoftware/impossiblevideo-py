@@ -153,9 +153,9 @@ message AudioParams{
 enum EndBehaviour{
 	repeatlast = 0;
 	loop = 1; 
-	emptyframe = 2;
-	fullframe = 3;
-	fail = 4;
+	emptyframe = -2;
+	fullframe = -3;
+	fail = -4;
 }
 
 
@@ -186,6 +186,19 @@ message Movie {
 	
 	//Variable information for movie audio tracks
 	optional VariableInformation audiovarinfo = 18;
+	
+	enum UnexpectedFrameSizeSolution{
+		UFS_SCALE = 0;
+		UFS_LETTERBOX = 1;
+		UFS_COPY = 2;
+	}
+	optional UnexpectedFrameSizeSolution ufssolution = 19
+		[default=UFS_SCALE];
+		
+	optional int32 posterframe = 20
+		[default=0];
+		
+	repeated Scene compositions = 21;
 	
 	optional string comment = 2047;
 }
@@ -223,6 +236,9 @@ message Scene{
 		[default=false];
 		
 	repeated string name = 10;
+	
+	optional int32 posterframe = 11
+		[default=0];
 	
 	optional string comment = 2047;
 }
@@ -338,6 +354,9 @@ message ImageProvider{
 		linechart = 21;
 
 		bezier = 20;
+		
+		//draw on canvas using javascript
+		jscanvas = 23;
 	}
 	
 
@@ -475,7 +494,12 @@ message ImageProvider{
 	optional ImageProvider innerprovider = 48;
 	optional int32 maskchannel = 49
 		[default =0];
-		
+	enum TextureStyle{
+		texturestyle_line=0;
+		texturestyle_full=1;
+		texturestyle_tiled=2;
+		texturestyle_tiledline=3;
+	}
 	message TextOutline{
 		enum Type{
 			simple = 0;
@@ -487,6 +511,8 @@ message ImageProvider{
 			[default = 1];
 		optional Color color = 3;
 		optional ImageProvider texture = 4;
+		optional TextureStyle texturestyle = 5
+			[default=texturestyle_line];
 	}
 	message TextAugment{
 		
@@ -502,6 +528,8 @@ message ImageProvider{
 	}
 	repeated TextOutline textoutlines = 56;
 	optional ImageProvider texttexture = 57;
+	optional TextureStyle texttexturestyle = 68
+		[default=texturestyle_line];
 	optional Function texttypewritereffect = 58;
 	optional Function texttypewriterfadestart = 61;
 	optional Function texttypewriterfadeend = 62;
@@ -519,6 +547,33 @@ message ImageProvider{
 		
 	optional bool uselocalhttpproxy = 65
 		[default = false];
+		
+	optional EndBehaviour endbehaviour = 66
+		[default = repeatlast];
+
+	message JSCanvasDescription{
+		enum Mode{
+			jscanvas_script = 0;
+			jscanvas_location = 1;
+		}
+		optional Mode mode = 2
+			[default=jscanvas_script];
+		optional StringVariable script = 3;
+		optional FileLocation location = 4;
+		repeated KeyValuePair defaultparams = 5;
+		//keys for user provided parameters sent to the canvas
+		repeated string keys = 6;
+		//Function to adjust the completion given to the javascript code, don't use unless you know what you are doing
+		optional Function completionfunction =7; 
+		
+		message FontDescription{
+			required string alias = 2;
+			required FileLocation source = 3;
+		}
+		repeated FontDescription fonts = 8;
+	}	
+	optional JSCanvasDescription jscanvasdescription = 67;
+	
 }
 
 
@@ -609,6 +664,9 @@ message AudioTrack{
 	 // dynamically synthesized audio track
 	 synthetic = 10;
 	 synthetic_mix = 11;
+	 
+	 //combining track that plays inner audiotracks backtoback even on variable lengths
+	 backtoback = 12;
 	}
 	//Type of this AudioTrack
 	optional Type type=1 [default = preencoded];
@@ -645,7 +703,11 @@ message AudioTrack{
 
 	optional Synthesizer synthesizer = 17;
 	
+	repeated AudioTrack inneraudiotracks = 18;
+	
 	optional string comment = 2047;
+	
+	
 }
 
 
@@ -738,6 +800,10 @@ message VisualTrack{
 	repeated string name = 21;
 	
 	optional TrackData positions = 22;
+	
+	optional bool ignorelength = 24
+		[default=false];
+	
 
 
 	optional string comment = 2047;
@@ -775,6 +841,8 @@ message Transformation{
 	 linearzoomout=11;
 	 //change saturation of the image
 	 intensity = 16;
+	 //rotate the image
+	 rotate = 36;
 	//SpecifiedSize:
 	 //scaling of input image
 	 scaling=8;
@@ -786,6 +854,8 @@ message Transformation{
 	 scalingcrop=30;
 	 //cropping of the image with x/y offset and specified size
 	 crop = 31;
+	 //scale down to an(implicitly) specified size (mipmap) for further use in ContextSize transformations/to avoid interpolation artifacts
+	 mipmap = 38;
 	//ContextSize
 	 //warping to quad track data
 	 quadtracking=0;
@@ -795,6 +865,8 @@ message Transformation{
 	 texturemapping32f=3;
 	 //animate the input
 	 animate=15;
+	 //affine transformation (2D) similar to animate
+	 affine=37;
 	 //translate to a tracking point
 	 pointpaste=17;
 	 //custom
@@ -1037,6 +1109,32 @@ message Transformation{
 	
 	// used for cubelut - may be in IRIDAS .cube format or Photoshop .acv curve format
 	optional FileLocation paramfile = 86;	
+	enum RotationMode{
+		clockwise90 = 1;
+		counterclockwise90 =2;
+		autolandscapecw = 3;
+		autolandscapeccw = 4;
+		autoportraitcw = 5;
+		autoportraitccw = 6;
+	}
+	optional RotationMode rotationmode = 87;
+	
+	optional TrackData scaledata=88;
+	optional TrackData rotatedata=89;
+	optional TrackData translatedata=90;
+	optional TrackData anchordata=91;
+	
+	enum MipMapType{
+		mipmap_trackdatabased =1;
+		mipmap_maskbased_alpha =2;
+		mipmap_maskbased_grayscale =3;
+	}
+	optional MipMapType mipmap_type = 92
+		[default=mipmap_trackdatabased];
+	optional int32 mipmap_initialsize = 93
+		[default = 5];
+	optional double mipmap_basefactor = 94
+		[default = 2];
 	
 	optional string comment = 2047;
 }
@@ -1131,7 +1229,7 @@ message StringVariable{
 	enum Type{
 		// constant variable, use value
 		constant=0;
-		// fetch value from file
+		// fetch value from file, discontinued
 		file=1;
 		// fetch value over http
 		http=2;
@@ -1148,9 +1246,8 @@ message StringVariable{
 		// tests if file exists
 		fileexists = 8;
 
-		// String templating via ${xxx}, where xxx is querystring variable
-		// Template goes in value
-//		templ = 9;
+		//uses path-syntax to retrieve data from structured input (only JSON and JSONPath implemented)
+		structureddata = 9;
 	}
 	
 	//Type of this variable
@@ -1175,6 +1272,16 @@ message StringVariable{
 	
 	optional string column =9;  
 	optional string defaultrow =10;
+	
+	enum StructuredDataType{
+		structured_json = 1;
+	}
+	optional StructuredDataType structureddatatype =11
+		[default=structured_json];
+	optional StringVariable structureddatainput=12;
+	optional StringVariable path=13;
+	optional StringVariable integerformat=14;
+	optional StringVariable floatingpointformat=15;
 }
 
 message PointsVector{
@@ -1206,6 +1313,8 @@ message PointsVariable{
 		datasource = 7;
 		// tests if file exists
 		fileexists = 8;
+		//uses path-syntax to retrieve data from structured input (only JSON and JSONPath implemented)
+		structureddata = 9;
 	}
 	
 	required Type type=1;
@@ -1223,6 +1332,16 @@ message PointsVariable{
 	
 	optional string column =9;
 	optional string defaultrow =10;
+	
+	enum StructuredDataType{
+		structured_json = 1;
+	}
+	optional StructuredDataType structureddatatype =11
+		[default=structured_json];
+	optional StringVariable structureddatainput=12;
+	optional StringVariable path=13;
+	optional StringVariable integerformat=14;
+	optional StringVariable floatingpointformat=15;
 }
 
 
@@ -1357,9 +1476,30 @@ message VariableInformationEntry{
 }
 
 message DataSourceInformation{
+	enum Type{
+		file=1;
+		string=2;
+		embedded=3;
+	}
+	optional Type type = 1
+		[default=file];
 	required string key = 2;
-	required FileLocation source = 3;
+	optional FileLocation source = 3;
+	optional string defaultrow = 4;
+	optional StringVariable variable = 5;
+	optional EmbeddedDataSourceInformation embeddeddatasource = 6;
 }
+
+message EmbeddedDataSourceInformation{
+	repeated string columnnames = 2;
+	repeated EmbeddedDataSourceInformationRow rows = 3;
+}
+
+message EmbeddedDataSourceInformationRow{
+	required string rowid = 2;
+	repeated string columns = 3;
+}
+
 
 ////////////////////////
 //Metadata
