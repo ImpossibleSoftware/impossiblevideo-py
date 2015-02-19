@@ -239,6 +239,9 @@ message Scene{
 	
 	optional int32 posterframe = 11
 		[default=0];
+		
+	optional bool useaudioforlength = 12
+		[default=false];
 	
 	optional string comment = 2047;
 }
@@ -705,6 +708,9 @@ message AudioTrack{
 	
 	repeated AudioTrack inneraudiotracks = 18;
 	
+	optional bool ignorelength = 19
+		[default=false];
+	
 	optional string comment = 2047;
 	
 	
@@ -804,7 +810,7 @@ message VisualTrack{
 	optional bool ignorelength = 24
 		[default=false];
 	
-
+	optional StringVariable numframesvariable = 25;
 
 	optional string comment = 2047;
 	//used internally
@@ -1168,6 +1174,7 @@ message TrackData{
 	 //load from string (json format)
 	 stringvariable = 5;
 	 
+	 keyframe = 6;
 	 }
 	optional Type type=1
 		[default =file];
@@ -1187,8 +1194,18 @@ message TrackData{
 	optional bool httpalwaysload = 10;
 	optional bool uselocalhttpproxy = 11
 		[default = false];
+		
+	repeated KeyFrameTrackData keyframes = 12;
+	optional int32 numframes=13
+		[default = 1];
 }
 
+message KeyFrameTrackData{
+	
+	optional int32 offset=2
+		[default=0];
+	optional PointsVector points=3;
+}
 
 message EmbeddedTrackData{
 	repeated PointsVector frames=2;
