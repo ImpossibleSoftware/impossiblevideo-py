@@ -6,6 +6,8 @@ package JetSDL.Proto;
 // This is the equivalent to JSCodec from jettypes.h
 enum Codec 
 { 
+        option allow_alias = true;
+
 	VIDEO_NONE = 0;
 	VIDEO_FLV =1; 
 	VIDEO_H263 =2;
@@ -199,6 +201,9 @@ message Movie {
 		[default=0];
 		
 	repeated Scene compositions = 21;
+	
+	optional bool videofailfast = 22
+		[default=false];
 	
 	optional string comment = 2047;
 }
