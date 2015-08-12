@@ -1081,6 +1081,7 @@ message Transformation{
 	
 	optional StringVariable rotatevariable = 69;
 	optional StringVariable cropvariable = 70;
+	optional StringVariable orientationvariable = 97;
 	optional double rotatecenterxoffset = 80
 		[default = 0];
 	optional double rotatecenteryoffset = 81
@@ -1146,6 +1147,10 @@ message Transformation{
 		[default = 5];
 	optional double mipmap_basefactor = 94
 		[default = 2];
+	
+	optional StringVariable enablevariable = 95;
+	optional bool invertenable = 96
+		[default=false];
 	
 	optional string comment = 2047;
 }
@@ -1476,6 +1481,8 @@ message Function{
 	optional Function metafunctionparam = 5;
 	
 	repeated Point keyframes = 6;
+	optional bool extrapolate = 7
+		[default=true];
 	
 }
 

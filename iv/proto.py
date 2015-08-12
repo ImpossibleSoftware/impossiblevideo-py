@@ -14,7 +14,7 @@ from google.protobuf import descriptor_pb2
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='Movie.proto',
   package='JetSDL.Proto',
-  serialized_pb='\n\x0bMovie.proto\x12\x0cJetSDL.Proto\"-\n\nFractional\x12\x0f\n\x03num\x18\x01 \x01(\x04:\x02\x33\x30\x12\x0e\n\x03\x64\x65n\x18\x02 \x01(\x04:\x01\x31\"\xf7\x01\n\x0cStreamParams\x12*\n\x07vparams\x18\x01 \x02(\x0b\x32\x19.JetSDL.Proto.VideoParams\x12*\n\x07\x61params\x18\x02 \x01(\x0b\x32\x19.JetSDL.Proto.AudioParams\x12\x15\n\x07nosleep\x18\x03 \x01(\x08:\x04true\x12\x0c\n\x04pass\x18\x05 \x01(\x05\x12\x10\n\x08statfile\x18\x04 \x01(\t\x12\x1c\n\x10\x63lient_prebuffer\x18\x07 \x01(\x01:\x02-1\x12\x1c\n\x10\x65ncoding_quantum\x18\x08 \x01(\x01:\x02-1\x12\x1c\n\x11min_client_buffer\x18\x06 \x01(\x01:\x01\x32\"\xf6\x04\n\x0bVideoParams\x12\r\n\x05width\x18\x01 \x02(\r\x12\x0e\n\x06height\x18\x02 \x02(\r\x12\x33\n\nvideocodec\x18\x05 \x01(\x0e\x32\x13.JetSDL.Proto.Codec:\nVIDEO_X264\x12\x30\n\x0evideoframerate\x18\x06 \x01(\x0b\x32\x18.JetSDL.Proto.Fractional\x12\x1a\n\x0cvideobitrate\x18\x07 \x01(\r:\x04\x32\x30\x30\x30\x12\x17\n\x0cvideobframes\x18\x08 \x01(\x05:\x01\x30\x12\x18\n\x0cvideogopsize\x18\t \x01(\x05:\x02\x33\x30\x12\x13\n\x07videoqp\x18\n \x01(\x05:\x02\x31\x36\x12H\n\x07videorc\x18\x0b \x01(\x0e\x32*.JetSDL.Proto.VideoParams.VideoRateControl:\x0bVRC_BITRATE\x12\x1a\n\x0evideocpueffort\x18\x0c \x01(\x01:\x02\x31\x30\x12X\n\x15videodelayrequirement\x18\r \x01(\x0e\x32).JetSDL.Proto.VideoParams.EncoderDelayReq:\x0e\x44\x45LAY_REALTIME\x12\x39\n\x15videocodecextraparams\x18\x0e \x03(\x0b\x32\x1a.JetSDL.Proto.KeyValuePair\"J\n\x10VideoRateControl\x12\x0f\n\x0bVRC_BITRATE\x10\x00\x12\x11\n\rVRC_QUANTIZER\x10\x01\x12\x12\n\x0eVRC_RATEFACTOR\x10\x02\"6\n\x0f\x45ncoderDelayReq\x12\x12\n\x0e\x44\x45LAY_REALTIME\x10\x01\x12\x0f\n\x0b\x44\x45LAY_SMALL\x10\x02\"\xb4\x01\n\x0b\x41udioParams\x12\x33\n\naudiocodec\x18\n \x01(\x0e\x32\x13.JetSDL.Proto.Codec:\nAUDIO_NONE\x12\x17\n\x08\x61udioabr\x18\x0b \x01(\r:\x05\x33\x32\x30\x30\x30\x12\x1e\n\x0f\x61udiosamplerate\x18\x0c \x01(\r:\x05\x34\x34\x31\x30\x30\x12\x18\n\raudiochannels\x18\x0e \x01(\r:\x01\x32\x12\x1d\n\x0f\x61udioframe_size\x18\r \x01(\r:\x04\x31\x30\x32\x34\"\xa3\x04\n\x05Movie\x12*\n\x06params\x18\x0f \x02(\x0b\x32\x1a.JetSDL.Proto.StreamParams\x12#\n\x06scenes\x18\x03 \x03(\x0b\x32\x13.JetSDL.Proto.Scene\x12\"\n\x05\x61udio\x18\x04 \x01(\x0b\x32\x13.JetSDL.Proto.Audio\x12\x13\n\x04loop\x18\x0e \x01(\x08:\x05\x66\x61lse\x12\x1a\n\x0binitatstart\x18\x10 \x01(\x08:\x05\x66\x61lse\x12(\n\x08metadata\x18\x11 \x03(\x0b\x32\x16.JetSDL.Proto.Metadata\x12\x37\n\x0c\x61udiovarinfo\x18\x12 \x01(\x0b\x32!.JetSDL.Proto.VariableInformation\x12O\n\x0bufssolution\x18\x13 \x01(\x0e\x32/.JetSDL.Proto.Movie.UnexpectedFrameSizeSolution:\tUFS_SCALE\x12\x16\n\x0bposterframe\x18\x14 \x01(\x05:\x01\x30\x12)\n\x0c\x63ompositions\x18\x15 \x03(\x0b\x32\x13.JetSDL.Proto.Scene\x12\x1c\n\rvideofailfast\x18\x16 \x01(\x08:\x05\x66\x61lse\x12\x10\n\x07\x63omment\x18\xff\x0f \x01(\t\"M\n\x1bUnexpectedFrameSizeSolution\x12\r\n\tUFS_SCALE\x10\x00\x12\x11\n\rUFS_LETTERBOX\x10\x01\x12\x0c\n\x08UFS_COPY\x10\x02\"\x82\x03\n\x05Scene\x12\x11\n\tnumframes\x18\x02 \x01(\x05\x12\x14\n\x06static\x18\x03 \x01(\x08:\x04true\x12,\n\x07\x63ontent\x18\x04 \x01(\x0b\x32\x1b.JetSDL.Proto.ImageProvider\x12)\n\x06tracks\x18\x05 \x03(\x0b\x32\x19.JetSDL.Proto.VisualTrack\x12\"\n\x05\x61udio\x18\x06 \x01(\x0b\x32\x13.JetSDL.Proto.Audio\x12*\n\tsubtitles\x18\x07 \x01(\x0b\x32\x17.JetSDL.Proto.Subtitles\x12\x32\n\x07varinfo\x18\x08 \x01(\x0b\x32!.JetSDL.Proto.VariableInformation\x12\x19\n\ncanbeempty\x18\t \x01(\x08:\x05\x66\x61lse\x12\x0c\n\x04name\x18\n \x03(\t\x12\x16\n\x0bposterframe\x18\x0b \x01(\x05:\x01\x30\x12 \n\x11useaudioforlength\x18\x0c \x01(\x08:\x05\x66\x61lse\x12\x10\n\x07\x63omment\x18\xff\x0f \x01(\t\"D\n\x10SceneViewVariant\x12\x0b\n\x03key\x18\x02 \x02(\t\x12#\n\x06scenes\x18\x03 \x03(\x0b\x32\x13.JetSDL.Proto.Scene\"\xb0\x03\n\tSceneView\x12\x34\n\x04type\x18\x01 \x01(\x0e\x32\x1c.JetSDL.Proto.SceneView.Type:\x08\x65mbedded\x12#\n\x06scenes\x18\x02 \x03(\x0b\x32\x13.JetSDL.Proto.Scene\x12<\n\x0c\x65ndbehaviour\x18\x03 \x01(\x0e\x32\x1a.JetSDL.Proto.EndBehaviour:\nrepeatlast\x12*\n\x06source\x18\x04 \x01(\x0b\x32\x1a.JetSDL.Proto.FileLocation\x12\x30\n\x08variants\x18\x13 \x03(\x0b\x32\x1e.JetSDL.Proto.SceneViewVariant\x12.\n\x08variable\x18\x14 \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\x12\r\n\x05width\x18\x15 \x01(\x05\x12\x0e\n\x06height\x18\x16 \x01(\x05\x12\x0c\n\x04keys\x18\x12 \x03(\t\x12\"\n\x18\x66ilelocationprefixholder\x18\x11 \x01(\t:\x00\"+\n\x04Type\x12\x0c\n\x08\x65mbedded\x10\x00\x12\x08\n\x04\x66ile\x10\x01\x12\x0b\n\x07variant\x10\x02\"\x83!\n\rImageProvider\x12.\n\x04type\x18\x01 \x02(\x0e\x32 .JetSDL.Proto.ImageProvider.Type\x12\x15\n\tnumframes\x18\x15 \x01(\x05:\x02-1\x12*\n\x06source\x18\x02 \x01(\x0b\x32\x1a.JetSDL.Proto.FileLocation\x12)\n\x06tracks\x18\x03 \x03(\x0b\x32\x19.JetSDL.Proto.VisualTrack\x12\r\n\x05width\x18\x04 \x01(\x05\x12\x0e\n\x06height\x18\x05 \x01(\x05\x12\"\n\x05\x63olor\x18\x06 \x01(\x0b\x32\x13.JetSDL.Proto.Color\x12*\n\ttrackdata\x18\x07 \x01(\x0b\x32\x17.JetSDL.Proto.TrackData\x12-\n\x0ctrackdatatop\x18\x08 \x01(\x0b\x32\x17.JetSDL.Proto.TrackData\x12\x30\n\x0ftrackdatabottom\x18\t \x01(\x0b\x32\x17.JetSDL.Proto.TrackData\x12\x14\n\x08\x66ontsize\x18\x0c \x01(\x05:\x02\x34\x30\x12\x16\n\nfontsize_d\x18# \x01(\x01:\x02\x34\x30\x12\x16\n\nbaselength\x18\r \x01(\x05:\x02\x38\x30\x12\x16\n\nbaseheight\x18\x0e \x01(\x05:\x02\x31\x32\x12\x1a\n\x0enuminterpoints\x18\x0f \x01(\x05:\x02\x35\x30\x12\x15\n\tlinechars\x18\x11 \x01(\x05:\x02\x35\x30\x12\x15\n\x06\x63\x65nter\x18\x10 \x01(\x08:\x05\x66\x61lse\x12*\n\x04text\x18\x12 \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\x12\r\n\x05scale\x18\x13 \x03(\x01\x12\x16\n\x0bvideooffset\x18\x16 \x01(\x05:\x01\x30\x12\x19\n\x0busecachedir\x18\x17 \x01(\x08:\x04true\x12\x17\n\x08\x63\x61\x63hedir\x18\x18 \x01(\t:\x05\x63\x61\x63he\x12\x1c\n\x0ewriteextension\x18\x1e \x01(\t:\x04.tif\x12\x16\n\x07upscale\x18\x1c \x01(\x08:\x05\x66\x61lse\x12\x17\n\tdownscale\x18\x1d \x01(\x08:\x04true\x12\x18\n\rscale_ar_hint\x18$ \x01(\t:\x01w\x12H\n\nxalignment\x18\x19 \x01(\x0e\x32).JetSDL.Proto.ImageProvider.TextAlignment:\tflushleft\x12\x44\n\nyalignment\x18\x1b \x01(\x0e\x32(.JetSDL.Proto.ImageProvider.TextPosition:\x06\x62ottom\x12\x1b\n\x13http_extension_hint\x18\x1a \x01(\t\x12\x1d\n\x0floadpremulalpha\x18\x1f \x01(\x08:\x04true\x12\x1d\n\x0ehttpalwaysload\x18  \x01(\x08:\x05\x66\x61lse\x12*\n\tsceneview\x18! \x01(\x0b\x32\x17.JetSDL.Proto.SceneView\x12!\n\x16\x66ontspacing_deprecated\x18\" \x01(\x05:\x01\x30\x12\x16\n\x0b\x66ontspacing\x18- \x01(\x01:\x01\x30\x12\x16\n\x0blinespacing\x18\x37 \x01(\x01:\x01\x30\x12\x1d\n\x12\x63omicbookframetime\x18% \x01(\x01:\x01\x31\x12\x30\n\x0b\x63omicsource\x18& \x01(\x0b\x32\x1b.JetSDL.Proto.ImageProvider\x12\x1b\n\x10textborder_right\x18\' \x01(\x05:\x01\x30\x12\x1a\n\x0ftextborder_left\x18( \x01(\x05:\x01\x30\x12\x19\n\x0etextborder_top\x18) \x01(\x05:\x01\x30\x12\x1c\n\x11textborder_bottom\x18* \x01(\x05:\x01\x30\x12\x1c\n\x0eoverflowresize\x18+ \x01(\x08:\x04true\x12\x19\n\x11\x63ustom_identifier\x18, \x01(\t\x12>\n\x13piechartdescription\x18. \x01(\x0b\x32!.JetSDL.Proto.PieChartDescription\x12>\n\x13\x62\x61rchartdescription\x18\x32 \x01(\x0b\x32!.JetSDL.Proto.BarChartDescription\x12H\n\x18imagebarchartdescription\x18\x33 \x01(\x0b\x32&.JetSDL.Proto.ImageBarChartDescription\x12@\n\x14linechartdescription\x18\x36 \x01(\x0b\x32\".JetSDL.Proto.LineChartDescription\x12:\n\x11\x62\x65zierdescription\x18\x35 \x01(\x0b\x32\x1f.JetSDL.Proto.BezierDescription\x12&\n\x17treatasstaticforcaching\x18/ \x01(\x08:\x05\x66\x61lse\x12\x32\n\rinnerprovider\x18\x30 \x01(\x0b\x32\x1b.JetSDL.Proto.ImageProvider\x12\x16\n\x0bmaskchannel\x18\x31 \x01(\x05:\x01\x30\x12=\n\x0ctextoutlines\x18\x38 \x03(\x0b\x32\'.JetSDL.Proto.ImageProvider.TextOutline\x12\x30\n\x0btexttexture\x18\x39 \x01(\x0b\x32\x1b.JetSDL.Proto.ImageProvider\x12U\n\x10texttexturestyle\x18\x44 \x01(\x0e\x32(.JetSDL.Proto.ImageProvider.TextureStyle:\x11texturestyle_line\x12\x34\n\x14texttypewritereffect\x18: \x01(\x0b\x32\x16.JetSDL.Proto.Function\x12\x37\n\x17texttypewriterfadestart\x18= \x01(\x0b\x32\x16.JetSDL.Proto.Function\x12\x35\n\x15texttypewriterfadeend\x18> \x01(\x0b\x32\x16.JetSDL.Proto.Function\x12\x34\n\x14\x66ontspacing_function\x18? \x01(\x0b\x32\x16.JetSDL.Proto.Function\x12\x34\n\x14linespacing_function\x18@ \x01(\x0b\x32\x16.JetSDL.Proto.Function\x12#\n\x18textoutlinesubpixellevel\x18; \x01(\x01:\x01\x31\x12\x42\n\x11textaugmentations\x18< \x03(\x0b\x32\'.JetSDL.Proto.ImageProvider.TextAugment\x12\x10\n\x07\x63omment\x18\xff\x0f \x01(\t\x12*\n\x1cusevideodecodernormalisation\x18\x34 \x01(\x08:\x04true\x12 \n\x11uselocalhttpproxy\x18\x41 \x01(\x08:\x05\x66\x61lse\x12<\n\x0c\x65ndbehaviour\x18\x42 \x01(\x0e\x32\x1a.JetSDL.Proto.EndBehaviour:\nrepeatlast\x12L\n\x13jscanvasdescription\x18\x43 \x01(\x0b\x32/.JetSDL.Proto.ImageProvider.JSCanvasDescription\x1a\xa8\x02\n\x0bTextOutline\x12\x42\n\x04type\x18\x01 \x01(\x0e\x32,.JetSDL.Proto.ImageProvider.TextOutline.Type:\x06simple\x12\x0f\n\x04size\x18\x02 \x01(\x01:\x01\x31\x12\"\n\x05\x63olor\x18\x03 \x01(\x0b\x32\x13.JetSDL.Proto.Color\x12,\n\x07texture\x18\x04 \x01(\x0b\x32\x1b.JetSDL.Proto.ImageProvider\x12Q\n\x0ctexturestyle\x18\x05 \x01(\x0e\x32(.JetSDL.Proto.ImageProvider.TextureStyle:\x11texturestyle_line\"\x1f\n\x04Type\x12\n\n\x06simple\x10\x00\x12\x0b\n\x07rounded\x10\x01\x1a\x85\x01\n\x0bTextAugment\x12,\n\x07\x63ontent\x18\x02 \x01(\x0b\x32\x1b.JetSDL.Proto.ImageProvider\x12\x1b\n\x10\x61nchor_character\x18\x03 \x01(\x01:\x01\x30\x12\x0c\n\x01x\x18\x04 \x01(\x01:\x01\x30\x12\x0c\n\x01y\x18\x05 \x01(\x01:\x01\x30\x12\x0f\n\x04size\x18\x06 \x01(\x01:\x01\x31\x1a\x8d\x04\n\x13JSCanvasDescription\x12S\n\x04mode\x18\x02 \x01(\x0e\x32\x34.JetSDL.Proto.ImageProvider.JSCanvasDescription.Mode:\x0fjscanvas_script\x12,\n\x06script\x18\x03 \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\x12,\n\x08location\x18\x04 \x01(\x0b\x32\x1a.JetSDL.Proto.FileLocation\x12\x31\n\rdefaultparams\x18\x05 \x03(\x0b\x32\x1a.JetSDL.Proto.KeyValuePair\x12\x0c\n\x04keys\x18\x06 \x03(\t\x12\x32\n\x12\x63ompletionfunction\x18\x07 \x01(\x0b\x32\x16.JetSDL.Proto.Function\x12N\n\x05\x66onts\x18\x08 \x03(\x0b\x32?.JetSDL.Proto.ImageProvider.JSCanvasDescription.FontDescription\x1aL\n\x0f\x46ontDescription\x12\r\n\x05\x61lias\x18\x02 \x02(\t\x12*\n\x06source\x18\x03 \x02(\x0b\x32\x1a.JetSDL.Proto.FileLocation\"2\n\x04Mode\x12\x13\n\x0fjscanvas_script\x10\x00\x12\x15\n\x11jscanvas_location\x10\x01\"\xf6\x02\n\x04Type\x12\x0e\n\nstillimage\x10\x00\x12\x14\n\x10manipulatedimage\x10\x02\x12\x0e\n\nemptyimage\x10\x04\x12\x08\n\x04http\x10\t\x12\n\n\x06jetcom\x10\n\x12\x0e\n\ntextsimple\x10\x07\x12\x11\n\rimagesequence\x10\x01\x12\x14\n\x10image32fsequence\x10\x03\x12\x0e\n\ntextcurved\x10\x05\x12\x0c\n\x08textquad\x10\x06\x12\x11\n\rtextmultiline\x10\x08\x12\x0b\n\x07\x64\x65\x63oder\x10\x0b\x12\t\n\x05video\x10\x0c\x12\r\n\tlivevideo\x10\x16\x12\x0e\n\nscenebased\x10\r\x12\r\n\tcomicbook\x10\x0e\x12\n\n\x06\x63ustom\x10\x0f\x12\x0c\n\x08piechart\x10\x10\x12\x0e\n\nmasksource\x10\x11\x12\x0c\n\x08\x62\x61rchart\x10\x12\x12\x11\n\rimagebarchart\x10\x13\x12\r\n\tlinechart\x10\x15\x12\n\n\x06\x62\x65zier\x10\x14\x12\x0c\n\x08jscanvas\x10\x17\"<\n\rTextAlignment\x12\r\n\tflushleft\x10\x00\x12\x0c\n\x08\x63\x65ntered\x10\x01\x12\x0e\n\nflushright\x10\x02\"/\n\x0cTextPosition\x12\x07\n\x03top\x10\x00\x12\n\n\x06middle\x10\x01\x12\n\n\x06\x62ottom\x10\x02\"p\n\x0cTextureStyle\x12\x15\n\x11texturestyle_line\x10\x00\x12\x15\n\x11texturestyle_full\x10\x01\x12\x16\n\x12texturestyle_tiled\x10\x02\x12\x1a\n\x16texturestyle_tiledline\x10\x03\"\x9f\x02\n\x0c\x46ileLocation\x12-\n\x04type\x18\x01 \x01(\x0e\x32\x1f.JetSDL.Proto.FileLocation.Type\x12\x0c\n\x04path\x18\x02 \x02(\t\x12\x11\n\x06offset\x18\x03 \x01(\x05:\x01\x30\x12\x12\n\x07padding\x18\x04 \x01(\x05:\x01\x35\x12.\n\x08variable\x18\x05 \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\"{\n\x04Type\x12\n\n\x06simple\x10\x00\x12\x0b\n\x07session\x10\x01\x12\t\n\x05\x66rame\x10\x02\x12\x13\n\x0fsessionandframe\x10\x03\x12\x07\n\x03var\x10\x04\x12\x0c\n\x08varframe\x10\x05\x12\x0e\n\nvarsession\x10\x06\x12\x13\n\x0fvarframesession\x10\x07\"6\n\x05\x41udio\x12-\n\x0b\x61udiotracks\x18\x02 \x03(\x0b\x32\x18.JetSDL.Proto.AudioTrack\"\xc3\x07\n\nAudioTrack\x12\x37\n\x04type\x18\x01 \x01(\x0e\x32\x1d.JetSDL.Proto.AudioTrack.Type:\npreencoded\x12\x0f\n\x04gain\x18\x0f \x01(\x01:\x01\x30\x12\x11\n\x06volume\x18\x03 \x01(\x01:\x01\x31\x12.\n\x0evolumefunction\x18\x06 \x01(\x0b\x32\x16.JetSDL.Proto.Function\x12\x31\n\rdefaultsource\x18\x04 \x01(\x0b\x32\x1a.JetSDL.Proto.FileLocation\x12*\n\x06source\x18\x05 \x01(\x0b\x32\x1a.JetSDL.Proto.FileLocation\x12\x11\n\x06offset\x18\x02 \x01(\x05:\x01\x30\x12\x11\n\tnumframes\x18\t \x01(\x05\x12\x15\n\rcontentoffset\x18\x0b \x01(\x05\x12\x19\n\x0busecachedir\x18\x07 \x01(\x08:\x04true\x12\x17\n\x08\x63\x61\x63hedir\x18\x08 \x01(\t:\x05\x63\x61\x63he\x12\x1d\n\x0eoptional_audio\x18\n \x01(\x08:\x05\x66\x61lse\x12#\n\x02sv\x18\x0c \x01(\x0b\x32\x17.JetSDL.Proto.SceneView\x12\x0c\n\x04name\x18\r \x03(\t\x12=\n\tlevelmode\x18\x10 \x01(\x0e\x32\".JetSDL.Proto.AudioTrack.LevelMode:\x06legacy\x12.\n\x0bsynthesizer\x18\x11 \x01(\x0b\x32\x19.JetSDL.Proto.Synthesizer\x12\x32\n\x10inneraudiotracks\x18\x12 \x03(\x0b\x32\x18.JetSDL.Proto.AudioTrack\x12\x1b\n\x0cignorelength\x18\x13 \x01(\x08:\x05\x66\x61lse\x12\x10\n\x07\x63omment\x18\xff\x0f \x01(\t\"X\n\tLevelMode\x12\n\n\x06legacy\x10\x00\x12\x13\n\x0flegacy_softgain\x10\x01\x12\x0c\n\x08hardclip\x10\x02\x12\x0c\n\x08softclip\x10\x03\x12\x0e\n\nsoftclip4x\x10\x04\"\xd9\x01\n\x04Type\x12\x0e\n\npreencoded\x10\x00\x12\x07\n\x03mix\x10\x01\x12\x0b\n\x07replace\x10\x02\x12\x0b\n\x07\x64\x65\x63oder\x10\x03\x12\x13\n\x0f\x64\x65\x63oder_replace\x10\x04\x12\r\n\tvideo_mix\x10\x05\x12\x11\n\rvideo_replace\x10\x06\x12\x0e\n\nscenebased\x10\x07\x12\t\n\x05\x65mpty\x10\x08\x12\x08\n\x04live\x10\t\x12\x10\n\x0clive_replace\x10\x13\x12\r\n\tsynthetic\x10\n\x12\x11\n\rsynthetic_mix\x10\x0b\x12\x0e\n\nbacktoback\x10\x0c\"\x86\x02\n\x0bSynthesizer\x12;\n\x04type\x18\x01 \x01(\x0e\x32\x1e.JetSDL.Proto.Synthesizer.Type:\rrandomsamples\x12\x15\n\nrandomseed\x18\x02 \x01(\r:\x01\x30\x12+\n\x07samples\x18\x03 \x03(\x0b\x32\x1a.JetSDL.Proto.FileLocation\x12\x30\n\niterations\x18\x04 \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\x12\x11\n\x06jitter\x18\x05 \x01(\x01:\x01\x30\x12\x16\n\tnumframes\x18\x06 \x01(\x05:\x03\x35\x30\x30\"\x19\n\x04Type\x12\x11\n\rrandomsamples\x10\x00\"\x83\x06\n\x0bVisualTrack\x12,\n\x07\x63ontent\x18\x02 \x01(\x0b\x32\x1b.JetSDL.Proto.ImageProvider\x12\x15\n\tnumframes\x18\x03 \x01(\x05:\x02-1\x12\x11\n\x06offset\x18\x04 \x01(\x05:\x01\x30\x12\x0c\n\x01x\x18\x05 \x01(\x05:\x01\x30\x12\x0c\n\x01y\x18\x06 \x01(\x05:\x01\x30\x12\x15\n\x06\x63\x65nter\x18\x10 \x01(\x08:\x05\x66\x61lse\x12\x16\n\x07\x63\x65nterx\x18\x11 \x01(\x08:\x05\x66\x61lse\x12\x16\n\x07\x63\x65ntery\x18\x12 \x01(\x08:\x05\x66\x61lse\x12\x16\n\x0bmaskchannel\x18\x07 \x01(\x05:\x01\x30\x12\x19\n\ninvertmask\x18\r \x01(\x08:\x05\x66\x61lse\x12)\n\x04mask\x18\t \x01(\x0b\x32\x1b.JetSDL.Proto.ImageProvider\x12\x35\n\x0ftransformations\x18\n \x03(\x0b\x32\x1c.JetSDL.Proto.Transformation\x12\x32\n\tblendmode\x18\x0b \x01(\x0e\x32\x17.JetSDL.Proto.BlendMode:\x06normal\x12\x12\n\x07opacity\x18\x0c \x01(\x01:\x01\x31\x12/\n\x0fopacityfunction\x18\x0f \x01(\x0b\x32\x16.JetSDL.Proto.Function\x12\x1a\n\x0b\x61\x64justalpha\x18\x08 \x01(\x08:\x05\x66\x61lse\x12\x1a\n\x0clazyevaluate\x18\x13 \x01(\x08:\x04true\x12\x34\n\x0e\x65nablevariable\x18\x14 \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\x12\x1b\n\x0cinvertenable\x18\x17 \x01(\x08:\x05\x66\x61lse\x12\x0c\n\x04name\x18\x15 \x03(\t\x12*\n\tpositions\x18\x16 \x01(\x0b\x32\x17.JetSDL.Proto.TrackData\x12\x1b\n\x0cignorelength\x18\x18 \x01(\x08:\x05\x66\x61lse\x12\x37\n\x11numframesvariable\x18\x19 \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\x12\x10\n\x07\x63omment\x18\xff\x0f \x01(\t\"\xb7\x1f\n\x0eTransformation\x12/\n\x04type\x18\x01 \x02(\x0e\x32!.JetSDL.Proto.Transformation.Type\x12*\n\ttrackdata\x18\x02 \x01(\x0b\x32\x17.JetSDL.Proto.TrackData\x12*\n\x05image\x18\x03 \x01(\x0b\x32\x1b.JetSDL.Proto.ImageProvider\x12\x15\n\nblurlength\x18\x04 \x01(\x01:\x01\x31\x12\x12\n\nblurfactor\x18\x05 \x01(\x01\x12\x16\n\x0e\x62lurlength_inc\x18\x06 \x01(\x01\x12\x16\n\x0e\x62lurfactor_inc\x18\x07 \x01(\x01\x12\x11\n\tzoomscale\x18\x08 \x01(\x08\x12\x15\n\nsmoothedge\x18\x10 \x01(\x05:\x01\x30\x12\r\n\x05scale\x18\t \x03(\x01\x12\x1c\n\rscalerelative\x18\x17 \x01(\x08:\x05\x66\x61lse\x12\x13\n\x0b\x61spectratio\x18\x18 \x01(\x01\x12\x15\n\rfixedsidesize\x18\x19 \x01(\x05\x12\x15\n\rspecifiedside\x18\x1a \x01(\t\x12\"\n\x05\x63olor\x18\n \x01(\x0b\x32\x13.JetSDL.Proto.Color\x12\x11\n\tnumpoints\x18\x0b \x01(\x05\x12\x32\n\x0csourcepoints\x18\x0c \x01(\x0b\x32\x1c.JetSDL.Proto.PointsVariable\x12\x37\n\x11\x64\x65stinationpoints\x18\r \x01(\x0b\x32\x1c.JetSDL.Proto.PointsVariable\x12\x11\n\tnumframes\x18\x0e \x01(\x05\x12\x0e\n\x06offset\x18\x0f \x01(\x05\x12*\n\tposadjust\x18\x11 \x01(\x0b\x32\x17.JetSDL.Proto.PosAdjust\x12\x11\n\terasesize\x18\x12 \x03(\x05\x12\x17\n\x0csearchradius\x18\x13 \x01(\x01:\x01\x34\x12\x16\n\x0bmaskchannel\x18\x14 \x01(\x05:\x01\x30\x12\x19\n\ninvertmask\x18\x16 \x01(\x08:\x05\x66\x61lse\x12+\n\nanimations\x18\x1c \x03(\x0b\x32\x17.JetSDL.Proto.Animation\x12\x31\n\x08position\x18\x1d \x01(\x0b\x32\x1f.JetSDL.Proto.AnimationPosition\x12\x10\n\x05\x66ocus\x18\x1e \x01(\x01:\x01\x30\x12\x12\n\nsaturation\x18\x1f \x01(\x01\x12\x19\n\x0e\x63olorintensity\x18  \x01(\x01:\x01\x31\x12\x10\n\x05sigma\x18! \x01(\x01:\x01\x31\x12!\n\x04\x64\x61rk\x18\" \x01(\x0b\x32\x13.JetSDL.Proto.Color\x12\"\n\x05light\x18# \x01(\x0b\x32\x13.JetSDL.Proto.Color\x12\x16\n\ttolerance\x18$ \x01(\x01:\x03\x30.2\x12\x1b\n\x0cmonochromize\x18% \x01(\x08:\x05\x66\x61lse\x12\x16\n\tfocussize\x18& \x01(\x01:\x03\x30.2\x12\x18\n\x0b\x66ocusheight\x18\' \x01(\x01:\x03\x30.5\x12\x18\n\tspotfocus\x18( \x01(\x08:\x05\x66\x61lse\x12\x17\n\tthreshold\x18) \x01(\x01:\x04\x30.08\x12\x1c\n\x0ftransitionwidth\x18* \x01(\x01:\x03\x30.3\x12\x15\n\nbrightness\x18+ \x01(\x01:\x01\x31\x12\x15\n\x08\x61perture\x18, \x01(\x01:\x03\x30.7\x12\x19\n\nblurborder\x18. \x01(\x08:\x05\x66\x61lse\x12\x1c\n\x11\x65\x64ge_detail_scale\x18/ \x01(\x01:\x01\x31\x12\x16\n\tcolorblur\x18\x30 \x01(\x01:\x03\x30.8\x12!\n\x16\x62ilatfilter_iterations\x18\x31 \x01(\x05:\x01\x34\x12!\n\x16\x62ilatfilter_tonalsigma\x18\x32 \x01(\x01:\x01\x38\x12#\n\x18\x62ilatfilter_spatialsigma\x18\x33 \x01(\x01:\x01\x33\x12\x19\n\rpreproc_sigma\x18\x34 \x01(\x01:\x02-1\x12\x1d\n\x12\x63olorreduct_levels\x18\x35 \x01(\x05:\x01\x38\x12%\n\x19\x63olorreduct_minsaturation\x18\x36 \x01(\x05:\x02\x31\x36\x12V\n\x12\x63olorreduct_method\x18\x37 \x01(\x0e\x32\x33.JetSDL.Proto.Transformation.ComicColorReductMethod:\x05\x66ixed\x12 \n\x13lstein_dither_ratio\x18\x38 \x01(\x01:\x03\x30.5\x12\x1b\n\x10interpoltilesize\x18\x39 \x01(\x05:\x01\x38\x12\x15\n\ninner_size\x18: \x01(\x01:\x01\x33\x12\x15\n\nouter_size\x18; \x01(\x01:\x01\x30\x12(\n\x0binner_color\x18< \x01(\x0b\x32\x13.JetSDL.Proto.Color\x12(\n\x0bouter_color\x18= \x01(\x0b\x32\x13.JetSDL.Proto.Color\x12\x18\n\rinner_offsetx\x18> \x01(\x05:\x01\x31\x12\x18\n\rinner_offsety\x18? \x01(\x05:\x01\x31\x12\x18\n\router_offsetx\x18@ \x01(\x05:\x01\x31\x12\x18\n\router_offsety\x18\x41 \x01(\x05:\x01\x31\x12\x1d\n\x0finner_intensity\x18\x42 \x01(\x01:\x04\x30.75\x12\x1d\n\x0fouter_intensity\x18\x43 \x01(\x01:\x04\x30.27\x12\x19\n\x11\x63ustom_identifier\x18\x44 \x01(\t\x12\x34\n\x0erotatevariable\x18\x45 \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\x12\x32\n\x0c\x63ropvariable\x18\x46 \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\x12\x1e\n\x13rotatecenterxoffset\x18P \x01(\x01:\x01\x30\x12\x1e\n\x13rotatecenteryoffset\x18Q \x01(\x01:\x01\x30\x12,\n\x0c\x62lurfunction\x18G \x01(\x0b\x32\x16.JetSDL.Proto.Function\x12\r\n\x05width\x18H \x01(\x05\x12\x0e\n\x06height\x18I \x01(\x05\x12\t\n\x01x\x18J \x01(\x01\x12\t\n\x01y\x18K \x01(\x01\x12\x0f\n\x07\x63\x65nterx\x18L \x01(\x08\x12\x0f\n\x07\x63\x65ntery\x18M \x01(\x08\x12\x37\n\x08\x66lipaxis\x18N \x01(\x0e\x32%.JetSDL.Proto.Transformation.FlipAxis\x12\x31\n\x0b\x63olormatrix\x18O \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\x12@\n\tmorphtype\x18R \x01(\x0e\x32\".JetSDL.Proto.Transformation.Morph:\tmorph_mls\x12\x32\n\x11morphsourcepoints\x18S \x01(\x0b\x32\x17.JetSDL.Proto.TrackData\x12\x37\n\x16morphdestinationpoints\x18T \x01(\x0b\x32\x17.JetSDL.Proto.TrackData\x12\x19\n\rmorphtilesize\x18U \x01(\x05:\x02\x31\x30\x12-\n\tparamfile\x18V \x01(\x0b\x32\x1a.JetSDL.Proto.FileLocation\x12?\n\x0crotationmode\x18W \x01(\x0e\x32).JetSDL.Proto.Transformation.RotationMode\x12*\n\tscaledata\x18X \x01(\x0b\x32\x17.JetSDL.Proto.TrackData\x12+\n\nrotatedata\x18Y \x01(\x0b\x32\x17.JetSDL.Proto.TrackData\x12.\n\rtranslatedata\x18Z \x01(\x0b\x32\x17.JetSDL.Proto.TrackData\x12+\n\nanchordata\x18[ \x01(\x0b\x32\x17.JetSDL.Proto.TrackData\x12S\n\x0bmipmap_type\x18\\ \x01(\x0e\x32\'.JetSDL.Proto.Transformation.MipMapType:\x15mipmap_trackdatabased\x12\x1d\n\x12mipmap_initialsize\x18] \x01(\x05:\x01\x35\x12\x1c\n\x11mipmap_basefactor\x18^ \x01(\x01:\x01\x32\x12\x10\n\x07\x63omment\x18\xff\x0f \x01(\t\"\xb6\x04\n\x04Type\x12\x08\n\x04\x62lur\x10\x04\x12\x0e\n\nmotionblur\x10\x05\x12\x15\n\x11trackedmotionblur\x10\x06\x12\x0b\n\x07inpaint\x10\x0c\x12\x08\n\x04mask\x10\r\x12\x07\n\x03mls\x10\x07\x12\t\n\x05morph\x10\"\x12\x10\n\x0clinearzoomin\x10\n\x12\x11\n\rlinearzoomout\x10\x0b\x12\r\n\tintensity\x10\x10\x12\n\n\x06rotate\x10$\x12\x0b\n\x07scaling\x10\x08\x12\x11\n\rscalingletter\x10\t\x12\x11\n\rscalingaspect\x10\x0e\x12\x0f\n\x0bscalingcrop\x10\x1e\x12\x08\n\x04\x63rop\x10\x1f\x12\n\n\x06mipmap\x10&\x12\x10\n\x0cquadtracking\x10\x00\x12\x10\n\x0cgridtracking\x10\x01\x12\x15\n\x11texturemapping32f\x10\x03\x12\x0b\n\x07\x61nimate\x10\x0f\x12\n\n\x06\x61\x66\x66ine\x10%\x12\x0e\n\npointpaste\x10\x11\x12\n\n\x06\x63ustom\x10\x1c\x12\x12\n\x0e\x63roprotatewarp\x10\x1d\x12\x08\n\x04\x66lip\x10 \x12\x0e\n\ncolortwist\x10!\x12\x0e\n\ncolorboost\x10\x12\x12\r\n\tnashville\x10\x13\x12\x0e\n\nlordkelvin\x10\x14\x12\x0f\n\x0bsplittoning\x10\x15\x12\r\n\ttiltshift\x10\x16\x12\x0b\n\x07sincity\x10\x17\x12\x08\n\x04glow\x10\x18\x12\x0c\n\x08vignette\x10\x19\x12\t\n\x05\x63omic\x10\x1a\x12\x0e\n\ntextshadow\x10\x1b\x12\x0b\n\x07\x63ubelut\x10#\"D\n\x16\x43omicColorReductMethod\x12\t\n\x05\x66ixed\x10\x01\x12\x0c\n\x08\x61\x64\x61ptive\x10\x02\x12\x11\n\rrlichtenstein\x10\x03\" \n\x08\x46lipAxis\x12\t\n\x05\x66lipx\x10\x00\x12\t\n\x05\x66lipy\x10\x01\";\n\x05Morph\x12\r\n\tmorph_mls\x10\x00\x12\r\n\tmorph_tps\x10\x01\x12\x14\n\x10morph_mls_legacy\x10\x02\"\x8b\x01\n\x0cRotationMode\x12\x0f\n\x0b\x63lockwise90\x10\x01\x12\x16\n\x12\x63ounterclockwise90\x10\x02\x12\x13\n\x0f\x61utolandscapecw\x10\x03\x12\x14\n\x10\x61utolandscapeccw\x10\x04\x12\x12\n\x0e\x61utoportraitcw\x10\x05\x12\x13\n\x0f\x61utoportraitccw\x10\x06\"c\n\nMipMapType\x12\x19\n\x15mipmap_trackdatabased\x10\x01\x12\x1a\n\x16mipmap_maskbased_alpha\x10\x02\x12\x1e\n\x1amipmap_maskbased_grayscale\x10\x03\"Y\n\tPosAdjust\x12\x11\n\x06scalex\x18\x01 \x01(\x01:\x01\x31\x12\x11\n\x06scaley\x18\x02 \x01(\x01:\x01\x31\x12\x12\n\x07offsetx\x18\x03 \x01(\x01:\x01\x30\x12\x12\n\x07offsety\x18\x04 \x01(\x01:\x01\x30\"L\n\x05\x43olor\x12\x0e\n\x03red\x18\x01 \x01(\x05:\x01\x30\x12\x10\n\x05green\x18\x02 \x01(\x05:\x01\x30\x12\x0f\n\x04\x62lue\x18\x03 \x01(\x05:\x01\x30\x12\x10\n\x05\x61lpha\x18\x04 \x01(\x05:\x01\x30\"\xd2\x04\n\tTrackData\x12\x30\n\x04type\x18\x01 \x01(\x0e\x32\x1c.JetSDL.Proto.TrackData.Type:\x04\x66ile\x12*\n\x06source\x18\x02 \x01(\x0b\x32\x1a.JetSDL.Proto.FileLocation\x12\x11\n\x06offset\x18\x03 \x01(\x05:\x01\x30\x12\x35\n\x0c\x65mbeddeddata\x18\x04 \x01(\x0b\x32\x1f.JetSDL.Proto.EmbeddedTrackData\x12\r\n\x05scale\x18\x05 \x03(\x01\x12\x17\n\x08\x66\x61ilfast\x18\x06 \x01(\x08:\x05\x66\x61lse\x12;\n\x0b\x65ndbehavior\x18\x07 \x01(\x0e\x32\x1a.JetSDL.Proto.EndBehaviour:\nrepeatlast\x12,\n\x06points\x18\x08 \x01(\x0b\x32\x1c.JetSDL.Proto.PointsVariable\x12,\n\x06string\x18\t \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\x12\x16\n\x0ehttpalwaysload\x18\n \x01(\x08\x12 \n\x11uselocalhttpproxy\x18\x0b \x01(\x08:\x05\x66\x61lse\x12\x32\n\tkeyframes\x18\x0c \x03(\x0b\x32\x1f.JetSDL.Proto.KeyFrameTrackData\x12\x14\n\tnumframes\x18\r \x01(\x05:\x01\x31\"X\n\x04Type\x12\x08\n\x04\x66ile\x10\x01\x12\x0c\n\x08\x65mbedded\x10\x02\x12\x0c\n\x08variable\x10\x03\x12\x08\n\x04http\x10\x04\x12\x12\n\x0estringvariable\x10\x05\x12\x0c\n\x08keyframe\x10\x06\"R\n\x11KeyFrameTrackData\x12\x11\n\x06offset\x18\x02 \x01(\x05:\x01\x30\x12*\n\x06points\x18\x03 \x01(\x0b\x32\x1a.JetSDL.Proto.PointsVector\"\xb6\x01\n\x11\x45mbeddedTrackData\x12*\n\x06\x66rames\x18\x02 \x03(\x0b\x32\x1a.JetSDL.Proto.PointsVector\x12\x10\n\x05width\x18\x03 \x01(\x05:\x01\x30\x12\x11\n\x06height\x18\x04 \x01(\x05:\x01\x30\x12(\n\x0bmotionstart\x18\x05 \x01(\x0b\x32\x13.JetSDL.Proto.Point\x12&\n\tmotionend\x18\x06 \x01(\x0b\x32\x13.JetSDL.Proto.Point\"<\n\x0eTrackDataFrame\x12*\n\x06points\x18\x02 \x01(\x0b\x32\x1a.JetSDL.Proto.PointsVector\"L\n\tSubtitles\x12,\n\x07\x63ontent\x18\x02 \x02(\x0b\x32\x1b.JetSDL.Proto.ImageProvider\x12\x11\n\tlanguages\x18\x03 \x03(\t\"\xa4\x06\n\x0eStringVariable\x12/\n\x04type\x18\x01 \x02(\x0e\x32!.JetSDL.Proto.StringVariable.Type\x12*\n\x06source\x18\x02 \x01(\x0b\x32\x1a.JetSDL.Proto.FileLocation\x12\x0b\n\x03key\x18\x07 \x01(\t\x12\x14\n\x0crandomvalues\x18\x03 \x03(\t\x12\r\n\x05value\x18\x04 \x01(\t\x12/\n\tvariable1\x18\x05 \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\x12/\n\tvariable2\x18\x06 \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\x12\x14\n\x0c\x64\x65\x66\x61ultvalue\x18\x08 \x01(\t\x12\x0e\n\x06\x63olumn\x18\t \x01(\t\x12\x12\n\ndefaultrow\x18\n \x01(\t\x12\\\n\x12structureddatatype\x18\x0b \x01(\x0e\x32/.JetSDL.Proto.StringVariable.StructuredDataType:\x0fstructured_json\x12\x39\n\x13structureddatainput\x18\x0c \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\x12*\n\x04path\x18\r \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\x12\x33\n\rintegerformat\x18\x0e \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\x12\x39\n\x13\x66loatingpointformat\x18\x0f \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\"\x86\x01\n\x04Type\x12\x0c\n\x08\x63onstant\x10\x00\x12\x08\n\x04\x66ile\x10\x01\x12\x08\n\x04http\x10\x02\x12\x07\n\x03map\x10\x03\x12\n\n\x06random\x10\x04\x12\x07\n\x03\x61\x64\x64\x10\x05\x12\n\n\x06target\x10\x06\x12\x0e\n\ndatasource\x10\x07\x12\x0e\n\nfileexists\x10\x08\x12\x12\n\x0estructureddata\x10\t\")\n\x12StructuredDataType\x12\x13\n\x0fstructured_json\x10\x01\"3\n\x0cPointsVector\x12#\n\x06points\x18\x01 \x03(\x0b\x32\x13.JetSDL.Proto.Point\"\x1d\n\x05Point\x12\t\n\x01x\x18\x01 \x02(\x01\x12\t\n\x01y\x18\x02 \x02(\x01\"\xf8\x06\n\x0ePointsVariable\x12/\n\x04type\x18\x01 \x02(\x0e\x32!.JetSDL.Proto.PointsVariable.Type\x12*\n\x06source\x18\x02 \x01(\x0b\x32\x1a.JetSDL.Proto.FileLocation\x12\x0b\n\x03key\x18\x07 \x01(\t\x12\x30\n\x0crandomvalues\x18\x03 \x03(\x0b\x32\x1a.JetSDL.Proto.PointsVector\x12)\n\x05value\x18\x04 \x01(\x0b\x32\x1a.JetSDL.Proto.PointsVector\x12/\n\tvariable1\x18\x05 \x01(\x0b\x32\x1c.JetSDL.Proto.PointsVariable\x12/\n\tvariable2\x18\x06 \x01(\x0b\x32\x1c.JetSDL.Proto.PointsVariable\x12\x30\n\x0c\x64\x65\x66\x61ultvalue\x18\x08 \x01(\x0b\x32\x1a.JetSDL.Proto.PointsVector\x12\x0e\n\x06\x63olumn\x18\t \x01(\t\x12\x12\n\ndefaultrow\x18\n \x01(\t\x12\\\n\x12structureddatatype\x18\x0b \x01(\x0e\x32/.JetSDL.Proto.PointsVariable.StructuredDataType:\x0fstructured_json\x12\x39\n\x13structureddatainput\x18\x0c \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\x12*\n\x04path\x18\r \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\x12\x33\n\rintegerformat\x18\x0e \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\x12\x39\n\x13\x66loatingpointformat\x18\x0f \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\"\x86\x01\n\x04Type\x12\x0c\n\x08\x63onstant\x10\x00\x12\x08\n\x04\x66ile\x10\x01\x12\x08\n\x04http\x10\x02\x12\x07\n\x03map\x10\x03\x12\n\n\x06random\x10\x04\x12\x07\n\x03\x61\x64\x64\x10\x05\x12\n\n\x06target\x10\x06\x12\x0e\n\ndatasource\x10\x07\x12\x0e\n\nfileexists\x10\x08\x12\x12\n\x0estructureddata\x10\t\")\n\x12StructuredDataType\x12\x13\n\x0fstructured_json\x10\x01\"\xca\x01\n\tAnimation\x12(\n\x08\x66unction\x18\x02 \x01(\x0b\x32\x16.JetSDL.Proto.Function\x12\x39\n\x0ftransformations\x18\x03 \x03(\x0b\x32 .JetSDL.Proto.AnimTransformation\x12\r\n\x05start\x18\x04 \x01(\x05\x12\x0b\n\x03\x65nd\x18\x05 \x01(\x05\x12\x15\n\x06invert\x18\x06 \x01(\x08:\x05\x66\x61lse\x12%\n\x08position\x18\x07 \x01(\x0b\x32\x13.JetSDL.Proto.Pos3d\"\xcd\x01\n\x12\x41nimTransformation\x12\x33\n\x04type\x18\x01 \x02(\x0e\x32%.JetSDL.Proto.AnimTransformation.Type\x12\t\n\x01x\x18\x02 \x01(\x01\x12\t\n\x01y\x18\x03 \x01(\x01\x12\t\n\x01z\x18\x04 \x01(\x01\x12\r\n\x05\x61ngle\x18\x05 \x01(\x01\"R\n\x04Type\x12\r\n\ttranslate\x10\x01\x12\t\n\x05shear\x10\x02\x12\t\n\x05scale\x10\x03\x12\x0b\n\x07rotatex\x10\x04\x12\x0b\n\x07rotatey\x10\x05\x12\x0b\n\x07rotatez\x10\x06\"\x97\x01\n\x11\x41nimationPosition\x12\x1f\n\x02tl\x18\x01 \x02(\x0b\x32\x13.JetSDL.Proto.Pos3d\x12\x1f\n\x02tr\x18\x02 \x02(\x0b\x32\x13.JetSDL.Proto.Pos3d\x12\x1f\n\x02\x62r\x18\x03 \x02(\x0b\x32\x13.JetSDL.Proto.Pos3d\x12\x1f\n\x02\x62l\x18\x04 \x02(\x0b\x32\x13.JetSDL.Proto.Pos3d\"1\n\x05Pos3d\x12\x0c\n\x01x\x18\x01 \x01(\x01:\x01\x30\x12\x0c\n\x01y\x18\x02 \x01(\x01:\x01\x30\x12\x0c\n\x01z\x18\x03 \x01(\x01:\x01\x30\"\xb9\x03\n\x08\x46unction\x12\x31\n\x04type\x18\x01 \x01(\x0e\x32\x1b.JetSDL.Proto.Function.Type:\x06linear\x12\x0e\n\x06param1\x18\x02 \x01(\x01\x12\x0e\n\x06param2\x18\x03 \x01(\x01\x12-\n\rinnerfunction\x18\x04 \x01(\x0b\x32\x16.JetSDL.Proto.Function\x12\x31\n\x11metafunctionparam\x18\x05 \x01(\x0b\x32\x16.JetSDL.Proto.Function\x12&\n\tkeyframes\x18\x06 \x03(\x0b\x32\x13.JetSDL.Proto.Point\"\xcf\x01\n\x04Type\x12\x0c\n\x08inverted\x10\x01\x12\x07\n\x03\x61\x62s\x10\x0f\x12\n\n\x06linear\x10\x03\x12\x0c\n\x08\x63onstant\x10\x04\x12\t\n\x05power\x10\x05\x12\x07\n\x03sin\x10\x06\x12\n\n\x06\x66\x61\x63tor\x10\x07\x12\r\n\tovershoot\x10\x08\x12\x0e\n\nundershoot\x10\t\x12\x0b\n\x07sigmoid\x10\n\x12\x0c\n\x08switched\x10\x0b\x12\t\n\x05timed\x10\x02\x12\x07\n\x03\x61\x64\x64\x10\x0c\x12\x0c\n\x08subtract\x10\r\x12\x0c\n\x08multiply\x10\x0e\x12\x0c\n\x08keyframe\x10\x10\"\xa4\x01\n\x13VariableInformation\x12\x37\n\x07\x65ntries\x18\x02 \x03(\x0b\x32&.JetSDL.Proto.VariableInformationEntry\x12\x1a\n\x0fmaxcombinations\x18\x03 \x01(\x05:\x01\x31\x12\x38\n\x0b\x64\x61tasources\x18\x04 \x03(\x0b\x32#.JetSDL.Proto.DataSourceInformation\"S\n\x18VariableInformationEntry\x12\x0b\n\x03key\x18\x02 \x02(\t\x12\x0e\n\x06values\x18\x03 \x03(\t\x12\x1a\n\x0bundefinable\x18\x04 \x01(\x08:\x05\x66\x61lse\"\xc7\x02\n\x15\x44\x61taSourceInformation\x12<\n\x04type\x18\x01 \x01(\x0e\x32(.JetSDL.Proto.DataSourceInformation.Type:\x04\x66ile\x12\x0b\n\x03key\x18\x02 \x02(\t\x12*\n\x06source\x18\x03 \x01(\x0b\x32\x1a.JetSDL.Proto.FileLocation\x12\x12\n\ndefaultrow\x18\x04 \x01(\t\x12.\n\x08variable\x18\x05 \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\x12G\n\x12\x65mbeddeddatasource\x18\x06 \x01(\x0b\x32+.JetSDL.Proto.EmbeddedDataSourceInformation\"*\n\x04Type\x12\x08\n\x04\x66ile\x10\x01\x12\n\n\x06string\x10\x02\x12\x0c\n\x08\x65mbedded\x10\x03\"r\n\x1d\x45mbeddedDataSourceInformation\x12\x13\n\x0b\x63olumnnames\x18\x02 \x03(\t\x12<\n\x04rows\x18\x03 \x03(\x0b\x32..JetSDL.Proto.EmbeddedDataSourceInformationRow\"B\n EmbeddedDataSourceInformationRow\x12\r\n\x05rowid\x18\x02 \x02(\t\x12\x0f\n\x07\x63olumns\x18\x03 \x03(\t\"&\n\x08Metadata\x12\x0b\n\x03key\x18\x02 \x02(\t\x12\r\n\x05value\x18\x03 \x01(\t\"*\n\x0cKeyValuePair\x12\x0b\n\x03key\x18\x02 \x02(\t\x12\r\n\x05value\x18\x03 \x01(\t\"k\n\x16PieChartArcDescription\x12-\n\x07percent\x18\x02 \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\x12\"\n\x05\x63olor\x18\x03 \x01(\x0b\x32\x13.JetSDL.Proto.Color\"\x82\x03\n\x13PieChartDescription\x12;\n\rfinished_arcs\x18\x02 \x03(\x0b\x32$.JetSDL.Proto.PieChartArcDescription\x12\x39\n\x0b\x63urrent_arc\x18\x03 \x01(\x0b\x32$.JetSDL.Proto.PieChartArcDescription\x12!\n\x16\x63urrent_arc_completion\x18\x04 \x01(\x01:\x01\x31\x12?\n\x1f\x63urrent_arc_completion_function\x18\x05 \x01(\x0b\x32\x16.JetSDL.Proto.Function\x12I\n\tdirection\x18\x06 \x01(\x0e\x32+.JetSDL.Proto.PieChartDescription.Direction:\tclockwise\x12\x12\n\x06radius\x18\x07 \x01(\x01:\x02\x35\x30\"0\n\tDirection\x12\r\n\tclockwise\x10\x00\x12\x14\n\x10\x63ounterclockwise\x10\x01\"i\n\x16\x42\x61rChartBarDescription\x12+\n\x05value\x18\x02 \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\x12\"\n\x05\x63olor\x18\x03 \x01(\x0b\x32\x13.JetSDL.Proto.Color\"\x9c\x02\n\x13\x42\x61rChartDescription\x12;\n\rfinished_bars\x18\x02 \x03(\x0b\x32$.JetSDL.Proto.BarChartBarDescription\x12\x39\n\x0b\x63urrent_bar\x18\x03 \x01(\x0b\x32$.JetSDL.Proto.BarChartBarDescription\x12!\n\x16\x63urrent_bar_completion\x18\x04 \x01(\x01:\x01\x31\x12?\n\x1f\x63urrent_bar_completion_function\x18\x05 \x01(\x0b\x32\x16.JetSDL.Proto.Function\x12\x13\n\x08num_bars\x18\x06 \x01(\x05:\x01\x33\x12\x14\n\x07max_val\x18\t \x01(\x01:\x03\x31\x30\x30\"\x93\x01\n\x1bImageBarChartBarDescription\x12+\n\x05value\x18\x02 \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\x12*\n\x05image\x18\x03 \x01(\x0b\x32\x1b.JetSDL.Proto.ImageProvider\x12\x1b\n\x10image_equivalent\x18\x04 \x01(\x01:\x01\x31\"\x95\x02\n\x18ImageBarChartDescription\x12@\n\rfinished_bars\x18\x02 \x03(\x0b\x32).JetSDL.Proto.ImageBarChartBarDescription\x12>\n\x0b\x63urrent_bar\x18\x03 \x01(\x0b\x32).JetSDL.Proto.ImageBarChartBarDescription\x12!\n\x16\x63urrent_bar_completion\x18\x04 \x01(\x01:\x01\x31\x12?\n\x1f\x63urrent_bar_completion_function\x18\x05 \x01(\x0b\x32\x16.JetSDL.Proto.Function\x12\x13\n\x08num_bars\x18\x06 \x01(\x05:\x01\x33\"\x9a\x03\n\x14LineChartDescription\x12\'\n\x06points\x18\x02 \x01(\x0b\x32\x17.JetSDL.Proto.TrackData\x12\x1d\n\x12num_finished_lines\x18\x03 \x01(\x05:\x01\x30\x12\x17\n\x0c\x63urrent_line\x18\x04 \x01(\x05:\x01\x30\x12\"\n\x17\x63urrent_line_completion\x18\x05 \x01(\x01:\x01\x31\x12@\n current_line_completion_function\x18\x06 \x01(\x0b\x32\x16.JetSDL.Proto.Function\x12\"\n\x05\x63olor\x18\x07 \x01(\x0b\x32\x13.JetSDL.Proto.Color\x12\x15\n\nline_width\x18\x08 \x01(\x01:\x01\x31\x12\x38\n\tcap_style\x18\t \x01(\x0e\x32\x1a.JetSDL.Proto.LineCapStyle:\tcap_round\x12\x10\n\x05min_x\x18\n \x01(\x01:\x01\x30\x12\x10\n\x05min_y\x18\x0b \x01(\x01:\x01\x30\x12\x10\n\x05max_x\x18\x0c \x01(\x01:\x01\x31\x12\x10\n\x05max_y\x18\r \x01(\x01:\x01\x31\"\xfd\x01\n\x11\x42\x65zierDescription\x12\'\n\x06points\x18\x02 \x01(\x0b\x32\x17.JetSDL.Proto.TrackData\x12\"\n\x05\x63olor\x18\x05 \x01(\x0b\x32\x13.JetSDL.Proto.Color\x12\x15\n\nline_width\x18\x06 \x01(\x01:\x01\x31\x12\x38\n\tcap_style\x18\x07 \x01(\x0e\x32\x1a.JetSDL.Proto.LineCapStyle:\tcap_round\x12\x15\n\ncompletion\x18\x08 \x01(\x01:\x01\x31\x12\x33\n\x13\x63ompletion_function\x18\t \x01(\x0b\x32\x16.JetSDL.Proto.Function*\xaa\x02\n\x05\x43odec\x12\x0e\n\nVIDEO_NONE\x10\x00\x12\r\n\tVIDEO_FLV\x10\x01\x12\x0e\n\nVIDEO_H263\x10\x02\x12\x0e\n\nVIDEO_E264\x10\x03\x12\x0e\n\nVIDEO_H264\x10\x04\x12\x17\n\x13VIDEO_X264_BASELINE\x10\x05\x12\x0e\n\nVIDEO_X264\x10\x06\x12\x13\n\x0fVIDEO_X264_HIGH\x10\x10\x12\r\n\tVIDEO_VP8\x10\x0e\x12\x0e\n\nAUDIO_NONE\x10\x00\x12\r\n\tAUDIO_AAC\x10\x07\x12\r\n\tAUDIO_MP2\x10\x08\x12\r\n\tAUDIO_MP3\x10\t\x12\x0e\n\nAUDIO_EAAC\x10\x0b\x12\x10\n\x0c\x41UDIO_AMR_NB\x10\x0c\x12\x10\n\x0c\x41UDIO_AMR_WB\x10\r\x12\x10\n\x0c\x41UDIO_VORBIS\x10\x0f\x1a\x02\x10\x01*l\n\x0c\x45ndBehaviour\x12\x0e\n\nrepeatlast\x10\x00\x12\x08\n\x04loop\x10\x01\x12\x17\n\nemptyframe\x10\xfe\xff\xff\xff\xff\xff\xff\xff\xff\x01\x12\x16\n\tfullframe\x10\xfd\xff\xff\xff\xff\xff\xff\xff\xff\x01\x12\x11\n\x04\x66\x61il\x10\xfc\xff\xff\xff\xff\xff\xff\xff\xff\x01*j\n\tBlendMode\x12\n\n\x06normal\x10\x00\x12\n\n\x06screen\x10\x01\x12\r\n\tsoftlight\x10\x02\x12\r\n\thardlight\x10\x03\x12\x0b\n\x07overlay\x10\x04\x12\x0c\n\x08multiply\x10\x05\x12\x0c\n\x08mvcclone\x10\x06*;\n\x0cLineCapStyle\x12\x0e\n\ncap_square\x10\x00\x12\r\n\tcap_round\x10\x01\x12\x0c\n\x08\x63\x61p_butt\x10\x02')
+  serialized_pb='\n\x0bMovie.proto\x12\x0cJetSDL.Proto\"-\n\nFractional\x12\x0f\n\x03num\x18\x01 \x01(\x04:\x02\x33\x30\x12\x0e\n\x03\x64\x65n\x18\x02 \x01(\x04:\x01\x31\"\xf7\x01\n\x0cStreamParams\x12*\n\x07vparams\x18\x01 \x02(\x0b\x32\x19.JetSDL.Proto.VideoParams\x12*\n\x07\x61params\x18\x02 \x01(\x0b\x32\x19.JetSDL.Proto.AudioParams\x12\x15\n\x07nosleep\x18\x03 \x01(\x08:\x04true\x12\x0c\n\x04pass\x18\x05 \x01(\x05\x12\x10\n\x08statfile\x18\x04 \x01(\t\x12\x1c\n\x10\x63lient_prebuffer\x18\x07 \x01(\x01:\x02-1\x12\x1c\n\x10\x65ncoding_quantum\x18\x08 \x01(\x01:\x02-1\x12\x1c\n\x11min_client_buffer\x18\x06 \x01(\x01:\x01\x32\"\xf6\x04\n\x0bVideoParams\x12\r\n\x05width\x18\x01 \x02(\r\x12\x0e\n\x06height\x18\x02 \x02(\r\x12\x33\n\nvideocodec\x18\x05 \x01(\x0e\x32\x13.JetSDL.Proto.Codec:\nVIDEO_X264\x12\x30\n\x0evideoframerate\x18\x06 \x01(\x0b\x32\x18.JetSDL.Proto.Fractional\x12\x1a\n\x0cvideobitrate\x18\x07 \x01(\r:\x04\x32\x30\x30\x30\x12\x17\n\x0cvideobframes\x18\x08 \x01(\x05:\x01\x30\x12\x18\n\x0cvideogopsize\x18\t \x01(\x05:\x02\x33\x30\x12\x13\n\x07videoqp\x18\n \x01(\x05:\x02\x31\x36\x12H\n\x07videorc\x18\x0b \x01(\x0e\x32*.JetSDL.Proto.VideoParams.VideoRateControl:\x0bVRC_BITRATE\x12\x1a\n\x0evideocpueffort\x18\x0c \x01(\x01:\x02\x31\x30\x12X\n\x15videodelayrequirement\x18\r \x01(\x0e\x32).JetSDL.Proto.VideoParams.EncoderDelayReq:\x0e\x44\x45LAY_REALTIME\x12\x39\n\x15videocodecextraparams\x18\x0e \x03(\x0b\x32\x1a.JetSDL.Proto.KeyValuePair\"J\n\x10VideoRateControl\x12\x0f\n\x0bVRC_BITRATE\x10\x00\x12\x11\n\rVRC_QUANTIZER\x10\x01\x12\x12\n\x0eVRC_RATEFACTOR\x10\x02\"6\n\x0f\x45ncoderDelayReq\x12\x12\n\x0e\x44\x45LAY_REALTIME\x10\x01\x12\x0f\n\x0b\x44\x45LAY_SMALL\x10\x02\"\xb4\x01\n\x0b\x41udioParams\x12\x33\n\naudiocodec\x18\n \x01(\x0e\x32\x13.JetSDL.Proto.Codec:\nAUDIO_NONE\x12\x17\n\x08\x61udioabr\x18\x0b \x01(\r:\x05\x33\x32\x30\x30\x30\x12\x1e\n\x0f\x61udiosamplerate\x18\x0c \x01(\r:\x05\x34\x34\x31\x30\x30\x12\x18\n\raudiochannels\x18\x0e \x01(\r:\x01\x32\x12\x1d\n\x0f\x61udioframe_size\x18\r \x01(\r:\x04\x31\x30\x32\x34\"\xa3\x04\n\x05Movie\x12*\n\x06params\x18\x0f \x02(\x0b\x32\x1a.JetSDL.Proto.StreamParams\x12#\n\x06scenes\x18\x03 \x03(\x0b\x32\x13.JetSDL.Proto.Scene\x12\"\n\x05\x61udio\x18\x04 \x01(\x0b\x32\x13.JetSDL.Proto.Audio\x12\x13\n\x04loop\x18\x0e \x01(\x08:\x05\x66\x61lse\x12\x1a\n\x0binitatstart\x18\x10 \x01(\x08:\x05\x66\x61lse\x12(\n\x08metadata\x18\x11 \x03(\x0b\x32\x16.JetSDL.Proto.Metadata\x12\x37\n\x0c\x61udiovarinfo\x18\x12 \x01(\x0b\x32!.JetSDL.Proto.VariableInformation\x12O\n\x0bufssolution\x18\x13 \x01(\x0e\x32/.JetSDL.Proto.Movie.UnexpectedFrameSizeSolution:\tUFS_SCALE\x12\x16\n\x0bposterframe\x18\x14 \x01(\x05:\x01\x30\x12)\n\x0c\x63ompositions\x18\x15 \x03(\x0b\x32\x13.JetSDL.Proto.Scene\x12\x1c\n\rvideofailfast\x18\x16 \x01(\x08:\x05\x66\x61lse\x12\x10\n\x07\x63omment\x18\xff\x0f \x01(\t\"M\n\x1bUnexpectedFrameSizeSolution\x12\r\n\tUFS_SCALE\x10\x00\x12\x11\n\rUFS_LETTERBOX\x10\x01\x12\x0c\n\x08UFS_COPY\x10\x02\"\x82\x03\n\x05Scene\x12\x11\n\tnumframes\x18\x02 \x01(\x05\x12\x14\n\x06static\x18\x03 \x01(\x08:\x04true\x12,\n\x07\x63ontent\x18\x04 \x01(\x0b\x32\x1b.JetSDL.Proto.ImageProvider\x12)\n\x06tracks\x18\x05 \x03(\x0b\x32\x19.JetSDL.Proto.VisualTrack\x12\"\n\x05\x61udio\x18\x06 \x01(\x0b\x32\x13.JetSDL.Proto.Audio\x12*\n\tsubtitles\x18\x07 \x01(\x0b\x32\x17.JetSDL.Proto.Subtitles\x12\x32\n\x07varinfo\x18\x08 \x01(\x0b\x32!.JetSDL.Proto.VariableInformation\x12\x19\n\ncanbeempty\x18\t \x01(\x08:\x05\x66\x61lse\x12\x0c\n\x04name\x18\n \x03(\t\x12\x16\n\x0bposterframe\x18\x0b \x01(\x05:\x01\x30\x12 \n\x11useaudioforlength\x18\x0c \x01(\x08:\x05\x66\x61lse\x12\x10\n\x07\x63omment\x18\xff\x0f \x01(\t\"D\n\x10SceneViewVariant\x12\x0b\n\x03key\x18\x02 \x02(\t\x12#\n\x06scenes\x18\x03 \x03(\x0b\x32\x13.JetSDL.Proto.Scene\"\xb0\x03\n\tSceneView\x12\x34\n\x04type\x18\x01 \x01(\x0e\x32\x1c.JetSDL.Proto.SceneView.Type:\x08\x65mbedded\x12#\n\x06scenes\x18\x02 \x03(\x0b\x32\x13.JetSDL.Proto.Scene\x12<\n\x0c\x65ndbehaviour\x18\x03 \x01(\x0e\x32\x1a.JetSDL.Proto.EndBehaviour:\nrepeatlast\x12*\n\x06source\x18\x04 \x01(\x0b\x32\x1a.JetSDL.Proto.FileLocation\x12\x30\n\x08variants\x18\x13 \x03(\x0b\x32\x1e.JetSDL.Proto.SceneViewVariant\x12.\n\x08variable\x18\x14 \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\x12\r\n\x05width\x18\x15 \x01(\x05\x12\x0e\n\x06height\x18\x16 \x01(\x05\x12\x0c\n\x04keys\x18\x12 \x03(\t\x12\"\n\x18\x66ilelocationprefixholder\x18\x11 \x01(\t:\x00\"+\n\x04Type\x12\x0c\n\x08\x65mbedded\x10\x00\x12\x08\n\x04\x66ile\x10\x01\x12\x0b\n\x07variant\x10\x02\"\x83!\n\rImageProvider\x12.\n\x04type\x18\x01 \x02(\x0e\x32 .JetSDL.Proto.ImageProvider.Type\x12\x15\n\tnumframes\x18\x15 \x01(\x05:\x02-1\x12*\n\x06source\x18\x02 \x01(\x0b\x32\x1a.JetSDL.Proto.FileLocation\x12)\n\x06tracks\x18\x03 \x03(\x0b\x32\x19.JetSDL.Proto.VisualTrack\x12\r\n\x05width\x18\x04 \x01(\x05\x12\x0e\n\x06height\x18\x05 \x01(\x05\x12\"\n\x05\x63olor\x18\x06 \x01(\x0b\x32\x13.JetSDL.Proto.Color\x12*\n\ttrackdata\x18\x07 \x01(\x0b\x32\x17.JetSDL.Proto.TrackData\x12-\n\x0ctrackdatatop\x18\x08 \x01(\x0b\x32\x17.JetSDL.Proto.TrackData\x12\x30\n\x0ftrackdatabottom\x18\t \x01(\x0b\x32\x17.JetSDL.Proto.TrackData\x12\x14\n\x08\x66ontsize\x18\x0c \x01(\x05:\x02\x34\x30\x12\x16\n\nfontsize_d\x18# \x01(\x01:\x02\x34\x30\x12\x16\n\nbaselength\x18\r \x01(\x05:\x02\x38\x30\x12\x16\n\nbaseheight\x18\x0e \x01(\x05:\x02\x31\x32\x12\x1a\n\x0enuminterpoints\x18\x0f \x01(\x05:\x02\x35\x30\x12\x15\n\tlinechars\x18\x11 \x01(\x05:\x02\x35\x30\x12\x15\n\x06\x63\x65nter\x18\x10 \x01(\x08:\x05\x66\x61lse\x12*\n\x04text\x18\x12 \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\x12\r\n\x05scale\x18\x13 \x03(\x01\x12\x16\n\x0bvideooffset\x18\x16 \x01(\x05:\x01\x30\x12\x19\n\x0busecachedir\x18\x17 \x01(\x08:\x04true\x12\x17\n\x08\x63\x61\x63hedir\x18\x18 \x01(\t:\x05\x63\x61\x63he\x12\x1c\n\x0ewriteextension\x18\x1e \x01(\t:\x04.tif\x12\x16\n\x07upscale\x18\x1c \x01(\x08:\x05\x66\x61lse\x12\x17\n\tdownscale\x18\x1d \x01(\x08:\x04true\x12\x18\n\rscale_ar_hint\x18$ \x01(\t:\x01w\x12H\n\nxalignment\x18\x19 \x01(\x0e\x32).JetSDL.Proto.ImageProvider.TextAlignment:\tflushleft\x12\x44\n\nyalignment\x18\x1b \x01(\x0e\x32(.JetSDL.Proto.ImageProvider.TextPosition:\x06\x62ottom\x12\x1b\n\x13http_extension_hint\x18\x1a \x01(\t\x12\x1d\n\x0floadpremulalpha\x18\x1f \x01(\x08:\x04true\x12\x1d\n\x0ehttpalwaysload\x18  \x01(\x08:\x05\x66\x61lse\x12*\n\tsceneview\x18! \x01(\x0b\x32\x17.JetSDL.Proto.SceneView\x12!\n\x16\x66ontspacing_deprecated\x18\" \x01(\x05:\x01\x30\x12\x16\n\x0b\x66ontspacing\x18- \x01(\x01:\x01\x30\x12\x16\n\x0blinespacing\x18\x37 \x01(\x01:\x01\x30\x12\x1d\n\x12\x63omicbookframetime\x18% \x01(\x01:\x01\x31\x12\x30\n\x0b\x63omicsource\x18& \x01(\x0b\x32\x1b.JetSDL.Proto.ImageProvider\x12\x1b\n\x10textborder_right\x18\' \x01(\x05:\x01\x30\x12\x1a\n\x0ftextborder_left\x18( \x01(\x05:\x01\x30\x12\x19\n\x0etextborder_top\x18) \x01(\x05:\x01\x30\x12\x1c\n\x11textborder_bottom\x18* \x01(\x05:\x01\x30\x12\x1c\n\x0eoverflowresize\x18+ \x01(\x08:\x04true\x12\x19\n\x11\x63ustom_identifier\x18, \x01(\t\x12>\n\x13piechartdescription\x18. \x01(\x0b\x32!.JetSDL.Proto.PieChartDescription\x12>\n\x13\x62\x61rchartdescription\x18\x32 \x01(\x0b\x32!.JetSDL.Proto.BarChartDescription\x12H\n\x18imagebarchartdescription\x18\x33 \x01(\x0b\x32&.JetSDL.Proto.ImageBarChartDescription\x12@\n\x14linechartdescription\x18\x36 \x01(\x0b\x32\".JetSDL.Proto.LineChartDescription\x12:\n\x11\x62\x65zierdescription\x18\x35 \x01(\x0b\x32\x1f.JetSDL.Proto.BezierDescription\x12&\n\x17treatasstaticforcaching\x18/ \x01(\x08:\x05\x66\x61lse\x12\x32\n\rinnerprovider\x18\x30 \x01(\x0b\x32\x1b.JetSDL.Proto.ImageProvider\x12\x16\n\x0bmaskchannel\x18\x31 \x01(\x05:\x01\x30\x12=\n\x0ctextoutlines\x18\x38 \x03(\x0b\x32\'.JetSDL.Proto.ImageProvider.TextOutline\x12\x30\n\x0btexttexture\x18\x39 \x01(\x0b\x32\x1b.JetSDL.Proto.ImageProvider\x12U\n\x10texttexturestyle\x18\x44 \x01(\x0e\x32(.JetSDL.Proto.ImageProvider.TextureStyle:\x11texturestyle_line\x12\x34\n\x14texttypewritereffect\x18: \x01(\x0b\x32\x16.JetSDL.Proto.Function\x12\x37\n\x17texttypewriterfadestart\x18= \x01(\x0b\x32\x16.JetSDL.Proto.Function\x12\x35\n\x15texttypewriterfadeend\x18> \x01(\x0b\x32\x16.JetSDL.Proto.Function\x12\x34\n\x14\x66ontspacing_function\x18? \x01(\x0b\x32\x16.JetSDL.Proto.Function\x12\x34\n\x14linespacing_function\x18@ \x01(\x0b\x32\x16.JetSDL.Proto.Function\x12#\n\x18textoutlinesubpixellevel\x18; \x01(\x01:\x01\x31\x12\x42\n\x11textaugmentations\x18< \x03(\x0b\x32\'.JetSDL.Proto.ImageProvider.TextAugment\x12\x10\n\x07\x63omment\x18\xff\x0f \x01(\t\x12*\n\x1cusevideodecodernormalisation\x18\x34 \x01(\x08:\x04true\x12 \n\x11uselocalhttpproxy\x18\x41 \x01(\x08:\x05\x66\x61lse\x12<\n\x0c\x65ndbehaviour\x18\x42 \x01(\x0e\x32\x1a.JetSDL.Proto.EndBehaviour:\nrepeatlast\x12L\n\x13jscanvasdescription\x18\x43 \x01(\x0b\x32/.JetSDL.Proto.ImageProvider.JSCanvasDescription\x1a\xa8\x02\n\x0bTextOutline\x12\x42\n\x04type\x18\x01 \x01(\x0e\x32,.JetSDL.Proto.ImageProvider.TextOutline.Type:\x06simple\x12\x0f\n\x04size\x18\x02 \x01(\x01:\x01\x31\x12\"\n\x05\x63olor\x18\x03 \x01(\x0b\x32\x13.JetSDL.Proto.Color\x12,\n\x07texture\x18\x04 \x01(\x0b\x32\x1b.JetSDL.Proto.ImageProvider\x12Q\n\x0ctexturestyle\x18\x05 \x01(\x0e\x32(.JetSDL.Proto.ImageProvider.TextureStyle:\x11texturestyle_line\"\x1f\n\x04Type\x12\n\n\x06simple\x10\x00\x12\x0b\n\x07rounded\x10\x01\x1a\x85\x01\n\x0bTextAugment\x12,\n\x07\x63ontent\x18\x02 \x01(\x0b\x32\x1b.JetSDL.Proto.ImageProvider\x12\x1b\n\x10\x61nchor_character\x18\x03 \x01(\x01:\x01\x30\x12\x0c\n\x01x\x18\x04 \x01(\x01:\x01\x30\x12\x0c\n\x01y\x18\x05 \x01(\x01:\x01\x30\x12\x0f\n\x04size\x18\x06 \x01(\x01:\x01\x31\x1a\x8d\x04\n\x13JSCanvasDescription\x12S\n\x04mode\x18\x02 \x01(\x0e\x32\x34.JetSDL.Proto.ImageProvider.JSCanvasDescription.Mode:\x0fjscanvas_script\x12,\n\x06script\x18\x03 \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\x12,\n\x08location\x18\x04 \x01(\x0b\x32\x1a.JetSDL.Proto.FileLocation\x12\x31\n\rdefaultparams\x18\x05 \x03(\x0b\x32\x1a.JetSDL.Proto.KeyValuePair\x12\x0c\n\x04keys\x18\x06 \x03(\t\x12\x32\n\x12\x63ompletionfunction\x18\x07 \x01(\x0b\x32\x16.JetSDL.Proto.Function\x12N\n\x05\x66onts\x18\x08 \x03(\x0b\x32?.JetSDL.Proto.ImageProvider.JSCanvasDescription.FontDescription\x1aL\n\x0f\x46ontDescription\x12\r\n\x05\x61lias\x18\x02 \x02(\t\x12*\n\x06source\x18\x03 \x02(\x0b\x32\x1a.JetSDL.Proto.FileLocation\"2\n\x04Mode\x12\x13\n\x0fjscanvas_script\x10\x00\x12\x15\n\x11jscanvas_location\x10\x01\"\xf6\x02\n\x04Type\x12\x0e\n\nstillimage\x10\x00\x12\x14\n\x10manipulatedimage\x10\x02\x12\x0e\n\nemptyimage\x10\x04\x12\x08\n\x04http\x10\t\x12\n\n\x06jetcom\x10\n\x12\x0e\n\ntextsimple\x10\x07\x12\x11\n\rimagesequence\x10\x01\x12\x14\n\x10image32fsequence\x10\x03\x12\x0e\n\ntextcurved\x10\x05\x12\x0c\n\x08textquad\x10\x06\x12\x11\n\rtextmultiline\x10\x08\x12\x0b\n\x07\x64\x65\x63oder\x10\x0b\x12\t\n\x05video\x10\x0c\x12\r\n\tlivevideo\x10\x16\x12\x0e\n\nscenebased\x10\r\x12\r\n\tcomicbook\x10\x0e\x12\n\n\x06\x63ustom\x10\x0f\x12\x0c\n\x08piechart\x10\x10\x12\x0e\n\nmasksource\x10\x11\x12\x0c\n\x08\x62\x61rchart\x10\x12\x12\x11\n\rimagebarchart\x10\x13\x12\r\n\tlinechart\x10\x15\x12\n\n\x06\x62\x65zier\x10\x14\x12\x0c\n\x08jscanvas\x10\x17\"<\n\rTextAlignment\x12\r\n\tflushleft\x10\x00\x12\x0c\n\x08\x63\x65ntered\x10\x01\x12\x0e\n\nflushright\x10\x02\"/\n\x0cTextPosition\x12\x07\n\x03top\x10\x00\x12\n\n\x06middle\x10\x01\x12\n\n\x06\x62ottom\x10\x02\"p\n\x0cTextureStyle\x12\x15\n\x11texturestyle_line\x10\x00\x12\x15\n\x11texturestyle_full\x10\x01\x12\x16\n\x12texturestyle_tiled\x10\x02\x12\x1a\n\x16texturestyle_tiledline\x10\x03\"\x9f\x02\n\x0c\x46ileLocation\x12-\n\x04type\x18\x01 \x01(\x0e\x32\x1f.JetSDL.Proto.FileLocation.Type\x12\x0c\n\x04path\x18\x02 \x02(\t\x12\x11\n\x06offset\x18\x03 \x01(\x05:\x01\x30\x12\x12\n\x07padding\x18\x04 \x01(\x05:\x01\x35\x12.\n\x08variable\x18\x05 \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\"{\n\x04Type\x12\n\n\x06simple\x10\x00\x12\x0b\n\x07session\x10\x01\x12\t\n\x05\x66rame\x10\x02\x12\x13\n\x0fsessionandframe\x10\x03\x12\x07\n\x03var\x10\x04\x12\x0c\n\x08varframe\x10\x05\x12\x0e\n\nvarsession\x10\x06\x12\x13\n\x0fvarframesession\x10\x07\"6\n\x05\x41udio\x12-\n\x0b\x61udiotracks\x18\x02 \x03(\x0b\x32\x18.JetSDL.Proto.AudioTrack\"\xc3\x07\n\nAudioTrack\x12\x37\n\x04type\x18\x01 \x01(\x0e\x32\x1d.JetSDL.Proto.AudioTrack.Type:\npreencoded\x12\x0f\n\x04gain\x18\x0f \x01(\x01:\x01\x30\x12\x11\n\x06volume\x18\x03 \x01(\x01:\x01\x31\x12.\n\x0evolumefunction\x18\x06 \x01(\x0b\x32\x16.JetSDL.Proto.Function\x12\x31\n\rdefaultsource\x18\x04 \x01(\x0b\x32\x1a.JetSDL.Proto.FileLocation\x12*\n\x06source\x18\x05 \x01(\x0b\x32\x1a.JetSDL.Proto.FileLocation\x12\x11\n\x06offset\x18\x02 \x01(\x05:\x01\x30\x12\x11\n\tnumframes\x18\t \x01(\x05\x12\x15\n\rcontentoffset\x18\x0b \x01(\x05\x12\x19\n\x0busecachedir\x18\x07 \x01(\x08:\x04true\x12\x17\n\x08\x63\x61\x63hedir\x18\x08 \x01(\t:\x05\x63\x61\x63he\x12\x1d\n\x0eoptional_audio\x18\n \x01(\x08:\x05\x66\x61lse\x12#\n\x02sv\x18\x0c \x01(\x0b\x32\x17.JetSDL.Proto.SceneView\x12\x0c\n\x04name\x18\r \x03(\t\x12=\n\tlevelmode\x18\x10 \x01(\x0e\x32\".JetSDL.Proto.AudioTrack.LevelMode:\x06legacy\x12.\n\x0bsynthesizer\x18\x11 \x01(\x0b\x32\x19.JetSDL.Proto.Synthesizer\x12\x32\n\x10inneraudiotracks\x18\x12 \x03(\x0b\x32\x18.JetSDL.Proto.AudioTrack\x12\x1b\n\x0cignorelength\x18\x13 \x01(\x08:\x05\x66\x61lse\x12\x10\n\x07\x63omment\x18\xff\x0f \x01(\t\"X\n\tLevelMode\x12\n\n\x06legacy\x10\x00\x12\x13\n\x0flegacy_softgain\x10\x01\x12\x0c\n\x08hardclip\x10\x02\x12\x0c\n\x08softclip\x10\x03\x12\x0e\n\nsoftclip4x\x10\x04\"\xd9\x01\n\x04Type\x12\x0e\n\npreencoded\x10\x00\x12\x07\n\x03mix\x10\x01\x12\x0b\n\x07replace\x10\x02\x12\x0b\n\x07\x64\x65\x63oder\x10\x03\x12\x13\n\x0f\x64\x65\x63oder_replace\x10\x04\x12\r\n\tvideo_mix\x10\x05\x12\x11\n\rvideo_replace\x10\x06\x12\x0e\n\nscenebased\x10\x07\x12\t\n\x05\x65mpty\x10\x08\x12\x08\n\x04live\x10\t\x12\x10\n\x0clive_replace\x10\x13\x12\r\n\tsynthetic\x10\n\x12\x11\n\rsynthetic_mix\x10\x0b\x12\x0e\n\nbacktoback\x10\x0c\"\x86\x02\n\x0bSynthesizer\x12;\n\x04type\x18\x01 \x01(\x0e\x32\x1e.JetSDL.Proto.Synthesizer.Type:\rrandomsamples\x12\x15\n\nrandomseed\x18\x02 \x01(\r:\x01\x30\x12+\n\x07samples\x18\x03 \x03(\x0b\x32\x1a.JetSDL.Proto.FileLocation\x12\x30\n\niterations\x18\x04 \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\x12\x11\n\x06jitter\x18\x05 \x01(\x01:\x01\x30\x12\x16\n\tnumframes\x18\x06 \x01(\x05:\x03\x35\x30\x30\"\x19\n\x04Type\x12\x11\n\rrandomsamples\x10\x00\"\x83\x06\n\x0bVisualTrack\x12,\n\x07\x63ontent\x18\x02 \x01(\x0b\x32\x1b.JetSDL.Proto.ImageProvider\x12\x15\n\tnumframes\x18\x03 \x01(\x05:\x02-1\x12\x11\n\x06offset\x18\x04 \x01(\x05:\x01\x30\x12\x0c\n\x01x\x18\x05 \x01(\x05:\x01\x30\x12\x0c\n\x01y\x18\x06 \x01(\x05:\x01\x30\x12\x15\n\x06\x63\x65nter\x18\x10 \x01(\x08:\x05\x66\x61lse\x12\x16\n\x07\x63\x65nterx\x18\x11 \x01(\x08:\x05\x66\x61lse\x12\x16\n\x07\x63\x65ntery\x18\x12 \x01(\x08:\x05\x66\x61lse\x12\x16\n\x0bmaskchannel\x18\x07 \x01(\x05:\x01\x30\x12\x19\n\ninvertmask\x18\r \x01(\x08:\x05\x66\x61lse\x12)\n\x04mask\x18\t \x01(\x0b\x32\x1b.JetSDL.Proto.ImageProvider\x12\x35\n\x0ftransformations\x18\n \x03(\x0b\x32\x1c.JetSDL.Proto.Transformation\x12\x32\n\tblendmode\x18\x0b \x01(\x0e\x32\x17.JetSDL.Proto.BlendMode:\x06normal\x12\x12\n\x07opacity\x18\x0c \x01(\x01:\x01\x31\x12/\n\x0fopacityfunction\x18\x0f \x01(\x0b\x32\x16.JetSDL.Proto.Function\x12\x1a\n\x0b\x61\x64justalpha\x18\x08 \x01(\x08:\x05\x66\x61lse\x12\x1a\n\x0clazyevaluate\x18\x13 \x01(\x08:\x04true\x12\x34\n\x0e\x65nablevariable\x18\x14 \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\x12\x1b\n\x0cinvertenable\x18\x17 \x01(\x08:\x05\x66\x61lse\x12\x0c\n\x04name\x18\x15 \x03(\t\x12*\n\tpositions\x18\x16 \x01(\x0b\x32\x17.JetSDL.Proto.TrackData\x12\x1b\n\x0cignorelength\x18\x18 \x01(\x08:\x05\x66\x61lse\x12\x37\n\x11numframesvariable\x18\x19 \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\x12\x10\n\x07\x63omment\x18\xff\x0f \x01(\t\"\xc5 \n\x0eTransformation\x12/\n\x04type\x18\x01 \x02(\x0e\x32!.JetSDL.Proto.Transformation.Type\x12*\n\ttrackdata\x18\x02 \x01(\x0b\x32\x17.JetSDL.Proto.TrackData\x12*\n\x05image\x18\x03 \x01(\x0b\x32\x1b.JetSDL.Proto.ImageProvider\x12\x15\n\nblurlength\x18\x04 \x01(\x01:\x01\x31\x12\x12\n\nblurfactor\x18\x05 \x01(\x01\x12\x16\n\x0e\x62lurlength_inc\x18\x06 \x01(\x01\x12\x16\n\x0e\x62lurfactor_inc\x18\x07 \x01(\x01\x12\x11\n\tzoomscale\x18\x08 \x01(\x08\x12\x15\n\nsmoothedge\x18\x10 \x01(\x05:\x01\x30\x12\r\n\x05scale\x18\t \x03(\x01\x12\x1c\n\rscalerelative\x18\x17 \x01(\x08:\x05\x66\x61lse\x12\x13\n\x0b\x61spectratio\x18\x18 \x01(\x01\x12\x15\n\rfixedsidesize\x18\x19 \x01(\x05\x12\x15\n\rspecifiedside\x18\x1a \x01(\t\x12\"\n\x05\x63olor\x18\n \x01(\x0b\x32\x13.JetSDL.Proto.Color\x12\x11\n\tnumpoints\x18\x0b \x01(\x05\x12\x32\n\x0csourcepoints\x18\x0c \x01(\x0b\x32\x1c.JetSDL.Proto.PointsVariable\x12\x37\n\x11\x64\x65stinationpoints\x18\r \x01(\x0b\x32\x1c.JetSDL.Proto.PointsVariable\x12\x11\n\tnumframes\x18\x0e \x01(\x05\x12\x0e\n\x06offset\x18\x0f \x01(\x05\x12*\n\tposadjust\x18\x11 \x01(\x0b\x32\x17.JetSDL.Proto.PosAdjust\x12\x11\n\terasesize\x18\x12 \x03(\x05\x12\x17\n\x0csearchradius\x18\x13 \x01(\x01:\x01\x34\x12\x16\n\x0bmaskchannel\x18\x14 \x01(\x05:\x01\x30\x12\x19\n\ninvertmask\x18\x16 \x01(\x08:\x05\x66\x61lse\x12+\n\nanimations\x18\x1c \x03(\x0b\x32\x17.JetSDL.Proto.Animation\x12\x31\n\x08position\x18\x1d \x01(\x0b\x32\x1f.JetSDL.Proto.AnimationPosition\x12\x10\n\x05\x66ocus\x18\x1e \x01(\x01:\x01\x30\x12\x12\n\nsaturation\x18\x1f \x01(\x01\x12\x19\n\x0e\x63olorintensity\x18  \x01(\x01:\x01\x31\x12\x10\n\x05sigma\x18! \x01(\x01:\x01\x31\x12!\n\x04\x64\x61rk\x18\" \x01(\x0b\x32\x13.JetSDL.Proto.Color\x12\"\n\x05light\x18# \x01(\x0b\x32\x13.JetSDL.Proto.Color\x12\x16\n\ttolerance\x18$ \x01(\x01:\x03\x30.2\x12\x1b\n\x0cmonochromize\x18% \x01(\x08:\x05\x66\x61lse\x12\x16\n\tfocussize\x18& \x01(\x01:\x03\x30.2\x12\x18\n\x0b\x66ocusheight\x18\' \x01(\x01:\x03\x30.5\x12\x18\n\tspotfocus\x18( \x01(\x08:\x05\x66\x61lse\x12\x17\n\tthreshold\x18) \x01(\x01:\x04\x30.08\x12\x1c\n\x0ftransitionwidth\x18* \x01(\x01:\x03\x30.3\x12\x15\n\nbrightness\x18+ \x01(\x01:\x01\x31\x12\x15\n\x08\x61perture\x18, \x01(\x01:\x03\x30.7\x12\x19\n\nblurborder\x18. \x01(\x08:\x05\x66\x61lse\x12\x1c\n\x11\x65\x64ge_detail_scale\x18/ \x01(\x01:\x01\x31\x12\x16\n\tcolorblur\x18\x30 \x01(\x01:\x03\x30.8\x12!\n\x16\x62ilatfilter_iterations\x18\x31 \x01(\x05:\x01\x34\x12!\n\x16\x62ilatfilter_tonalsigma\x18\x32 \x01(\x01:\x01\x38\x12#\n\x18\x62ilatfilter_spatialsigma\x18\x33 \x01(\x01:\x01\x33\x12\x19\n\rpreproc_sigma\x18\x34 \x01(\x01:\x02-1\x12\x1d\n\x12\x63olorreduct_levels\x18\x35 \x01(\x05:\x01\x38\x12%\n\x19\x63olorreduct_minsaturation\x18\x36 \x01(\x05:\x02\x31\x36\x12V\n\x12\x63olorreduct_method\x18\x37 \x01(\x0e\x32\x33.JetSDL.Proto.Transformation.ComicColorReductMethod:\x05\x66ixed\x12 \n\x13lstein_dither_ratio\x18\x38 \x01(\x01:\x03\x30.5\x12\x1b\n\x10interpoltilesize\x18\x39 \x01(\x05:\x01\x38\x12\x15\n\ninner_size\x18: \x01(\x01:\x01\x33\x12\x15\n\nouter_size\x18; \x01(\x01:\x01\x30\x12(\n\x0binner_color\x18< \x01(\x0b\x32\x13.JetSDL.Proto.Color\x12(\n\x0bouter_color\x18= \x01(\x0b\x32\x13.JetSDL.Proto.Color\x12\x18\n\rinner_offsetx\x18> \x01(\x05:\x01\x31\x12\x18\n\rinner_offsety\x18? \x01(\x05:\x01\x31\x12\x18\n\router_offsetx\x18@ \x01(\x05:\x01\x31\x12\x18\n\router_offsety\x18\x41 \x01(\x05:\x01\x31\x12\x1d\n\x0finner_intensity\x18\x42 \x01(\x01:\x04\x30.75\x12\x1d\n\x0fouter_intensity\x18\x43 \x01(\x01:\x04\x30.27\x12\x19\n\x11\x63ustom_identifier\x18\x44 \x01(\t\x12\x34\n\x0erotatevariable\x18\x45 \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\x12\x32\n\x0c\x63ropvariable\x18\x46 \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\x12\x39\n\x13orientationvariable\x18\x61 \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\x12\x1e\n\x13rotatecenterxoffset\x18P \x01(\x01:\x01\x30\x12\x1e\n\x13rotatecenteryoffset\x18Q \x01(\x01:\x01\x30\x12,\n\x0c\x62lurfunction\x18G \x01(\x0b\x32\x16.JetSDL.Proto.Function\x12\r\n\x05width\x18H \x01(\x05\x12\x0e\n\x06height\x18I \x01(\x05\x12\t\n\x01x\x18J \x01(\x01\x12\t\n\x01y\x18K \x01(\x01\x12\x0f\n\x07\x63\x65nterx\x18L \x01(\x08\x12\x0f\n\x07\x63\x65ntery\x18M \x01(\x08\x12\x37\n\x08\x66lipaxis\x18N \x01(\x0e\x32%.JetSDL.Proto.Transformation.FlipAxis\x12\x31\n\x0b\x63olormatrix\x18O \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\x12@\n\tmorphtype\x18R \x01(\x0e\x32\".JetSDL.Proto.Transformation.Morph:\tmorph_mls\x12\x32\n\x11morphsourcepoints\x18S \x01(\x0b\x32\x17.JetSDL.Proto.TrackData\x12\x37\n\x16morphdestinationpoints\x18T \x01(\x0b\x32\x17.JetSDL.Proto.TrackData\x12\x19\n\rmorphtilesize\x18U \x01(\x05:\x02\x31\x30\x12-\n\tparamfile\x18V \x01(\x0b\x32\x1a.JetSDL.Proto.FileLocation\x12?\n\x0crotationmode\x18W \x01(\x0e\x32).JetSDL.Proto.Transformation.RotationMode\x12*\n\tscaledata\x18X \x01(\x0b\x32\x17.JetSDL.Proto.TrackData\x12+\n\nrotatedata\x18Y \x01(\x0b\x32\x17.JetSDL.Proto.TrackData\x12.\n\rtranslatedata\x18Z \x01(\x0b\x32\x17.JetSDL.Proto.TrackData\x12+\n\nanchordata\x18[ \x01(\x0b\x32\x17.JetSDL.Proto.TrackData\x12S\n\x0bmipmap_type\x18\\ \x01(\x0e\x32\'.JetSDL.Proto.Transformation.MipMapType:\x15mipmap_trackdatabased\x12\x1d\n\x12mipmap_initialsize\x18] \x01(\x05:\x01\x35\x12\x1c\n\x11mipmap_basefactor\x18^ \x01(\x01:\x01\x32\x12\x34\n\x0e\x65nablevariable\x18_ \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\x12\x1b\n\x0cinvertenable\x18` \x01(\x08:\x05\x66\x61lse\x12\x10\n\x07\x63omment\x18\xff\x0f \x01(\t\"\xb6\x04\n\x04Type\x12\x08\n\x04\x62lur\x10\x04\x12\x0e\n\nmotionblur\x10\x05\x12\x15\n\x11trackedmotionblur\x10\x06\x12\x0b\n\x07inpaint\x10\x0c\x12\x08\n\x04mask\x10\r\x12\x07\n\x03mls\x10\x07\x12\t\n\x05morph\x10\"\x12\x10\n\x0clinearzoomin\x10\n\x12\x11\n\rlinearzoomout\x10\x0b\x12\r\n\tintensity\x10\x10\x12\n\n\x06rotate\x10$\x12\x0b\n\x07scaling\x10\x08\x12\x11\n\rscalingletter\x10\t\x12\x11\n\rscalingaspect\x10\x0e\x12\x0f\n\x0bscalingcrop\x10\x1e\x12\x08\n\x04\x63rop\x10\x1f\x12\n\n\x06mipmap\x10&\x12\x10\n\x0cquadtracking\x10\x00\x12\x10\n\x0cgridtracking\x10\x01\x12\x15\n\x11texturemapping32f\x10\x03\x12\x0b\n\x07\x61nimate\x10\x0f\x12\n\n\x06\x61\x66\x66ine\x10%\x12\x0e\n\npointpaste\x10\x11\x12\n\n\x06\x63ustom\x10\x1c\x12\x12\n\x0e\x63roprotatewarp\x10\x1d\x12\x08\n\x04\x66lip\x10 \x12\x0e\n\ncolortwist\x10!\x12\x0e\n\ncolorboost\x10\x12\x12\r\n\tnashville\x10\x13\x12\x0e\n\nlordkelvin\x10\x14\x12\x0f\n\x0bsplittoning\x10\x15\x12\r\n\ttiltshift\x10\x16\x12\x0b\n\x07sincity\x10\x17\x12\x08\n\x04glow\x10\x18\x12\x0c\n\x08vignette\x10\x19\x12\t\n\x05\x63omic\x10\x1a\x12\x0e\n\ntextshadow\x10\x1b\x12\x0b\n\x07\x63ubelut\x10#\"D\n\x16\x43omicColorReductMethod\x12\t\n\x05\x66ixed\x10\x01\x12\x0c\n\x08\x61\x64\x61ptive\x10\x02\x12\x11\n\rrlichtenstein\x10\x03\" \n\x08\x46lipAxis\x12\t\n\x05\x66lipx\x10\x00\x12\t\n\x05\x66lipy\x10\x01\";\n\x05Morph\x12\r\n\tmorph_mls\x10\x00\x12\r\n\tmorph_tps\x10\x01\x12\x14\n\x10morph_mls_legacy\x10\x02\"\x8b\x01\n\x0cRotationMode\x12\x0f\n\x0b\x63lockwise90\x10\x01\x12\x16\n\x12\x63ounterclockwise90\x10\x02\x12\x13\n\x0f\x61utolandscapecw\x10\x03\x12\x14\n\x10\x61utolandscapeccw\x10\x04\x12\x12\n\x0e\x61utoportraitcw\x10\x05\x12\x13\n\x0f\x61utoportraitccw\x10\x06\"c\n\nMipMapType\x12\x19\n\x15mipmap_trackdatabased\x10\x01\x12\x1a\n\x16mipmap_maskbased_alpha\x10\x02\x12\x1e\n\x1amipmap_maskbased_grayscale\x10\x03\"Y\n\tPosAdjust\x12\x11\n\x06scalex\x18\x01 \x01(\x01:\x01\x31\x12\x11\n\x06scaley\x18\x02 \x01(\x01:\x01\x31\x12\x12\n\x07offsetx\x18\x03 \x01(\x01:\x01\x30\x12\x12\n\x07offsety\x18\x04 \x01(\x01:\x01\x30\"L\n\x05\x43olor\x12\x0e\n\x03red\x18\x01 \x01(\x05:\x01\x30\x12\x10\n\x05green\x18\x02 \x01(\x05:\x01\x30\x12\x0f\n\x04\x62lue\x18\x03 \x01(\x05:\x01\x30\x12\x10\n\x05\x61lpha\x18\x04 \x01(\x05:\x01\x30\"\xd2\x04\n\tTrackData\x12\x30\n\x04type\x18\x01 \x01(\x0e\x32\x1c.JetSDL.Proto.TrackData.Type:\x04\x66ile\x12*\n\x06source\x18\x02 \x01(\x0b\x32\x1a.JetSDL.Proto.FileLocation\x12\x11\n\x06offset\x18\x03 \x01(\x05:\x01\x30\x12\x35\n\x0c\x65mbeddeddata\x18\x04 \x01(\x0b\x32\x1f.JetSDL.Proto.EmbeddedTrackData\x12\r\n\x05scale\x18\x05 \x03(\x01\x12\x17\n\x08\x66\x61ilfast\x18\x06 \x01(\x08:\x05\x66\x61lse\x12;\n\x0b\x65ndbehavior\x18\x07 \x01(\x0e\x32\x1a.JetSDL.Proto.EndBehaviour:\nrepeatlast\x12,\n\x06points\x18\x08 \x01(\x0b\x32\x1c.JetSDL.Proto.PointsVariable\x12,\n\x06string\x18\t \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\x12\x16\n\x0ehttpalwaysload\x18\n \x01(\x08\x12 \n\x11uselocalhttpproxy\x18\x0b \x01(\x08:\x05\x66\x61lse\x12\x32\n\tkeyframes\x18\x0c \x03(\x0b\x32\x1f.JetSDL.Proto.KeyFrameTrackData\x12\x14\n\tnumframes\x18\r \x01(\x05:\x01\x31\"X\n\x04Type\x12\x08\n\x04\x66ile\x10\x01\x12\x0c\n\x08\x65mbedded\x10\x02\x12\x0c\n\x08variable\x10\x03\x12\x08\n\x04http\x10\x04\x12\x12\n\x0estringvariable\x10\x05\x12\x0c\n\x08keyframe\x10\x06\"R\n\x11KeyFrameTrackData\x12\x11\n\x06offset\x18\x02 \x01(\x05:\x01\x30\x12*\n\x06points\x18\x03 \x01(\x0b\x32\x1a.JetSDL.Proto.PointsVector\"\xb6\x01\n\x11\x45mbeddedTrackData\x12*\n\x06\x66rames\x18\x02 \x03(\x0b\x32\x1a.JetSDL.Proto.PointsVector\x12\x10\n\x05width\x18\x03 \x01(\x05:\x01\x30\x12\x11\n\x06height\x18\x04 \x01(\x05:\x01\x30\x12(\n\x0bmotionstart\x18\x05 \x01(\x0b\x32\x13.JetSDL.Proto.Point\x12&\n\tmotionend\x18\x06 \x01(\x0b\x32\x13.JetSDL.Proto.Point\"<\n\x0eTrackDataFrame\x12*\n\x06points\x18\x02 \x01(\x0b\x32\x1a.JetSDL.Proto.PointsVector\"L\n\tSubtitles\x12,\n\x07\x63ontent\x18\x02 \x02(\x0b\x32\x1b.JetSDL.Proto.ImageProvider\x12\x11\n\tlanguages\x18\x03 \x03(\t\"\xa4\x06\n\x0eStringVariable\x12/\n\x04type\x18\x01 \x02(\x0e\x32!.JetSDL.Proto.StringVariable.Type\x12*\n\x06source\x18\x02 \x01(\x0b\x32\x1a.JetSDL.Proto.FileLocation\x12\x0b\n\x03key\x18\x07 \x01(\t\x12\x14\n\x0crandomvalues\x18\x03 \x03(\t\x12\r\n\x05value\x18\x04 \x01(\t\x12/\n\tvariable1\x18\x05 \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\x12/\n\tvariable2\x18\x06 \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\x12\x14\n\x0c\x64\x65\x66\x61ultvalue\x18\x08 \x01(\t\x12\x0e\n\x06\x63olumn\x18\t \x01(\t\x12\x12\n\ndefaultrow\x18\n \x01(\t\x12\\\n\x12structureddatatype\x18\x0b \x01(\x0e\x32/.JetSDL.Proto.StringVariable.StructuredDataType:\x0fstructured_json\x12\x39\n\x13structureddatainput\x18\x0c \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\x12*\n\x04path\x18\r \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\x12\x33\n\rintegerformat\x18\x0e \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\x12\x39\n\x13\x66loatingpointformat\x18\x0f \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\"\x86\x01\n\x04Type\x12\x0c\n\x08\x63onstant\x10\x00\x12\x08\n\x04\x66ile\x10\x01\x12\x08\n\x04http\x10\x02\x12\x07\n\x03map\x10\x03\x12\n\n\x06random\x10\x04\x12\x07\n\x03\x61\x64\x64\x10\x05\x12\n\n\x06target\x10\x06\x12\x0e\n\ndatasource\x10\x07\x12\x0e\n\nfileexists\x10\x08\x12\x12\n\x0estructureddata\x10\t\")\n\x12StructuredDataType\x12\x13\n\x0fstructured_json\x10\x01\"3\n\x0cPointsVector\x12#\n\x06points\x18\x01 \x03(\x0b\x32\x13.JetSDL.Proto.Point\"\x1d\n\x05Point\x12\t\n\x01x\x18\x01 \x02(\x01\x12\t\n\x01y\x18\x02 \x02(\x01\"\xf8\x06\n\x0ePointsVariable\x12/\n\x04type\x18\x01 \x02(\x0e\x32!.JetSDL.Proto.PointsVariable.Type\x12*\n\x06source\x18\x02 \x01(\x0b\x32\x1a.JetSDL.Proto.FileLocation\x12\x0b\n\x03key\x18\x07 \x01(\t\x12\x30\n\x0crandomvalues\x18\x03 \x03(\x0b\x32\x1a.JetSDL.Proto.PointsVector\x12)\n\x05value\x18\x04 \x01(\x0b\x32\x1a.JetSDL.Proto.PointsVector\x12/\n\tvariable1\x18\x05 \x01(\x0b\x32\x1c.JetSDL.Proto.PointsVariable\x12/\n\tvariable2\x18\x06 \x01(\x0b\x32\x1c.JetSDL.Proto.PointsVariable\x12\x30\n\x0c\x64\x65\x66\x61ultvalue\x18\x08 \x01(\x0b\x32\x1a.JetSDL.Proto.PointsVector\x12\x0e\n\x06\x63olumn\x18\t \x01(\t\x12\x12\n\ndefaultrow\x18\n \x01(\t\x12\\\n\x12structureddatatype\x18\x0b \x01(\x0e\x32/.JetSDL.Proto.PointsVariable.StructuredDataType:\x0fstructured_json\x12\x39\n\x13structureddatainput\x18\x0c \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\x12*\n\x04path\x18\r \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\x12\x33\n\rintegerformat\x18\x0e \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\x12\x39\n\x13\x66loatingpointformat\x18\x0f \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\"\x86\x01\n\x04Type\x12\x0c\n\x08\x63onstant\x10\x00\x12\x08\n\x04\x66ile\x10\x01\x12\x08\n\x04http\x10\x02\x12\x07\n\x03map\x10\x03\x12\n\n\x06random\x10\x04\x12\x07\n\x03\x61\x64\x64\x10\x05\x12\n\n\x06target\x10\x06\x12\x0e\n\ndatasource\x10\x07\x12\x0e\n\nfileexists\x10\x08\x12\x12\n\x0estructureddata\x10\t\")\n\x12StructuredDataType\x12\x13\n\x0fstructured_json\x10\x01\"\xca\x01\n\tAnimation\x12(\n\x08\x66unction\x18\x02 \x01(\x0b\x32\x16.JetSDL.Proto.Function\x12\x39\n\x0ftransformations\x18\x03 \x03(\x0b\x32 .JetSDL.Proto.AnimTransformation\x12\r\n\x05start\x18\x04 \x01(\x05\x12\x0b\n\x03\x65nd\x18\x05 \x01(\x05\x12\x15\n\x06invert\x18\x06 \x01(\x08:\x05\x66\x61lse\x12%\n\x08position\x18\x07 \x01(\x0b\x32\x13.JetSDL.Proto.Pos3d\"\xcd\x01\n\x12\x41nimTransformation\x12\x33\n\x04type\x18\x01 \x02(\x0e\x32%.JetSDL.Proto.AnimTransformation.Type\x12\t\n\x01x\x18\x02 \x01(\x01\x12\t\n\x01y\x18\x03 \x01(\x01\x12\t\n\x01z\x18\x04 \x01(\x01\x12\r\n\x05\x61ngle\x18\x05 \x01(\x01\"R\n\x04Type\x12\r\n\ttranslate\x10\x01\x12\t\n\x05shear\x10\x02\x12\t\n\x05scale\x10\x03\x12\x0b\n\x07rotatex\x10\x04\x12\x0b\n\x07rotatey\x10\x05\x12\x0b\n\x07rotatez\x10\x06\"\x97\x01\n\x11\x41nimationPosition\x12\x1f\n\x02tl\x18\x01 \x02(\x0b\x32\x13.JetSDL.Proto.Pos3d\x12\x1f\n\x02tr\x18\x02 \x02(\x0b\x32\x13.JetSDL.Proto.Pos3d\x12\x1f\n\x02\x62r\x18\x03 \x02(\x0b\x32\x13.JetSDL.Proto.Pos3d\x12\x1f\n\x02\x62l\x18\x04 \x02(\x0b\x32\x13.JetSDL.Proto.Pos3d\"1\n\x05Pos3d\x12\x0c\n\x01x\x18\x01 \x01(\x01:\x01\x30\x12\x0c\n\x01y\x18\x02 \x01(\x01:\x01\x30\x12\x0c\n\x01z\x18\x03 \x01(\x01:\x01\x30\"\xd4\x03\n\x08\x46unction\x12\x31\n\x04type\x18\x01 \x01(\x0e\x32\x1b.JetSDL.Proto.Function.Type:\x06linear\x12\x0e\n\x06param1\x18\x02 \x01(\x01\x12\x0e\n\x06param2\x18\x03 \x01(\x01\x12-\n\rinnerfunction\x18\x04 \x01(\x0b\x32\x16.JetSDL.Proto.Function\x12\x31\n\x11metafunctionparam\x18\x05 \x01(\x0b\x32\x16.JetSDL.Proto.Function\x12&\n\tkeyframes\x18\x06 \x03(\x0b\x32\x13.JetSDL.Proto.Point\x12\x19\n\x0b\x65xtrapolate\x18\x07 \x01(\x08:\x04true\"\xcf\x01\n\x04Type\x12\x0c\n\x08inverted\x10\x01\x12\x07\n\x03\x61\x62s\x10\x0f\x12\n\n\x06linear\x10\x03\x12\x0c\n\x08\x63onstant\x10\x04\x12\t\n\x05power\x10\x05\x12\x07\n\x03sin\x10\x06\x12\n\n\x06\x66\x61\x63tor\x10\x07\x12\r\n\tovershoot\x10\x08\x12\x0e\n\nundershoot\x10\t\x12\x0b\n\x07sigmoid\x10\n\x12\x0c\n\x08switched\x10\x0b\x12\t\n\x05timed\x10\x02\x12\x07\n\x03\x61\x64\x64\x10\x0c\x12\x0c\n\x08subtract\x10\r\x12\x0c\n\x08multiply\x10\x0e\x12\x0c\n\x08keyframe\x10\x10\"\xa4\x01\n\x13VariableInformation\x12\x37\n\x07\x65ntries\x18\x02 \x03(\x0b\x32&.JetSDL.Proto.VariableInformationEntry\x12\x1a\n\x0fmaxcombinations\x18\x03 \x01(\x05:\x01\x31\x12\x38\n\x0b\x64\x61tasources\x18\x04 \x03(\x0b\x32#.JetSDL.Proto.DataSourceInformation\"S\n\x18VariableInformationEntry\x12\x0b\n\x03key\x18\x02 \x02(\t\x12\x0e\n\x06values\x18\x03 \x03(\t\x12\x1a\n\x0bundefinable\x18\x04 \x01(\x08:\x05\x66\x61lse\"\xc7\x02\n\x15\x44\x61taSourceInformation\x12<\n\x04type\x18\x01 \x01(\x0e\x32(.JetSDL.Proto.DataSourceInformation.Type:\x04\x66ile\x12\x0b\n\x03key\x18\x02 \x02(\t\x12*\n\x06source\x18\x03 \x01(\x0b\x32\x1a.JetSDL.Proto.FileLocation\x12\x12\n\ndefaultrow\x18\x04 \x01(\t\x12.\n\x08variable\x18\x05 \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\x12G\n\x12\x65mbeddeddatasource\x18\x06 \x01(\x0b\x32+.JetSDL.Proto.EmbeddedDataSourceInformation\"*\n\x04Type\x12\x08\n\x04\x66ile\x10\x01\x12\n\n\x06string\x10\x02\x12\x0c\n\x08\x65mbedded\x10\x03\"r\n\x1d\x45mbeddedDataSourceInformation\x12\x13\n\x0b\x63olumnnames\x18\x02 \x03(\t\x12<\n\x04rows\x18\x03 \x03(\x0b\x32..JetSDL.Proto.EmbeddedDataSourceInformationRow\"B\n EmbeddedDataSourceInformationRow\x12\r\n\x05rowid\x18\x02 \x02(\t\x12\x0f\n\x07\x63olumns\x18\x03 \x03(\t\"&\n\x08Metadata\x12\x0b\n\x03key\x18\x02 \x02(\t\x12\r\n\x05value\x18\x03 \x01(\t\"*\n\x0cKeyValuePair\x12\x0b\n\x03key\x18\x02 \x02(\t\x12\r\n\x05value\x18\x03 \x01(\t\"k\n\x16PieChartArcDescription\x12-\n\x07percent\x18\x02 \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\x12\"\n\x05\x63olor\x18\x03 \x01(\x0b\x32\x13.JetSDL.Proto.Color\"\x82\x03\n\x13PieChartDescription\x12;\n\rfinished_arcs\x18\x02 \x03(\x0b\x32$.JetSDL.Proto.PieChartArcDescription\x12\x39\n\x0b\x63urrent_arc\x18\x03 \x01(\x0b\x32$.JetSDL.Proto.PieChartArcDescription\x12!\n\x16\x63urrent_arc_completion\x18\x04 \x01(\x01:\x01\x31\x12?\n\x1f\x63urrent_arc_completion_function\x18\x05 \x01(\x0b\x32\x16.JetSDL.Proto.Function\x12I\n\tdirection\x18\x06 \x01(\x0e\x32+.JetSDL.Proto.PieChartDescription.Direction:\tclockwise\x12\x12\n\x06radius\x18\x07 \x01(\x01:\x02\x35\x30\"0\n\tDirection\x12\r\n\tclockwise\x10\x00\x12\x14\n\x10\x63ounterclockwise\x10\x01\"i\n\x16\x42\x61rChartBarDescription\x12+\n\x05value\x18\x02 \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\x12\"\n\x05\x63olor\x18\x03 \x01(\x0b\x32\x13.JetSDL.Proto.Color\"\x9c\x02\n\x13\x42\x61rChartDescription\x12;\n\rfinished_bars\x18\x02 \x03(\x0b\x32$.JetSDL.Proto.BarChartBarDescription\x12\x39\n\x0b\x63urrent_bar\x18\x03 \x01(\x0b\x32$.JetSDL.Proto.BarChartBarDescription\x12!\n\x16\x63urrent_bar_completion\x18\x04 \x01(\x01:\x01\x31\x12?\n\x1f\x63urrent_bar_completion_function\x18\x05 \x01(\x0b\x32\x16.JetSDL.Proto.Function\x12\x13\n\x08num_bars\x18\x06 \x01(\x05:\x01\x33\x12\x14\n\x07max_val\x18\t \x01(\x01:\x03\x31\x30\x30\"\x93\x01\n\x1bImageBarChartBarDescription\x12+\n\x05value\x18\x02 \x01(\x0b\x32\x1c.JetSDL.Proto.StringVariable\x12*\n\x05image\x18\x03 \x01(\x0b\x32\x1b.JetSDL.Proto.ImageProvider\x12\x1b\n\x10image_equivalent\x18\x04 \x01(\x01:\x01\x31\"\x95\x02\n\x18ImageBarChartDescription\x12@\n\rfinished_bars\x18\x02 \x03(\x0b\x32).JetSDL.Proto.ImageBarChartBarDescription\x12>\n\x0b\x63urrent_bar\x18\x03 \x01(\x0b\x32).JetSDL.Proto.ImageBarChartBarDescription\x12!\n\x16\x63urrent_bar_completion\x18\x04 \x01(\x01:\x01\x31\x12?\n\x1f\x63urrent_bar_completion_function\x18\x05 \x01(\x0b\x32\x16.JetSDL.Proto.Function\x12\x13\n\x08num_bars\x18\x06 \x01(\x05:\x01\x33\"\x9a\x03\n\x14LineChartDescription\x12\'\n\x06points\x18\x02 \x01(\x0b\x32\x17.JetSDL.Proto.TrackData\x12\x1d\n\x12num_finished_lines\x18\x03 \x01(\x05:\x01\x30\x12\x17\n\x0c\x63urrent_line\x18\x04 \x01(\x05:\x01\x30\x12\"\n\x17\x63urrent_line_completion\x18\x05 \x01(\x01:\x01\x31\x12@\n current_line_completion_function\x18\x06 \x01(\x0b\x32\x16.JetSDL.Proto.Function\x12\"\n\x05\x63olor\x18\x07 \x01(\x0b\x32\x13.JetSDL.Proto.Color\x12\x15\n\nline_width\x18\x08 \x01(\x01:\x01\x31\x12\x38\n\tcap_style\x18\t \x01(\x0e\x32\x1a.JetSDL.Proto.LineCapStyle:\tcap_round\x12\x10\n\x05min_x\x18\n \x01(\x01:\x01\x30\x12\x10\n\x05min_y\x18\x0b \x01(\x01:\x01\x30\x12\x10\n\x05max_x\x18\x0c \x01(\x01:\x01\x31\x12\x10\n\x05max_y\x18\r \x01(\x01:\x01\x31\"\xfd\x01\n\x11\x42\x65zierDescription\x12\'\n\x06points\x18\x02 \x01(\x0b\x32\x17.JetSDL.Proto.TrackData\x12\"\n\x05\x63olor\x18\x05 \x01(\x0b\x32\x13.JetSDL.Proto.Color\x12\x15\n\nline_width\x18\x06 \x01(\x01:\x01\x31\x12\x38\n\tcap_style\x18\x07 \x01(\x0e\x32\x1a.JetSDL.Proto.LineCapStyle:\tcap_round\x12\x15\n\ncompletion\x18\x08 \x01(\x01:\x01\x31\x12\x33\n\x13\x63ompletion_function\x18\t \x01(\x0b\x32\x16.JetSDL.Proto.Function*\xaa\x02\n\x05\x43odec\x12\x0e\n\nVIDEO_NONE\x10\x00\x12\r\n\tVIDEO_FLV\x10\x01\x12\x0e\n\nVIDEO_H263\x10\x02\x12\x0e\n\nVIDEO_E264\x10\x03\x12\x0e\n\nVIDEO_H264\x10\x04\x12\x17\n\x13VIDEO_X264_BASELINE\x10\x05\x12\x0e\n\nVIDEO_X264\x10\x06\x12\x13\n\x0fVIDEO_X264_HIGH\x10\x10\x12\r\n\tVIDEO_VP8\x10\x0e\x12\x0e\n\nAUDIO_NONE\x10\x00\x12\r\n\tAUDIO_AAC\x10\x07\x12\r\n\tAUDIO_MP2\x10\x08\x12\r\n\tAUDIO_MP3\x10\t\x12\x0e\n\nAUDIO_EAAC\x10\x0b\x12\x10\n\x0c\x41UDIO_AMR_NB\x10\x0c\x12\x10\n\x0c\x41UDIO_AMR_WB\x10\r\x12\x10\n\x0c\x41UDIO_VORBIS\x10\x0f\x1a\x02\x10\x01*l\n\x0c\x45ndBehaviour\x12\x0e\n\nrepeatlast\x10\x00\x12\x08\n\x04loop\x10\x01\x12\x17\n\nemptyframe\x10\xfe\xff\xff\xff\xff\xff\xff\xff\xff\x01\x12\x16\n\tfullframe\x10\xfd\xff\xff\xff\xff\xff\xff\xff\xff\x01\x12\x11\n\x04\x66\x61il\x10\xfc\xff\xff\xff\xff\xff\xff\xff\xff\x01*j\n\tBlendMode\x12\n\n\x06normal\x10\x00\x12\n\n\x06screen\x10\x01\x12\r\n\tsoftlight\x10\x02\x12\r\n\thardlight\x10\x03\x12\x0b\n\x07overlay\x10\x04\x12\x0c\n\x08multiply\x10\x05\x12\x0c\n\x08mvcclone\x10\x06*;\n\x0cLineCapStyle\x12\x0e\n\ncap_square\x10\x00\x12\r\n\tcap_round\x10\x01\x12\x0c\n\x08\x63\x61p_butt\x10\x02')
 
 _CODEC = _descriptor.EnumDescriptor(
   name='Codec',
@@ -93,8 +93,8 @@ _CODEC = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=_descriptor._ParseOptions(descriptor_pb2.EnumOptions(), '\020\001'),
-  serialized_start=20054,
-  serialized_end=20352,
+  serialized_start=20223,
+  serialized_end=20521,
 )
 
 Codec = enum_type_wrapper.EnumTypeWrapper(_CODEC)
@@ -127,8 +127,8 @@ _ENDBEHAVIOUR = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=20354,
-  serialized_end=20462,
+  serialized_start=20523,
+  serialized_end=20631,
 )
 
 EndBehaviour = enum_type_wrapper.EnumTypeWrapper(_ENDBEHAVIOUR)
@@ -169,8 +169,8 @@ _BLENDMODE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=20464,
-  serialized_end=20570,
+  serialized_start=20633,
+  serialized_end=20739,
 )
 
 BlendMode = enum_type_wrapper.EnumTypeWrapper(_BLENDMODE)
@@ -195,8 +195,8 @@ _LINECAPSTYLE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=20572,
-  serialized_end=20631,
+  serialized_start=20741,
+  serialized_end=20800,
 )
 
 LineCapStyle = enum_type_wrapper.EnumTypeWrapper(_LINECAPSTYLE)
@@ -885,8 +885,8 @@ _TRANSFORMATION_TYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=12217,
-  serialized_end=12783,
+  serialized_start=12359,
+  serialized_end=12925,
 )
 
 _TRANSFORMATION_COMICCOLORREDUCTMETHOD = _descriptor.EnumDescriptor(
@@ -910,8 +910,8 @@ _TRANSFORMATION_COMICCOLORREDUCTMETHOD = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=12785,
-  serialized_end=12853,
+  serialized_start=12927,
+  serialized_end=12995,
 )
 
 _TRANSFORMATION_FLIPAXIS = _descriptor.EnumDescriptor(
@@ -931,8 +931,8 @@ _TRANSFORMATION_FLIPAXIS = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=12855,
-  serialized_end=12887,
+  serialized_start=12997,
+  serialized_end=13029,
 )
 
 _TRANSFORMATION_MORPH = _descriptor.EnumDescriptor(
@@ -956,8 +956,8 @@ _TRANSFORMATION_MORPH = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=12889,
-  serialized_end=12948,
+  serialized_start=13031,
+  serialized_end=13090,
 )
 
 _TRANSFORMATION_ROTATIONMODE = _descriptor.EnumDescriptor(
@@ -993,8 +993,8 @@ _TRANSFORMATION_ROTATIONMODE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=12951,
-  serialized_end=13090,
+  serialized_start=13093,
+  serialized_end=13232,
 )
 
 _TRANSFORMATION_MIPMAPTYPE = _descriptor.EnumDescriptor(
@@ -1018,8 +1018,8 @@ _TRANSFORMATION_MIPMAPTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=13092,
-  serialized_end=13191,
+  serialized_start=13234,
+  serialized_end=13333,
 )
 
 _TRACKDATA_TYPE = _descriptor.EnumDescriptor(
@@ -1055,8 +1055,8 @@ _TRACKDATA_TYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=13869,
-  serialized_end=13957,
+  serialized_start=14011,
+  serialized_end=14099,
 )
 
 _STRINGVARIABLE_TYPE = _descriptor.EnumDescriptor(
@@ -1108,8 +1108,8 @@ _STRINGVARIABLE_TYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=14996,
-  serialized_end=15130,
+  serialized_start=15138,
+  serialized_end=15272,
 )
 
 _STRINGVARIABLE_STRUCTUREDDATATYPE = _descriptor.EnumDescriptor(
@@ -1125,8 +1125,8 @@ _STRINGVARIABLE_STRUCTUREDDATATYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=15132,
-  serialized_end=15173,
+  serialized_start=15274,
+  serialized_end=15315,
 )
 
 _POINTSVARIABLE_TYPE = _descriptor.EnumDescriptor(
@@ -1178,8 +1178,8 @@ _POINTSVARIABLE_TYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=14996,
-  serialized_end=15130,
+  serialized_start=15138,
+  serialized_end=15272,
 )
 
 _POINTSVARIABLE_STRUCTUREDDATATYPE = _descriptor.EnumDescriptor(
@@ -1195,8 +1195,8 @@ _POINTSVARIABLE_STRUCTUREDDATATYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=15132,
-  serialized_end=15173,
+  serialized_start=15274,
+  serialized_end=15315,
 )
 
 _ANIMTRANSFORMATION_TYPE = _descriptor.EnumDescriptor(
@@ -1232,8 +1232,8 @@ _ANIMTRANSFORMATION_TYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=16479,
-  serialized_end=16561,
+  serialized_start=16621,
+  serialized_end=16703,
 )
 
 _FUNCTION_TYPE = _descriptor.EnumDescriptor(
@@ -1309,8 +1309,8 @@ _FUNCTION_TYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=17003,
-  serialized_end=17210,
+  serialized_start=17172,
+  serialized_end=17379,
 )
 
 _DATASOURCEINFORMATION_TYPE = _descriptor.EnumDescriptor(
@@ -1334,8 +1334,8 @@ _DATASOURCEINFORMATION_TYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=17750,
-  serialized_end=17792,
+  serialized_start=17919,
+  serialized_end=17961,
 )
 
 _PIECHARTDESCRIPTION_DIRECTION = _descriptor.EnumDescriptor(
@@ -1355,8 +1355,8 @@ _PIECHARTDESCRIPTION_DIRECTION = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=18510,
-  serialized_end=18558,
+  serialized_start=18679,
+  serialized_end=18727,
 )
 
 
@@ -3646,175 +3646,196 @@ _TRANSFORMATION = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='rotatecenterxoffset', full_name='JetSDL.Proto.Transformation.rotatecenterxoffset', index=67,
+      name='orientationvariable', full_name='JetSDL.Proto.Transformation.orientationvariable', index=67,
+      number=97, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='rotatecenterxoffset', full_name='JetSDL.Proto.Transformation.rotatecenterxoffset', index=68,
       number=80, type=1, cpp_type=5, label=1,
       has_default_value=True, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='rotatecenteryoffset', full_name='JetSDL.Proto.Transformation.rotatecenteryoffset', index=68,
+      name='rotatecenteryoffset', full_name='JetSDL.Proto.Transformation.rotatecenteryoffset', index=69,
       number=81, type=1, cpp_type=5, label=1,
       has_default_value=True, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='blurfunction', full_name='JetSDL.Proto.Transformation.blurfunction', index=69,
+      name='blurfunction', full_name='JetSDL.Proto.Transformation.blurfunction', index=70,
       number=71, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='width', full_name='JetSDL.Proto.Transformation.width', index=70,
+      name='width', full_name='JetSDL.Proto.Transformation.width', index=71,
       number=72, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='height', full_name='JetSDL.Proto.Transformation.height', index=71,
+      name='height', full_name='JetSDL.Proto.Transformation.height', index=72,
       number=73, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='x', full_name='JetSDL.Proto.Transformation.x', index=72,
+      name='x', full_name='JetSDL.Proto.Transformation.x', index=73,
       number=74, type=1, cpp_type=5, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='y', full_name='JetSDL.Proto.Transformation.y', index=73,
+      name='y', full_name='JetSDL.Proto.Transformation.y', index=74,
       number=75, type=1, cpp_type=5, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='centerx', full_name='JetSDL.Proto.Transformation.centerx', index=74,
+      name='centerx', full_name='JetSDL.Proto.Transformation.centerx', index=75,
       number=76, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='centery', full_name='JetSDL.Proto.Transformation.centery', index=75,
+      name='centery', full_name='JetSDL.Proto.Transformation.centery', index=76,
       number=77, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='flipaxis', full_name='JetSDL.Proto.Transformation.flipaxis', index=76,
+      name='flipaxis', full_name='JetSDL.Proto.Transformation.flipaxis', index=77,
       number=78, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='colormatrix', full_name='JetSDL.Proto.Transformation.colormatrix', index=77,
+      name='colormatrix', full_name='JetSDL.Proto.Transformation.colormatrix', index=78,
       number=79, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='morphtype', full_name='JetSDL.Proto.Transformation.morphtype', index=78,
+      name='morphtype', full_name='JetSDL.Proto.Transformation.morphtype', index=79,
       number=82, type=14, cpp_type=8, label=1,
       has_default_value=True, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='morphsourcepoints', full_name='JetSDL.Proto.Transformation.morphsourcepoints', index=79,
+      name='morphsourcepoints', full_name='JetSDL.Proto.Transformation.morphsourcepoints', index=80,
       number=83, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='morphdestinationpoints', full_name='JetSDL.Proto.Transformation.morphdestinationpoints', index=80,
+      name='morphdestinationpoints', full_name='JetSDL.Proto.Transformation.morphdestinationpoints', index=81,
       number=84, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='morphtilesize', full_name='JetSDL.Proto.Transformation.morphtilesize', index=81,
+      name='morphtilesize', full_name='JetSDL.Proto.Transformation.morphtilesize', index=82,
       number=85, type=5, cpp_type=1, label=1,
       has_default_value=True, default_value=10,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='paramfile', full_name='JetSDL.Proto.Transformation.paramfile', index=82,
+      name='paramfile', full_name='JetSDL.Proto.Transformation.paramfile', index=83,
       number=86, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='rotationmode', full_name='JetSDL.Proto.Transformation.rotationmode', index=83,
+      name='rotationmode', full_name='JetSDL.Proto.Transformation.rotationmode', index=84,
       number=87, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=1,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='scaledata', full_name='JetSDL.Proto.Transformation.scaledata', index=84,
+      name='scaledata', full_name='JetSDL.Proto.Transformation.scaledata', index=85,
       number=88, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='rotatedata', full_name='JetSDL.Proto.Transformation.rotatedata', index=85,
+      name='rotatedata', full_name='JetSDL.Proto.Transformation.rotatedata', index=86,
       number=89, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='translatedata', full_name='JetSDL.Proto.Transformation.translatedata', index=86,
+      name='translatedata', full_name='JetSDL.Proto.Transformation.translatedata', index=87,
       number=90, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='anchordata', full_name='JetSDL.Proto.Transformation.anchordata', index=87,
+      name='anchordata', full_name='JetSDL.Proto.Transformation.anchordata', index=88,
       number=91, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='mipmap_type', full_name='JetSDL.Proto.Transformation.mipmap_type', index=88,
+      name='mipmap_type', full_name='JetSDL.Proto.Transformation.mipmap_type', index=89,
       number=92, type=14, cpp_type=8, label=1,
       has_default_value=True, default_value=1,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='mipmap_initialsize', full_name='JetSDL.Proto.Transformation.mipmap_initialsize', index=89,
+      name='mipmap_initialsize', full_name='JetSDL.Proto.Transformation.mipmap_initialsize', index=90,
       number=93, type=5, cpp_type=1, label=1,
       has_default_value=True, default_value=5,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='mipmap_basefactor', full_name='JetSDL.Proto.Transformation.mipmap_basefactor', index=90,
+      name='mipmap_basefactor', full_name='JetSDL.Proto.Transformation.mipmap_basefactor', index=91,
       number=94, type=1, cpp_type=5, label=1,
       has_default_value=True, default_value=2,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='comment', full_name='JetSDL.Proto.Transformation.comment', index=91,
+      name='enablevariable', full_name='JetSDL.Proto.Transformation.enablevariable', index=92,
+      number=95, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='invertenable', full_name='JetSDL.Proto.Transformation.invertenable', index=93,
+      number=96, type=8, cpp_type=7, label=1,
+      has_default_value=True, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='comment', full_name='JetSDL.Proto.Transformation.comment', index=94,
       number=2047, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=unicode("", "utf-8"),
       message_type=None, enum_type=None, containing_type=None,
@@ -3836,7 +3857,7 @@ _TRANSFORMATION = _descriptor.Descriptor(
   is_extendable=False,
   extension_ranges=[],
   serialized_start=9168,
-  serialized_end=13191,
+  serialized_end=13333,
 )
 
 
@@ -3884,8 +3905,8 @@ _POSADJUST = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=13193,
-  serialized_end=13282,
+  serialized_start=13335,
+  serialized_end=13424,
 )
 
 
@@ -3933,8 +3954,8 @@ _COLOR = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=13284,
-  serialized_end=13360,
+  serialized_start=13426,
+  serialized_end=13502,
 )
 
 
@@ -4046,8 +4067,8 @@ _TRACKDATA = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=13363,
-  serialized_end=13957,
+  serialized_start=13505,
+  serialized_end=14099,
 )
 
 
@@ -4081,8 +4102,8 @@ _KEYFRAMETRACKDATA = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=13959,
-  serialized_end=14041,
+  serialized_start=14101,
+  serialized_end=14183,
 )
 
 
@@ -4137,8 +4158,8 @@ _EMBEDDEDTRACKDATA = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=14044,
-  serialized_end=14226,
+  serialized_start=14186,
+  serialized_end=14368,
 )
 
 
@@ -4165,8 +4186,8 @@ _TRACKDATAFRAME = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=14228,
-  serialized_end=14288,
+  serialized_start=14370,
+  serialized_end=14430,
 )
 
 
@@ -4200,8 +4221,8 @@ _SUBTITLES = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=14290,
-  serialized_end=14366,
+  serialized_start=14432,
+  serialized_end=14508,
 )
 
 
@@ -4328,8 +4349,8 @@ _STRINGVARIABLE = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=14369,
-  serialized_end=15173,
+  serialized_start=14511,
+  serialized_end=15315,
 )
 
 
@@ -4356,8 +4377,8 @@ _POINTSVECTOR = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=15175,
-  serialized_end=15226,
+  serialized_start=15317,
+  serialized_end=15368,
 )
 
 
@@ -4391,8 +4412,8 @@ _POINT = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=15228,
-  serialized_end=15257,
+  serialized_start=15370,
+  serialized_end=15399,
 )
 
 
@@ -4519,8 +4540,8 @@ _POINTSVARIABLE = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=15260,
-  serialized_end=16148,
+  serialized_start=15402,
+  serialized_end=16290,
 )
 
 
@@ -4582,8 +4603,8 @@ _ANIMATION = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=16151,
-  serialized_end=16353,
+  serialized_start=16293,
+  serialized_end=16495,
 )
 
 
@@ -4639,8 +4660,8 @@ _ANIMTRANSFORMATION = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=16356,
-  serialized_end=16561,
+  serialized_start=16498,
+  serialized_end=16703,
 )
 
 
@@ -4688,8 +4709,8 @@ _ANIMATIONPOSITION = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=16564,
-  serialized_end=16715,
+  serialized_start=16706,
+  serialized_end=16857,
 )
 
 
@@ -4730,8 +4751,8 @@ _POS3D = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=16717,
-  serialized_end=16766,
+  serialized_start=16859,
+  serialized_end=16908,
 )
 
 
@@ -4784,6 +4805,13 @@ _FUNCTION = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
+    _descriptor.FieldDescriptor(
+      name='extrapolate', full_name='JetSDL.Proto.Function.extrapolate', index=6,
+      number=7, type=8, cpp_type=7, label=1,
+      has_default_value=True, default_value=True,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
   ],
   extensions=[
   ],
@@ -4794,8 +4822,8 @@ _FUNCTION = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=16769,
-  serialized_end=17210,
+  serialized_start=16911,
+  serialized_end=17379,
 )
 
 
@@ -4836,8 +4864,8 @@ _VARIABLEINFORMATION = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=17213,
-  serialized_end=17377,
+  serialized_start=17382,
+  serialized_end=17546,
 )
 
 
@@ -4878,8 +4906,8 @@ _VARIABLEINFORMATIONENTRY = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=17379,
-  serialized_end=17462,
+  serialized_start=17548,
+  serialized_end=17631,
 )
 
 
@@ -4942,8 +4970,8 @@ _DATASOURCEINFORMATION = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=17465,
-  serialized_end=17792,
+  serialized_start=17634,
+  serialized_end=17961,
 )
 
 
@@ -4977,8 +5005,8 @@ _EMBEDDEDDATASOURCEINFORMATION = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=17794,
-  serialized_end=17908,
+  serialized_start=17963,
+  serialized_end=18077,
 )
 
 
@@ -5012,8 +5040,8 @@ _EMBEDDEDDATASOURCEINFORMATIONROW = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=17910,
-  serialized_end=17976,
+  serialized_start=18079,
+  serialized_end=18145,
 )
 
 
@@ -5047,8 +5075,8 @@ _METADATA = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=17978,
-  serialized_end=18016,
+  serialized_start=18147,
+  serialized_end=18185,
 )
 
 
@@ -5082,8 +5110,8 @@ _KEYVALUEPAIR = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=18018,
-  serialized_end=18060,
+  serialized_start=18187,
+  serialized_end=18229,
 )
 
 
@@ -5117,8 +5145,8 @@ _PIECHARTARCDESCRIPTION = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=18062,
-  serialized_end=18169,
+  serialized_start=18231,
+  serialized_end=18338,
 )
 
 
@@ -5181,8 +5209,8 @@ _PIECHARTDESCRIPTION = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=18172,
-  serialized_end=18558,
+  serialized_start=18341,
+  serialized_end=18727,
 )
 
 
@@ -5216,8 +5244,8 @@ _BARCHARTBARDESCRIPTION = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=18560,
-  serialized_end=18665,
+  serialized_start=18729,
+  serialized_end=18834,
 )
 
 
@@ -5279,8 +5307,8 @@ _BARCHARTDESCRIPTION = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=18668,
-  serialized_end=18952,
+  serialized_start=18837,
+  serialized_end=19121,
 )
 
 
@@ -5321,8 +5349,8 @@ _IMAGEBARCHARTBARDESCRIPTION = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=18955,
-  serialized_end=19102,
+  serialized_start=19124,
+  serialized_end=19271,
 )
 
 
@@ -5377,8 +5405,8 @@ _IMAGEBARCHARTDESCRIPTION = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=19105,
-  serialized_end=19382,
+  serialized_start=19274,
+  serialized_end=19551,
 )
 
 
@@ -5482,8 +5510,8 @@ _LINECHARTDESCRIPTION = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=19385,
-  serialized_end=19795,
+  serialized_start=19554,
+  serialized_end=19964,
 )
 
 
@@ -5545,8 +5573,8 @@ _BEZIERDESCRIPTION = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=19798,
-  serialized_end=20051,
+  serialized_start=19967,
+  serialized_end=20220,
 )
 
 _STREAMPARAMS.fields_by_name['vparams'].message_type = _VIDEOPARAMS
@@ -5673,6 +5701,7 @@ _TRANSFORMATION.fields_by_name['inner_color'].message_type = _COLOR
 _TRANSFORMATION.fields_by_name['outer_color'].message_type = _COLOR
 _TRANSFORMATION.fields_by_name['rotatevariable'].message_type = _STRINGVARIABLE
 _TRANSFORMATION.fields_by_name['cropvariable'].message_type = _STRINGVARIABLE
+_TRANSFORMATION.fields_by_name['orientationvariable'].message_type = _STRINGVARIABLE
 _TRANSFORMATION.fields_by_name['blurfunction'].message_type = _FUNCTION
 _TRANSFORMATION.fields_by_name['flipaxis'].enum_type = _TRANSFORMATION_FLIPAXIS
 _TRANSFORMATION.fields_by_name['colormatrix'].message_type = _STRINGVARIABLE
@@ -5686,6 +5715,7 @@ _TRANSFORMATION.fields_by_name['rotatedata'].message_type = _TRACKDATA
 _TRANSFORMATION.fields_by_name['translatedata'].message_type = _TRACKDATA
 _TRANSFORMATION.fields_by_name['anchordata'].message_type = _TRACKDATA
 _TRANSFORMATION.fields_by_name['mipmap_type'].enum_type = _TRANSFORMATION_MIPMAPTYPE
+_TRANSFORMATION.fields_by_name['enablevariable'].message_type = _STRINGVARIABLE
 _TRANSFORMATION_TYPE.containing_type = _TRANSFORMATION;
 _TRANSFORMATION_COMICCOLORREDUCTMETHOD.containing_type = _TRANSFORMATION;
 _TRANSFORMATION_FLIPAXIS.containing_type = _TRANSFORMATION;
