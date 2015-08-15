@@ -1091,6 +1091,7 @@ message Transformation{
 	
 	optional StringVariable rotatevariable = 69;
 	optional StringVariable cropvariable = 70;
+	optional StringVariable orientationvariable = 97;
 	optional double rotatecenterxoffset = 80
 		[default = 0];
 	optional double rotatecenteryoffset = 81
