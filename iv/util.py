@@ -1,6 +1,6 @@
 import re
 from collections import defaultdict
-from proto import StringVariable
+from proto import *
 
 class DotDict(defaultdict):
     def __init__(self, *args, **kwargs):
@@ -9,6 +9,23 @@ class DotDict(defaultdict):
     def __getattr__(self, attr):
         return self.__dict__[attr]
 
+
+def VariantScene(scenes, varname, defaultvalue, audio=False):
+	scene = Scene(tracks=[
+			VisualTrack(
+                content=ImageProvider(type=ImageProvider.scenebased,
+                	sceneview=SceneView(type=SceneView.variant,
+                		variable=StringVariable(type=StringVariable.map, key=varname, defaultvalue=defaultvalue),
+                		variants=[SceneViewVariant(key=k,scenes=[s]) for k, s in scenes.items()])))
+			])
+
+	if audio:
+		scene.audio.CopyFrom(Audio(audiotracks=[
+			AudioTrack(type=AudioTrack.scenebased,
+				sv=SceneView(type=SceneView.variant,
+                		variable=StringVariable(type=StringVariable.map, key=varname, defaultvalue=defaultvalue),
+                		variants=[SceneViewVariant(key=k,scenes=[s]) for k, s in scenes.items()]))]))
+	return scene
 
 
 def TemplateVariable(template):

@@ -1,3 +1,13 @@
+//
+// Copyright 20010-2015 Impossible Software GmbH.  All rights reserved.
+//
+// The contents and use of this file are subject to our Terms Of Use.
+// You may not use this file except in compliance with the Terms of Use.
+//
+// You can obtain a copy of the terms at http://www.impossiblesoftware.com/meta/tos.html
+// See the Terms Of Use for the specific language governing permissions
+// and limitations under the terms.
+
 
 //import "frameworks/SDL/proto_model/Animation.proto";
 package JetSDL.Proto;
@@ -6,7 +16,7 @@ package JetSDL.Proto;
 // This is the equivalent to JSCodec from jettypes.h
 enum Codec 
 { 
-        option allow_alias = true;
+    option allow_alias = true;
 
 	VIDEO_NONE = 0;
 	VIDEO_FLV =1; 
@@ -1147,6 +1157,10 @@ message Transformation{
 	optional double mipmap_basefactor = 94
 		[default = 2];
 	
+	optional StringVariable enablevariable = 95;
+	optional bool invertenable = 96
+		[default=false];
+	
 	optional string comment = 2047;
 }
 
@@ -1476,6 +1490,8 @@ message Function{
 	optional Function metafunctionparam = 5;
 	
 	repeated Point keyframes = 6;
+	optional bool extrapolate = 7
+		[default=true];
 	
 }
 
