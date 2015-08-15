@@ -1,5 +1,5 @@
 //
-// Copyright 20010-2015 Impossible Software GmbH.  All rights reserved.
+// Copyright 2010-2015 Impossible Software GmbH.  All rights reserved.
 //
 // The contents and use of this file are subject to our Terms Of Use.
 // You may not use this file except in compliance with the Terms of Use.
@@ -1091,7 +1091,6 @@ message Transformation{
 	
 	optional StringVariable rotatevariable = 69;
 	optional StringVariable cropvariable = 70;
-	optional StringVariable orientationvariable = 97;
 	optional double rotatecenterxoffset = 80
 		[default = 0];
 	optional double rotatecenteryoffset = 81
