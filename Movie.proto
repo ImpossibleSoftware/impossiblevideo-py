@@ -9,7 +9,6 @@
 // and limitations under the terms.
 
 
-//import "frameworks/SDL/proto_model/Animation.proto";
 package JetSDL.Proto;
 
 // Video and Audio codec types
@@ -27,6 +26,8 @@ enum Codec
 	VIDEO_X264=6;
 	VIDEO_X264_HIGH=16;
 	VIDEO_VP8=14;
+	VIDEO_MPEG2=17;
+	VIDEO_WMV=18;
 
 	AUDIO_NONE = 0;
 	AUDIO_AAC=7;
@@ -216,6 +217,8 @@ message Movie {
 		[default=false];
 	
 	optional string comment = 2047;
+
+    extensions 1000 to 1999;
 }
 
 
@@ -257,13 +260,19 @@ message Scene{
 		
 	optional bool useaudioforlength = 12
 		[default=false];
+
+	optional string id = 13;
 	
+    extensions 1000 to 1999;
+
 	optional string comment = 2047;
 }
 
 message SceneViewVariant{
 	required string key = 2;
 	repeated Scene scenes = 3;
+    extensions 1000 to 1999;
+
 }
 
 message SceneView{
@@ -293,6 +302,8 @@ message SceneView{
 	//you don't need to touch this
 	optional string filelocationprefixholder = 17
 		[default = ""];
+
+    extensions 1000 to 1999;
 }
 
 // An ImageProvider object provides an image given a particular frame number
@@ -591,6 +602,8 @@ message ImageProvider{
 		repeated FontDescription fonts = 8;
 	}	
 	optional JSCanvasDescription jscanvasdescription = 67;
+
+    extensions 1000 to 1999;
 	
 }
 
@@ -633,6 +646,8 @@ message FileLocation{
 //all AudioTracks will be rendered in sequence
 message Audio {
 	repeated AudioTrack audiotracks=2;
+
+    extensions 1000 to 1999;
 }
 
 
@@ -728,7 +743,7 @@ message AudioTrack{
 	
 	optional string comment = 2047;
 	
-	
+    extensions 1000 to 1999;
 }
 
 
@@ -755,6 +770,8 @@ message Synthesizer
 
 	// should be set to the same as numframes of enclosing AudioTrack
 	optional int32 numframes=6 [default = 500];
+
+    extensions 1000 to 1999;
 }
 
 
@@ -830,6 +847,9 @@ message VisualTrack{
 	optional string comment = 2047;
 	//used internally
 	//optional bool cacheimages=14 [default = false];
+
+    extensions 1000 to 1999;
+
 }
 
 
@@ -1091,6 +1111,7 @@ message Transformation{
 	
 	optional StringVariable rotatevariable = 69;
 	optional StringVariable cropvariable = 70;
+	optional StringVariable orientationvariable = 97;
 	optional double rotatecenterxoffset = 80
 		[default = 0];
 	optional double rotatecenteryoffset = 81
@@ -1160,7 +1181,9 @@ message Transformation{
 	optional StringVariable enablevariable = 95;
 	optional bool invertenable = 96
 		[default=false];
-	
+
+	extensions 1000 to 1999;
+
 	optional string comment = 2047;
 }
 
@@ -1318,6 +1341,8 @@ message StringVariable{
 	optional StringVariable path=13;
 	optional StringVariable integerformat=14;
 	optional StringVariable floatingpointformat=15;
+    extensions 1000 to 1999;
+
 }
 
 message PointsVector{
@@ -1378,6 +1403,9 @@ message PointsVariable{
 	optional StringVariable path=13;
 	optional StringVariable integerformat=14;
 	optional StringVariable floatingpointformat=15;
+
+    extensions 1000 to 1999;
+
 }
 
 
@@ -1492,6 +1520,8 @@ message Function{
 	repeated Point keyframes = 6;
 	optional bool extrapolate = 7
 		[default=true];
+
+    extensions 1000 to 1999;
 	
 }
 
