@@ -204,6 +204,7 @@ message Movie {
 		UFS_SCALE = 0;
 		UFS_LETTERBOX = 1;
 		UFS_COPY = 2;
+		UFS_NONE = 3;
 	}
 	optional UnexpectedFrameSizeSolution ufssolution = 19
 		[default=UFS_SCALE];
@@ -1281,7 +1282,7 @@ message Subtitles{
 // At the moment there are string and PointVector variables
 // StringVariables are used in TextRendering and in FileLocations
 // PointVectorVariables provide user supplied morph points for the MLS transformation 
-// As soon as a dynamic variable (not const or add) is used somewhere in a Scene the whole Scene becomes dynamic
+// As soon as a dynamic variable (not const, add, condition or boolean) is used somewhere in a Scene the whole Scene becomes dynamic
 
 
 message StringVariable{
@@ -1307,6 +1308,9 @@ message StringVariable{
 
 		//uses path-syntax to retrieve data from structured input (only JSON and JSONPath implemented)
 		structureddata = 9;
+		
+		//evaluates condition using variable1 comparing with operator to specified values, intended for enablevars
+		condition = 65;
 	}
 	
 	//Type of this variable
@@ -1341,6 +1345,15 @@ message StringVariable{
 	optional StringVariable path=13;
 	optional StringVariable integerformat=14;
 	optional StringVariable floatingpointformat=15;
+	
+	enum ConditionOperator{
+		IN=1;
+		NOT_IN=2;
+	}
+	optional ConditionOperator conditionoperator = 16
+		[default=IN];
+	repeated string conditionvalues = 17;
+	
     extensions 1000 to 1999;
 
 }
@@ -1376,6 +1389,9 @@ message PointsVariable{
 		fileexists = 8;
 		//uses path-syntax to retrieve data from structured input (only JSON and JSONPath implemented)
 		structureddata = 9;
+		
+		//evaluates condition using variable1 comparing with operator to specified values, intended for enablevars 
+		condition = 65;
 	}
 	
 	required Type type=1;
@@ -1403,6 +1419,14 @@ message PointsVariable{
 	optional StringVariable path=13;
 	optional StringVariable integerformat=14;
 	optional StringVariable floatingpointformat=15;
+	
+	enum ConditionOperator{
+		IN=1;
+		NOT_IN=2;
+	}
+	optional ConditionOperator conditionoperator = 16
+		[default=IN];
+	repeated string conditionvalues = 17;
 
     extensions 1000 to 1999;
 
