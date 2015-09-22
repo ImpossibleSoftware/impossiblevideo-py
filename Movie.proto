@@ -1311,6 +1311,7 @@ message StringVariable{
 		
 		//evaluates condition using variable1 comparing with operator to specified values, intended for enablevars
 		condition = 65;
+		boolean = 66;
 	}
 	
 	//Type of this variable
@@ -1354,6 +1355,15 @@ message StringVariable{
 		[default=IN];
 	repeated string conditionvalues = 17;
 	
+	enum BooleanOperator{
+		AND=1;
+		OR=2;
+		NAND=3;
+		NOR=4;
+	}
+	optional BooleanOperator booleanoperator = 18
+		[default=AND];
+	
     extensions 1000 to 1999;
 
 }
@@ -1392,6 +1402,8 @@ message PointsVariable{
 		
 		//evaluates condition using variable1 comparing with operator to specified values, intended for enablevars 
 		condition = 65;
+		//boolean operations on variable values, intended for enablevars
+		boolean = 66;
 	}
 	
 	required Type type=1;
@@ -1426,7 +1438,16 @@ message PointsVariable{
 	}
 	optional ConditionOperator conditionoperator = 16
 		[default=IN];
-	repeated string conditionvalues = 17;
+	repeated string deprecated_conditionvalues = 17;
+
+	enum BooleanOperator{
+		AND=1;
+		OR=2;
+		NAND=3;
+		NOR=4;
+	}
+	optional BooleanOperator booleanoperator = 18
+		[default=AND];	
 
     extensions 1000 to 1999;
 
