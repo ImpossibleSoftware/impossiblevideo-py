@@ -1652,6 +1652,7 @@ message PieChartDescription{
 		[default = clockwise];
 	optional double radius = 7
 		[default = 50];
+	optional double offset = 8;
 }
 
 
