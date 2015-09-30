@@ -1312,6 +1312,8 @@ message StringVariable{
 		//evaluates condition using variable1 comparing with operator to specified values, intended for enablevars
 		condition = 65;
 		boolean = 66;
+		//changes value from counterstart to counterend based on function, expects parsable input
+		counter = 67;
 	}
 	
 	//Type of this variable
@@ -1364,6 +1366,41 @@ message StringVariable{
 	optional BooleanOperator booleanoperator = 18
 		[default=AND];
 	
+	optional StringVariable counterstart = 19;
+	optional StringVariable counterend = 20;
+	enum CounterValueType{
+		CVT_START_END = 1;
+		CVT_OFFSET_TO_START = 2;
+		CVT_OFFSET_TO_END = 3;
+	}
+	optional CounterValueType countervaluetype = 26
+		[default = CVT_START_END];
+	optional Function counterfunction = 21;
+	enum CounterFormat{
+		FORMAT_INT = 1;
+		FORMAT_FLOAT = 2;
+		FORMAT_TIME = 3;
+	}
+	optional CounterFormat counterformattype = 22
+		[default = FORMAT_INT];
+	optional StringVariable counterformat = 23;
+	enum RoundingMode{
+		RND_ROUND = 1;
+		RND_CEIL = 2;
+		RND_FLOOR = 3;
+	}
+	optional RoundingMode roundingmode = 24
+		[default = RND_FLOOR];
+	enum TimeUnit{
+		TU_MILLISECOND = 1;
+		TU_SECOND = 2;
+		TU_MINUTE = 3;
+		TU_HOUR = 4;
+		TU_DAY = 5;
+	}
+	optional TimeUnit countertimeunit = 25
+		[default = TU_SECOND];
+	
     extensions 1000 to 1999;
 
 }
@@ -1400,9 +1437,9 @@ message PointsVariable{
 		//uses path-syntax to retrieve data from structured input (only JSON and JSONPath implemented)
 		structureddata = 9;
 		
-		//evaluates condition using variable1 comparing with operator to specified values, intended for enablevars 
+		//unused 
 		condition = 65;
-		//boolean operations on variable values, intended for enablevars
+		//unused
 		boolean = 66;
 	}
 	
