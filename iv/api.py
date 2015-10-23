@@ -129,12 +129,13 @@ class Project:
             result = json.loads(r.text)
             return [DynamicMovie(self, s) for s in result['SDLS']]
 
-    def create_dynamic_movie(self, movie, moviename, preencode=True, normalize=True):
+    def create_dynamic_movie(self, movie, moviename, preencode=True, normalize=True, forcereencode=False):
 #       uri = "/v1/sdl/%s/%s" % (self.project_uid, moviename)
         nopreencode = 0 if preencode else 1
         nonormalize = 0 if normalize else 1
+        forcereencode = 1 if forcereencode else 0
 
-        uri = "/v1/sdl/%s/%s?nonormalize=%d&nopreencode=%d" % (self.project_uid, moviename, nonormalize, nopreencode)
+        uri = "/v1/sdl/%s/%s?nonormalize=%d&nopreencode=%d&forcereencode=%d" % (self.project_uid, moviename, nonormalize, nopreencode, forcereencode)
         print uri
         ms = movie.SerializeToString()
         r = self.connection.request(uri, "POST", body=bytes(ms), headers={'content-type':'application/octet-stream'})
