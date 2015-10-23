@@ -737,7 +737,8 @@ message AudioTrack{
 
 	optional Synthesizer synthesizer = 17;
 	
-	repeated AudioTrack inneraudiotracks = 18;
+	repeated AudioTrack inneraudiotracks = 18; // deprecated use audiotracks in inneraudio instead
+	optional Audio inneraudio = 20;
 	
 	optional bool ignorelength = 19
 		[default=false];
