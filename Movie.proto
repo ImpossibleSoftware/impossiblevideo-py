@@ -295,7 +295,7 @@ message SceneView{
 	optional StringVariable variable = 20;
 	optional int32 width = 21;
 	optional int32 height = 22;
-
+	
 	//for file type sceneviews this has to hold the keys used for variables in the scenes to not interfere with preencoding
 	repeated string keys = 18;
 
@@ -303,6 +303,9 @@ message SceneView{
 	//you don't need to touch this
 	optional string filelocationprefixholder = 17
 		[default = ""];
+
+	//experimental, used to convert framerate of inner scenes, use on own risk
+	optional Fractional videoframerate = 23;
 
     extensions 1000 to 1999;
 }
