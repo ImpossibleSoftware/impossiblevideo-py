@@ -12,7 +12,6 @@
 package JetSDL.Proto;
 
 // Video and Audio codec types
-// This is the equivalent to JSCodec from jettypes.h
 enum Codec 
 { 
     option allow_alias = true;
@@ -28,6 +27,8 @@ enum Codec
 	VIDEO_VP8=14;
 	VIDEO_MPEG2=17;
 	VIDEO_WMV=18;
+	VIDEO_GIF=19;
+	VIDEO_PRORES=20;
 
 	AUDIO_NONE = 0;
 	AUDIO_AAC=7;
@@ -454,6 +455,7 @@ message ImageProvider{
 	
 	//offset for the video frames requested from the decoder (this movies timebase)
 	optional int32 videooffset = 22 [default = 0];
+	optional StringVariable videooffsetvariable = 71;
 	
 	optional bool usecachedir =23 [default = true];
 	optional string cachedir = 24 [default = "cache"];
@@ -572,6 +574,15 @@ message ImageProvider{
 		[default = 1];
 	repeated TextAugment textaugmentations = 60;
 	
+	enum TextOverflowBehaviour{
+		textoverflowbehaviour_none=0;
+		textoverflowbehaviour_scale_x=1;
+		textoverflowbehaviour_fs_y_scale_x=2;
+		textoverflowbehaviour_fs=3;
+	}
+	optional TextOverflowBehaviour textoverflowbehaviour = 70
+		[default=textoverflowbehaviour_fs];
+	
 	
 	optional string comment = 2047;
 	//used for backwards compatibility in old iv tool projects, leave alone
@@ -606,6 +617,9 @@ message ImageProvider{
 		repeated FontDescription fonts = 8;
 	}	
 	optional JSCanvasDescription jscanvasdescription = 67;
+	
+	optional bool ensure8bit = 69
+		[default = false];
 
     extensions 1000 to 1999;
 	
@@ -728,6 +742,7 @@ message AudioTrack{
 	
 	//audio content offset, when audio starts playing it begins with the equivalent of the contentoffset of the AudioSource
 	optional int32 contentoffset = 11;
+	optional StringVariable contentoffsetvariable = 21;
 	
 	optional bool usecachedir = 7[default = true];
 	optional string cachedir = 8[default = "cache"];
@@ -1360,6 +1375,10 @@ message StringVariable{
 	optional ConditionOperator conditionoperator = 16
 		[default=IN];
 	repeated string conditionvalues = 17;
+	optional string conditiontruevalue = 27
+		[default = "t"];
+	optional string conditionfalsevalue = 28
+		[default = ""];
 	
 	enum BooleanOperator{
 		AND=1;
@@ -1480,6 +1499,10 @@ message PointsVariable{
 	optional ConditionOperator conditionoperator = 16
 		[default=IN];
 	repeated string deprecated_conditionvalues = 17;
+	optional string conditiontruevalue = 27
+		[default = "t"];
+	optional string conditionfalsevalue = 28
+		[default = ""];
 
 	enum BooleanOperator{
 		AND=1;
