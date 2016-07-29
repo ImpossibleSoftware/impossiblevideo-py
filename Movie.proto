@@ -140,6 +140,9 @@ message VideoParams{
   optional EncoderDelayReq videodelayrequirement = 13
   		[default = DELAY_REALTIME];
   		
+  optional bool videotransparency = 15
+  	[default = false];
+  		
   repeated KeyValuePair videocodecextraparams = 14;
 }
 
@@ -619,6 +622,20 @@ message ImageProvider{
 	optional JSCanvasDescription jscanvasdescription = 67;
 	
 	optional bool ensure8bit = 69
+		[default = false];
+
+	message TextContext{
+		required string name = 2;
+		optional FileLocation font = 3;
+		optional double fontsize = 4;
+		optional Color color = 5;
+		optional ImageProvider texture = 6;
+		optional TextureStyle texturestyle = 7
+			[default=texturestyle_line];
+		optional double fontspacing =8;
+	}
+	repeated TextContext textcontexts = 72;
+	optional bool usetextcontextmarkup = 73
 		[default = false];
 
     extensions 1000 to 1999;
