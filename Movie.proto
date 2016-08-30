@@ -638,6 +638,9 @@ message ImageProvider{
 	optional bool usetextcontextmarkup = 73
 		[default = false];
 
+	optional bool rotatevideobymetadata = 74
+		[default = true];
+
     extensions 1000 to 1999;
 	
 }
@@ -945,6 +948,8 @@ message Transformation{
 	 animate=15;
 	 //affine transformation (2D) similar to animate
 	 affine=37;
+	 //affine transformation (2D) similar to animate
+	 affinemotionblur=39;
 	 //translate to a tracking point
 	 pointpaste=17;
 	 //custom
@@ -1350,6 +1355,9 @@ message StringVariable{
 		boolean = 66;
 		//changes value from counterstart to counterend based on function, expects parsable input
 		counter = 67;
+		
+		//template variable, taking template substitution values directly from map parameters
+		format = 68;
 	}
 	
 	//Type of this variable
@@ -1440,6 +1448,11 @@ message StringVariable{
 	}
 	optional TimeUnit countertimeunit = 25
 		[default = TU_SECOND];
+	
+	optional string formatstring = 29;
+	optional bool ignoreformaterrors = 30
+		[default = false];
+	
 	
     extensions 1000 to 1999;
 
