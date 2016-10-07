@@ -392,6 +392,8 @@ message ImageProvider{
 
 		bezier = 20;
 		
+		path = 24;
+		
 		//draw on canvas using javascript
 		jscanvas = 23;
 	}
@@ -641,6 +643,35 @@ message ImageProvider{
 	optional bool rotatevideobymetadata = 74
 		[default = true];
 
+	message PathDescription{
+	
+		enum PathType{
+			type_straight = 1;
+			type_bezier = 2;
+		}
+		enum DrawMethod{
+			draw_fill = 1;
+			draw_stroke = 2;
+			draw_stroke_fill = 3;
+		}
+		optional PathType pathtype =1
+			[default=type_straight];		
+		optional TrackData points = 2;
+		optional Color color = 3;
+		optional Color fillcolor = 8;
+		optional double linewidth = 4
+			[default=1.0];
+		
+		optional LineCapStyle capstyle =5
+			[default=cap_butt];
+		optional bool closepath = 6
+			[default=true];
+		optional DrawMethod drawmethod = 7
+			[default=draw_fill];
+	}
+	optional PathDescription pathdescription = 75;
+	
+
     extensions 1000 to 1999;
 	
 }
@@ -779,6 +810,10 @@ message AudioTrack{
 	optional Audio inneraudio = 20;
 	
 	optional bool ignorelength = 19
+		[default=false];
+		
+	optional StringVariable enablevariable = 22;
+	optional bool invertenable = 23
 		[default=false];
 	
 	optional string comment = 2047;
@@ -1659,6 +1694,23 @@ message Function{
 	repeated Point keyframes = 6;
 	optional bool extrapolate = 7
 		[default=true];
+	message KeyFrame{
+		enum Type{
+			relative = 1;
+			frame = 2;
+		}
+		optional Type type = 1
+			[default=relative];
+		optional double time=2;
+		optional double value=3;
+		enum OriginType{
+			origin_start=1;
+			origin_end=2;
+		}
+		optional OriginType origin = 4
+			[default=origin_start];
+	}
+	repeated KeyFrame advancedkeyframes = 8;
 
     extensions 1000 to 1999;
 	
