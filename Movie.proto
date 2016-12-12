@@ -11,6 +11,8 @@
 
 package JetSDL.Proto;
 
+option java_outer_classname = "FXProto";
+
 // Video and Audio codec types
 enum Codec 
 { 
@@ -1387,7 +1389,7 @@ message StringVariable{
 		
 		//evaluates condition using variable1 comparing with operator to specified values, intended for enablevars
 		condition = 65;
-		boolean = 66;
+		logical = 66; // was boolean
 		//changes value from counterstart to counterend based on function, expects parsable input
 		counter = 67;
 		
@@ -1528,7 +1530,8 @@ message PointsVariable{
 		//unused 
 		condition = 65;
 		//unused
-		boolean = 66;
+		//boolean = 66;
+		logical = 66;
 	}
 	
 	required Type type=1;

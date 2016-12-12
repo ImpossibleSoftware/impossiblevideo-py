@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='ImpossibleVideo',
-    version='2.15.0',
+    version='3.0.0',
     author='Impossible Software GmbH',
     author_email='iv@impossiblesoftware.com',
     packages=['iv',],
